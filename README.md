@@ -1,2 +1,4 @@
 # TrelloV2
-Project 3 Angular and microservices application
+Project 3: Angular 2 and microservices application
+
+The Project Management System allows a client company to track and monitor information on all projects from a central location. It houses a complete list of all current and past projects as well as detailed views for those projects. This project encourages Agile development by requiring its users to adhere to the Scrum methodology, employing sprints and tracking project progress through user stories. The application provides key metrics to high-level business executives and product owners, allowing them to make important business decisions from the information presented.  Other useful information like project description, estimated duration, estimated cost, project tasks, and so on can be viewed from inside each individual project's page. It also has functionality to let project managers add and edit their own images, sharing valuable project-related graphics and documents with their team members. Developers are able to use an advanced UI to update the user stories that they own, allowing project managers to closely monitor their project's completion.
