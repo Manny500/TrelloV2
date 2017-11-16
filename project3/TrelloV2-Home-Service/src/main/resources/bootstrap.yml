@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: home
+    
+server:
+    port: 0
+    

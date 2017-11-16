@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: board-update
+    
+server:
+    port: 0
+    
