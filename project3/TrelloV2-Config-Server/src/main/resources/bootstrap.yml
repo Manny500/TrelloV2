@@ -1,7 +1,9 @@
 spring:
   application:
     name: config
-    
+  datasource:
+   tomcat:
+     initial-size: 2    
 server:
     port: 8888
     

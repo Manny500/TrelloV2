@@ -1,7 +1,10 @@
 spring:
   application:
     name: permissions
-    
+  datasource:
+   tomcat:
+     initial-size: 2
+         
 server:
     port: 0
     

@@ -1,7 +1,9 @@
 spring:
   application:
     name: home
-    
+  datasource:
+   tomcat:
+     initial-size: 2   
 server:
     port: 0
     

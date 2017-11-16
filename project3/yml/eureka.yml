@@ -1,0 +1,13 @@
+server:
+  port: 8761
+spring:
+    application:
+        name: eureka
+    datasource:
+    tomcat:
+      initial-size: 2
+      
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
