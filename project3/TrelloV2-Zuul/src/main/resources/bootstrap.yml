@@ -1,7 +1,10 @@
 spring:
   application:
     name: zuul
-    
+  datasource:
+   tomcat:
+     initial-size: 2
+         
 server:
     port: 8765
     
