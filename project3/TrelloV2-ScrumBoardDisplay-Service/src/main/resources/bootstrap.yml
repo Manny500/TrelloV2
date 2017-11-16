@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: board-display
+    
+server:
+    port: 0
+    
