@@ -1,7 +1,9 @@
 spring:
   application:
     name: burndown
-    
+  datasource:
+   tomcat:
+     initial-size: 2 
 server:
     port: 0
     
