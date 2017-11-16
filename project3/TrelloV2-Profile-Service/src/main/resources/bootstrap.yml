@@ -1,6 +1,9 @@
 spring:
   application:
     name: profile
+  datasource:
+   tomcat:
+     initial-size: 2
     
 server:
     port: 0
