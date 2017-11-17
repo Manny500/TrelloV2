@@ -1,3 +1,19 @@
-<p>
-  burndown-chart works!
-</p>
+<app-navbar></app-navbar>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div style="display: block;">
+            <canvas baseChart width="740" height="400"
+                  [datasets]="lineChartData"
+                  [labels]="lineChartLabels"
+                  [options]="lineChartOptions"
+                  [colors]="lineChartColors"
+                  [legend]="lineChartLegend"
+                  [chartType]="lineChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)">
+            </canvas>
+        </div>
+    </div>
+</div>

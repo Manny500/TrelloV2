@@ -19,6 +19,8 @@ import { ActivityComponent } from './activity/activity.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { UserRequestsComponent } from './user-requests/user-requests.component';
 import { CompanyBoardsComponent } from './company-boards/company-boards.component';
+import { ChartsModule } from 'ng2-charts';
+import { BurndownChartService } from './burndown-chart/burndown-chart.service';
 
 
 @NgModule({
@@ -43,9 +45,10 @@ import { CompanyBoardsComponent } from './company-boards/company-boards.componen
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    ChartsModule
   ],
-  providers: [],
+  providers: [BurndownChartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
