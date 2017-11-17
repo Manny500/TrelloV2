@@ -1,0 +1,22 @@
+CREATE TABLE CHART
+(
+    CHART_ID INT,
+    B_ID INT,
+    CHART_SUM INT,
+    CHART_DATE DATE DEFAULT SYSDATE NOT NULL,
+    PRIMARY KEY(CHART_ID)
+);
+/
+create or replace TRIGGER chart_seq_trg2 BEFORE
+  INSERT ON chart FOR EACH ROW BEGIN IF :new.CHART_ID = 0  THEN
+  SELECT chart_seq.NEXTVAL INTO :new.CHART_ID FROM dual;
+END IF;
+END;
+/
+create or replace TRIGGER chart_seq_trg BEFORE
+  INSERT ON chart FOR EACH ROW BEGIN IF :new.CHART_ID IS null  THEN
+  SELECT chart_seq.NEXTVAL INTO :new.CHART_ID FROM dual;
+END IF;
+END;
+/
+COMMIT;
