@@ -1,6 +1,6 @@
 spring:
   application:
-    name: home
+    name: portal
   datasource:
    tomcat:
      initial-size: 2   
