@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
 import { Http } from "@angular/http";
 
 import { BurndownChartService } from './burndown-chart.service';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
+import { BurndownChart } from './burndown-chart';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-burndown-chart',
@@ -13,49 +16,25 @@ import 'rxjs/Rx';
   styleUrls: ['./burndown-chart.component.css']
 })
 export class BurndownChartComponent implements OnInit {
-  
-  constructor(private chartService: BurndownChartService) { }
-  
-  ngOnInit() {
-    
-    this.getChart();
-  }
 
-  getChart(): void {
-    this.chartService.getChart().subscribe( result => {
-      // this.CurrentNews = result;
-      //lineChartData
-    });
-  }
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
-  }
+  myData: BurndownChart[];
+  sortedItems: BurndownChart[];
+  labels: any[] = [];
+  total: any[] = [];
 
-  // lineChart
-  public lineChartData: Array<any> = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' }
+  lineChartData: Array<any> = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Burndown Line' },
   ];
 
-  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-  public lineChartOptions: any = {
+  lineChartOptions: any = {
     responsive: true
   };
 
-  public sort = [
-
-    // function custom_sort(a, b) {
-    //   return new Date(a.chartDate).getTime()
-    //       - new Date(b.chartDate).getTime();
-    // }
-
-    // myData["chart"].sort(custom_sort);
-
-  ];
-
-  public lineChartColors: Array<any> = [
+  ineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -82,19 +61,43 @@ export class BurndownChartComponent implements OnInit {
     }
   ];
 
-  public lineChartLegend: boolean = true;
+  lineChartLegend: boolean = true;
 
-  public lineChartType: string = 'line';
+  lineChartType: string = 'line';
 
-  public randomize(): void {
-    let _lineChartData: Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = { data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label };
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.lineChartData = _lineChartData;
+  constructor(private chartService: BurndownChartService, private datePipe: DatePipe) { }
+
+  ngOnInit() {
+
+    this.chartService.getChart().subscribe(result => {
+
+      this.myData = result;
+
+      this.myData.forEach(iteam => {
+        iteam.chartDate = this.datePipe.transform(new Date(iteam.chartDate), 'dd-MM-yy');
+      });
+
+      this.sortedItems = this.myData.sort((a: BurndownChart, b: BurndownChart) =>
+        new Date(a.chartDate).getDate() - new Date(b.chartDate).getDate()
+      );
+
+      this.sortedItems.forEach(item => {
+        this.total.push(item.chartSum);
+      });
+
+      this.sortedItems.forEach(item => {
+        this.labels.push(item.chartDate);
+      });
+
+      this.lineChartData = [
+        { data: this.total, label: 'Burndown Line' },
+      ];
+
+      this.lineChartLabels = this.labels;
+
+      this.chart.chart.config.data.labels = this.lineChartLabels;
+
+    });
   }
 
   // events
@@ -105,4 +108,5 @@ export class BurndownChartComponent implements OnInit {
   public chartHovered(e: any): void {
     console.log(e);
   }
+
 }
