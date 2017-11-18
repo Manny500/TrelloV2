@@ -19,10 +19,14 @@ import { ActivityComponent } from './activity/activity.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { UserRequestsComponent } from './user-requests/user-requests.component';
 import { CompanyBoardsComponent } from './company-boards/company-boards.component';
+import { TV2UserService } from './login/tv2user.service';
 import { ChartsModule } from 'ng2-charts';
 import { BurndownChartService } from './burndown-chart/burndown-chart.service';
 import { DatePipe } from '@angular/common';
 import { ProfileService } from './profile/profile.service';
+import { UserHomeComponent } from './user-home/user-home.component';
+import { UserNavbarComponent } from './user-navbar/user-navbar.component';
+import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
 
 
 @NgModule({
@@ -39,7 +43,10 @@ import { ProfileService } from './profile/profile.service';
     ActivityComponent,
     RegisterUserComponent,
     UserRequestsComponent,
-    CompanyBoardsComponent
+    CompanyBoardsComponent,
+    UserHomeComponent,
+    UserNavbarComponent,
+    LoginNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,9 @@ import { ProfileService } from './profile/profile.service';
     HttpModule,
     ChartsModule
   ],
-  providers: [BurndownChartService,DatePipe,ProfileService],
+
+  providers: [BurndownChartService,DatePipe,ProfileService,TV2UserService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
