@@ -18,8 +18,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     this.tv2userService.createTV2User(this.tv2user).subscribe(
-      value => {
-        console.log(value);
+      response => {
+        if(response.roleType == 1){
+          this.router.navigateByUrl('/master-home')
+        }
+        else if(response.roleType == 2){
+          this.router.navigateByUrl('/user-home')
+        }
       });
   }
 
