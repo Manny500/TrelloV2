@@ -21,6 +21,7 @@ import { UserRequestsComponent } from './user-requests/user-requests.component';
 import { CompanyBoardsComponent } from './company-boards/company-boards.component';
 import { ChartsModule } from 'ng2-charts';
 import { BurndownChartService } from './burndown-chart/burndown-chart.service';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { BurndownChartService } from './burndown-chart/burndown-chart.service';
     HttpModule,
     ChartsModule
   ],
-  providers: [BurndownChartService],
+  providers: [BurndownChartService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
