@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx';
+import { BurndownChart } from "./burndown-chart";
 
 
 @Injectable()
@@ -14,7 +15,7 @@ export class BurndownChartService {
 
     getChart(){
         return this.http.get(this.chartURL)
-        .map(response => <any[]> response.json())
+        .map(response => <BurndownChart[]> response.json())
         .do(data => console.log(data))
         .catch(this.handleError);
     }
