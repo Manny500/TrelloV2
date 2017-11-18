@@ -22,6 +22,7 @@ import { CompanyBoardsComponent } from './company-boards/company-boards.componen
 import { ChartsModule } from 'ng2-charts';
 import { BurndownChartService } from './burndown-chart/burndown-chart.service';
 import { DatePipe } from '@angular/common';
+import { ProfileService } from './profile/profile.service';
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import { DatePipe } from '@angular/common';
     HttpModule,
     ChartsModule
   ],
-  providers: [BurndownChartService,DatePipe],
+  providers: [BurndownChartService,DatePipe,ProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
