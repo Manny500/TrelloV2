@@ -1,27 +1,23 @@
 <app-navbar></app-navbar>
-<div style="background-image: url('static/features/img/b3.jpg');">
-     
-  <form method="POST" action="login" id="user">
-  
-    <div class="form-group col-4 mx-auto">
-    
-      <label for="userName">Username</label>
-      <input type="text" class="form-control" id="userName" name="userName" placeholder="Username">
-      <small id="userHelp" class="form-text text-muted">TrelloV2 will never share your Information with anyone else.</small>
-    
+<!-- <div style="background-image: url('static/features/img/b3.jpg');"> -->
+  <br>
+  <br>
+<div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group mx-auto col-4 " >
+      <label for="username">Username: </label> <input type="text"
+        class="form-control" id="username" placeholder="enter username"
+        [(ngModel)]="tv2user.username" name="username" required>
     </div>
-    
-    <div class="form-group col-4 mx-auto">
-    
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" name="password" placeholder="Password"><br>
-    
+
+    <div class="form-group mx-auto col-4 ">
+      <label for="password">Password: </label> <input type="password"
+        class="form-control" id="password" placeholder="enter password"
+        [(ngModel)]="tv2user.password" name="password" required>
     </div>
     
     <div class="form-inline justify-content-center">
-      
-      <button type="submit" class="btn btn-primary">Submit</button>
-      
+      <button type="submit" class="btn btn-primary">Login</button>
     </div>
     
   </form>

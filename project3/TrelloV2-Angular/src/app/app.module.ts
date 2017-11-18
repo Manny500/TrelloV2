@@ -19,6 +19,7 @@ import { ActivityComponent } from './activity/activity.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { UserRequestsComponent } from './user-requests/user-requests.component';
 import { CompanyBoardsComponent } from './company-boards/company-boards.component';
+import { TV2UserService } from './tv2user.service';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { CompanyBoardsComponent } from './company-boards/company-boards.componen
     AppRoutingModule,
     HttpModule
   ],
-  providers: [],
+  providers: [TV2UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
