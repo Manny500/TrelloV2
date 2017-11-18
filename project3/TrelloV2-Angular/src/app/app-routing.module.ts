@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent},
   { path: 'login',  component: LoginComponent },
-  { path: 'master-home',  component: HomeComponent },
+  { path: 'home',  component: HomeComponent },
   { path: 'user-home',  component: UserHomeComponent },
   { path: 'trello',  component: ScrumBoardViewComponent },
   { path: 'chart',  component: BurndownChartComponent },

@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     this.tv2userService.createTV2User(this.tv2user).subscribe(
       response => {
         if(response.roleType == 1){
-          this.router.navigateByUrl('/master-home')
+          this.router.navigateByUrl('/home')
         }
         else if(response.roleType == 2){
           this.router.navigateByUrl('/user-home')
