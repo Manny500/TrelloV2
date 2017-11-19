@@ -6,6 +6,7 @@ import { ProfileUser } from './profile-user';
 export class ProfileService {
 
   private profileURL = 'profile/userInfo';
+  private updateURL = 'profile/updateInfo';
 
   constructor(private http: Http) { }
 
@@ -20,7 +21,9 @@ export class ProfileService {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
-  updateInfo(){
-    console.log('am i calling this update method instead?');
+  postUpdate(user : ProfileUser){
+    console.log('sending post request to java');
+    return this.http.post(this.updateURL, user, {})
+    .map(res => res.json());
   }
 }

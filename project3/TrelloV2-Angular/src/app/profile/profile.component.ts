@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { ProfileUser } from './profile-user';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+  providers: [ProfileService]
 })
 export class ProfileComponent implements OnInit {
   
@@ -23,6 +24,10 @@ export class ProfileComponent implements OnInit {
   
 
   constructor(private profileService: ProfileService) { }
+  
+  @Input() user:ProfileUser;
+  responseStatus:Object= [];
+  status:boolean;
 
   ngOnInit() {
 
@@ -63,6 +68,12 @@ export class ProfileComponent implements OnInit {
      this.showTable = false;
      this.showDone = false;
      this.showUpdate = true;
+
+     this.profileService.postUpdate(this.user).subscribe(
+       data => console.log(this.responseStatus = data),
+       err => console.log(err),
+       () => console.log('request completed')
+     );
    }
 
 }
