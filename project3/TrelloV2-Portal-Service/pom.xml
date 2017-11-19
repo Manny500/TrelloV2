@@ -96,7 +96,7 @@
 							<outputDirectory>${basedir}/target/classes/static/</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${basedir}/../facebook-angular/dist</directory>
+									<directory>${basedir}/../TrelloV2-Angular/dist</directory>
 								</resource>
 							</resources>
 						</configuration>

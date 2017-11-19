@@ -20,7 +20,7 @@ public class LoginCtrl {
 
 	@RequestMapping(POST_USER_URL)
 	public ResponseEntity<TV2User> authenticateUser(@RequestBody TV2User user) {
-						
+		System.out.println("helllo from login");
 		TV2User tu = userRepo.findByUsername(user.getUsername());
 		
 		if(tu != null) {
