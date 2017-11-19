@@ -10,16 +10,17 @@ import { ProfileUser } from './profile-user';
 })
 export class ProfileComponent implements OnInit {
   
-  myData: ProfileUser;
+  // myData: ProfileUser;
 
-  userId: number;
-  firstName: String;
-  lastName: String;
-  userName: String;
-  password: String;
-  team: number;
-  roleType: number;
-  email: String;
+  //only for display purpose
+   userId: number;
+   firstName: String;
+   lastName: String;
+   userName: String;
+   password: String;
+   team: number;
+   roleType: number;
+   email: String;
   
   
 
@@ -33,31 +34,42 @@ export class ProfileComponent implements OnInit {
 
     this.profileService.getInfo().subscribe(result =>{
 
-      this.myData = result;
-      console.log(this.myData.email);
-      this.userId = this.myData.userId;
-      this.firstName = this.myData.firstName;
-      this.lastName = this.myData.lastName;
-      this.userName = this.myData.userName;
-      this.password = this.myData.password;
-      this.team = this.myData.team;
-      this.roleType = this.myData.roleType;
-      this.email = this.myData.email;
+     // this.myData = result;
 
+      // this.userId = this.myData.userId;
+      // this.firstName = this.myData.firstName;
+      // this.lastName = this.myData.lastName;
+      // this.userName = this.myData.userName;
+      // this.password = this.myData.password;
+      // this.team = this.myData.team;
+      // this.roleType = this.myData.roleType;
+      // this.email = this.myData.email;
+
+      this.user = result;
+      
+      this.userId = this.user.userId;
+      this.firstName = this.user.firstName;
+      this.lastName = this.user.lastName;
+      this.userName = this.user.userName;
+      this.password = this.user.password;
+      this.team = this.user.team;
+      this.roleType = this.user.roleType;
+      this.email = this.user.email;
     });
+  
   }
+
   public showUpdate = true;
   public showTable = false;
   public showDone = false;
 
-  updateInfo(){
+
+  updateInfo(){  //press update button 
     
     this.showUpdate = false;
     this.showTable = true;
     this.showDone = true;
     console.log(this.showTable);
-    // document.getElementById('updateBtn').style.visibility = 'hidden';
-		// document.getElementById('profileForm').style.visibility = 'visible';
     
   //   setTimeout(function() {
   //     this.edited = false;
@@ -65,6 +77,8 @@ export class ProfileComponent implements OnInit {
   //   }.bind(this), 3000);
    }
    done(){
+     console.log('done() is called: ');
+     console.log(this.user.firstName);
      this.showTable = false;
      this.showDone = false;
      this.showUpdate = true;
@@ -74,6 +88,17 @@ export class ProfileComponent implements OnInit {
        err => console.log(err),
        () => console.log('request completed')
      );
+     this.status = true;
+     
+     this.userId = this.user.userId;
+     this.firstName = this.user.firstName;
+     this.lastName = this.user.lastName;
+     this.userName = this.user.userName;
+     this.password = this.user.password;
+     this.team = this.user.team;
+     this.roleType = this.user.roleType;
+     this.email = this.user.email;
+ 
    }
 
 }

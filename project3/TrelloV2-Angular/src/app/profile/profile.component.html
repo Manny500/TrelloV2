@@ -25,7 +25,6 @@
 		<td>{{team}}</td>
 		<td>{{roleType}}</td>
 		<td>{{email}}</td>
-		
 
 	</tbody>
 </table>
@@ -44,12 +43,12 @@
 	Enter new Email:	<input id="email" data-ng-model="test.email" type="text"> <br> 
 	-->
 
-	Enter new First Name: <input [(ngModel)]="firstName" placeholder="name" /> <br>
-	Enter new First Name: <input [(ngModel)]="lastName" placeholder="name" /> <br>
-	Enter new First Name: <input [(ngModel)]="userName" placeholder="name" /> <br>
-	Enter new First Name: <input [(ngModel)]="password" placeholder="name" /> <br>
-	Enter new First Name: <input [(ngModel)]="email" placeholder="name" /> <br>
-    will this change?{{firstName}}
+	Enter new First Name: <input [(ngModel)]="user.firstName" placeholder="name" /> <br>
+	Enter new Last Name: <input [(ngModel)]="user.lastName" placeholder="name" /> <br>
+	Enter new User Name: <input [(ngModel)]="user.userName" placeholder="name" /> <br>
+	Enter new Password: <input [(ngModel)]="user.password" placeholder="name" /> <br>
+	Enter new Email: <input [(ngModel)]="user.email" placeholder="name" /> <br>
+
 	<!-- <input [(ngModel)]="firstName" placeholder="name" /> -->
 	<div *ngIf="showDone">
 	<button type="button" (click)="done()" id="doneBtn" class="btn btn-primary">Done</button>
