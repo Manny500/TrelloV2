@@ -23,10 +23,10 @@ import { TV2UserService } from './login/tv2user.service';
 import { ChartsModule } from 'ng2-charts';
 import { BurndownChartService } from './burndown-chart/burndown-chart.service';
 import { DatePipe } from '@angular/common';
+import { ProfileService } from './profile/profile.service';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
-
 
 
 @NgModule({
@@ -58,7 +58,8 @@ import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
     ChartsModule
   ],
 
-  providers: [BurndownChartService,DatePipe,TV2UserService],
+  providers: [BurndownChartService,DatePipe,ProfileService,TV2UserService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
