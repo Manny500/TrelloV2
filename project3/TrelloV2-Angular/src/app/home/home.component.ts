@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Board } from './board-display.interface';
+import { Router } from '@angular/router';
+import { BoardDisplayService } from './board-display.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  Boards: Board[];
+
+  constructor(private route: Router, private boardDisplayService: BoardDisplayService) { }
 
   ngOnInit() {
+    this.displayBoards();
+  }
+
+  displayBoards(): void{
+    this.boardDisplayService.getBoards().subscribe(result => {
+      this.Boards = result;
+    })
   }
 
 }
