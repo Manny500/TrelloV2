@@ -41,5 +41,28 @@ export class ProfileComponent implements OnInit {
 
     });
   }
+  public showUpdate = true;
+  public showTable = false;
+  public showDone = false;
+
+  updateInfo(){
+    
+    this.showUpdate = false;
+    this.showTable = true;
+    this.showDone = true;
+    console.log(this.showTable);
+    // document.getElementById('updateBtn').style.visibility = 'hidden';
+		// document.getElementById('profileForm').style.visibility = 'visible';
+    
+  //   setTimeout(function() {
+  //     this.edited = false;
+  //     console.log(this.edited);
+  //   }.bind(this), 3000);
+   }
+   done(){
+     this.showTable = false;
+     this.showDone = false;
+     this.showUpdate = true;
+   }
 
 }

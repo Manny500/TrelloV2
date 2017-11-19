@@ -20,4 +20,7 @@ export class ProfileService {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
+  updateInfo(){
+    console.log('am i calling this update method instead?');
+  }
 }
