@@ -1,21 +1,47 @@
 <app-navbar></app-navbar>
 <br>
-<br>
+<!-- <br>
 <h2 style="float:left; width: 20px; color: rgb(12, 11, 11);" >Personal Boards:</h2>
 <h2 style="margin-left: 50%; color: rgb(8, 8, 8);">Team Boards: </h2>
+<br> -->
+
+<div class="grid grid-pad">
+	<h2>Personal Boards:</h2>
+	<div *ngFor="let board of Boards" class="col-1-4">
+		<div *ngIf="board.tv2Team == 0">
+			<div class="module board">
+				<h5>{{board.bTitle}}</h5>
+			</div>
+		</div>
+	</div>
+	<h2>Team Boards:</h2>
+	<div *ngFor="let board of Boards" class="col-1-4">
+		<div *ngIf="board.tv2Team == 1">
+			<div class="module board">
+				<h5>{{board.bTitle}}</h5>
+			</div>
+		</div>
+
+	</div>
+</div>
 <br>
-<button type="button" data-ng-click="test.startCreate()" id="createBoardBtn" class="btn btn-primary btn-sm">+ Create Board</button> <br>
+
+<button type="button" id="createBoardBtn" class="btn btn-primary btn-sm">+ Create Board</button>
 <br>
-<div id="homeTitle"></div>
+<br>
+<!-- <div id="homeTitle"></div>
 
 <div id="view" style="float:left" style="width: 15%;"></div>
-<div id="view2" style="margin-left: 50%"></div>
+<div id="view2" style="margin-left: 50%"></div> -->
 
 
 
 <div id="createBoardForm" style="visibility:hidden; color: rgb(7, 7, 7);">
 
-	Enter Title: <input id="bTitle" data-ng-model="test.bTitle"  type="text"><br><br>
+	Enter Title:
+	<input id="bTitle" data-ng-model="test.bTitle" type="text">
+	<br>
+	<br>
 	<button type="button" data-ng-click="test.create()" id="createBtn" class="btn btn-primary btn-sm">Create Board</button>
 
 </div>
