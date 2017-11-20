@@ -29,6 +29,7 @@ import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
 import { ViewUsersService } from './view-users/view-users.service';
 import { BoardDisplayService } from './home/board-display.service';
+import { LaneDisplayService } from './scrum-board-view/lane-display.service';
 
 
 @NgModule({
@@ -61,7 +62,15 @@ import { BoardDisplayService } from './home/board-display.service';
   ],
 
 
-  providers: [BurndownChartService,DatePipe,ProfileService,TV2UserService, BoardDisplayService, ViewUsersService],
+  providers: [
+    BurndownChartService,
+    DatePipe,
+    ProfileService,
+    TV2UserService,
+    BoardDisplayService,
+    ViewUsersService,
+    LaneDisplayService
+  ],
 
   bootstrap: [AppComponent]
 })

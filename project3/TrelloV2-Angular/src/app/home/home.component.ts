@@ -11,6 +11,7 @@ import { BoardDisplayService } from './board-display.service';
 export class HomeComponent implements OnInit {
 
   Boards: Board[];
+  
 
   constructor(private route: Router, private boardDisplayService: BoardDisplayService) { }
 
@@ -21,7 +22,14 @@ export class HomeComponent implements OnInit {
   displayBoards(): void{
     this.boardDisplayService.getBoards().subscribe(result => {
       this.Boards = result;
+      
+      localStorage.setItem('currentBoards', JSON.stringify(result))
     })
+  }
+
+  //store the id of the board you click on as currentBoardId
+  storeBoardId(id): void{
+    localStorage.setItem("currentBoardId", JSON.stringify(id))
   }
 
 }
