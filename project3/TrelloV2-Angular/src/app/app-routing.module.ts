@@ -25,10 +25,12 @@ const routes: Routes = [
   { path: 'activity',  component: ActivityComponent },
   { path: 'register',  component: RegisterUserComponent },
   { path: 'publicBoards',  component: CompanyBoardsComponent },
-];
+]; 
  
+// using { useHash: true } lets us make changes to recompile angular source files again without getting whitelabel page thing
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes, { useHash: true }) ],
+  // imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}

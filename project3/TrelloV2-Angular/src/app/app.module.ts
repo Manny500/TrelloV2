@@ -28,6 +28,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
 import { ViewUsersService } from './view-users/view-users.service';
+import { BoardDisplayService } from './home/board-display.service';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { ViewUsersService } from './view-users/view-users.service';
     ChartsModule
   ],
 
-  providers: [BurndownChartService,DatePipe,ProfileService,TV2UserService, ViewUsersService],
+
+  providers: [BurndownChartService,DatePipe,ProfileService,TV2UserService, BoardDisplayService, ViewUsersService],
 
   bootstrap: [AppComponent]
 })
