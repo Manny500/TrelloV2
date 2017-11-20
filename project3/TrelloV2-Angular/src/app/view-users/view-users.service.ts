@@ -6,6 +6,8 @@ import { ProfileUser } from '../profile/profile-user';
 @Injectable()
 export class ViewUsersService {
 
+  passData;
+
   private profileURL = 'permissions/viewAll';
 
   constructor(private http: Http) { }
@@ -20,5 +22,14 @@ export class ViewUsersService {
   private handleError(error: any): Promise<any>{
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
+  }
+
+  getPass(){
+    return this.passData;
+
+  }
+
+  setPass(id){
+    this.passData = id;
   }
 }
