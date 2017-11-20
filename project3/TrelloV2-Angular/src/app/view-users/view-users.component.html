@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
 <table class="table table-hover" id="listOfUsers">
+		
+	
 	<thead class="thead-inverse">
 		<tr>
 			<th>User Id</th> 
@@ -13,6 +15,16 @@
 		</tr>
 	</thead>
 	<tbody>
+		<div *ngFor="let ScrumUsers of myData" >
 		
+		 <td>{{ScrumUsers.userId}}</td>
+		 <td>{{ScrumUsers.firstname}}</td>
+		 <td>{{ScrumUsers.lastname}}</td>
+		 <td>{{ScrumUsers.username}}</td>
+		 <td>{{ScrumUsers.roleType}}</td>
+		 <td>{{ScrumUsers.email}}</td>
+		 <td>{{ScrumUsers.team}}</td>
+
+	   </div>
 	</tbody>
 </table>
