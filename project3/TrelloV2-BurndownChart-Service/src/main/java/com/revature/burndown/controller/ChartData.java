@@ -22,9 +22,7 @@ public class ChartData {
 	
 	@RequestMapping(POST_FACEUSER_URL)
 	public ResponseEntity<ArrayList<Chart>> authenticateFaceuser() {
-		
-		System.out.println("i was called");
-		
+				
 		list = (ArrayList<Chart>) chartRepo.findAll();
 		
 		System.out.println(list);
