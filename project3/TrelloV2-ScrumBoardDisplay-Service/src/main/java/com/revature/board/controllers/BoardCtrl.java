@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.board.beans.Board;
+import com.revature.board.beans.Lane;
 import com.revature.board.repo.BoardRepo;
+import com.revature.board.repo.LaneRepo;
 
 @RestController
 public class BoardCtrl {
 	
 	private final static String GET_BOARD_URL = "/home";
+	private final static String GET_LANE_URL = "/trello";
 
 	@Autowired
 	BoardRepo boardRepo;
+	
+	@Autowired
+	LaneRepo laneRepo;
 	
 	@GetMapping(GET_BOARD_URL)
 	public ResponseEntity<List<Board>> getBoards() {
@@ -28,5 +34,15 @@ public class BoardCtrl {
 		
 		return ResponseEntity.ok(board);
 	}
+	
+	@GetMapping(GET_LANE_URL)
+	public ResponseEntity<List<Lane>> getLanes(){
+		List<Lane> lane = new ArrayList<Lane>();
+		
+		lane = laneRepo.findAll();
+		
+		return ResponseEntity.ok(lane);
+	}
+	
 	
 }
