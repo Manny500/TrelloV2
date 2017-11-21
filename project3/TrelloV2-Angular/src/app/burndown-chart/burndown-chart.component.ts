@@ -69,35 +69,45 @@ export class BurndownChartComponent implements OnInit {
 
   ngOnInit() {
 
-    this.chartService.getChart().subscribe(result => {
+    this.diplayChart();
+    
+  }
 
-      this.myData = result;
+  diplayChart(): void {
 
-      this.myData.forEach(iteam => {
-        iteam.chartDate = this.datePipe.transform(new Date(iteam.chartDate), 'dd-MM-yy');
-      });
+    var boardId = localStorage.getItem("currentBoardId");
 
-      this.sortedItems = this.myData.sort((a: BurndownChart, b: BurndownChart) =>
-        new Date(a.chartDate).getDate() - new Date(b.chartDate).getDate()
-      );
+    const body = {boardId: boardId};
 
-      this.sortedItems.forEach(item => {
-        this.total.push(item.chartSum);
-      });
-
-      this.sortedItems.forEach(item => {
-        this.labels.push(item.chartDate);
-      });
-
-      this.lineChartData = [
-        { data: this.total, label: 'Burndown Line' },
-      ];
-
-      this.lineChartLabels = this.labels;
-
-      this.chart.chart.config.data.labels = this.lineChartLabels;
-
-    });
+    this.chartService.getChart(body).subscribe(result => {
+      
+            this.myData = result;
+      
+            this.myData.forEach(iteam => {
+              iteam.chartDate = this.datePipe.transform(new Date(iteam.chartDate), 'dd-MM-yy');
+            });
+      
+            this.sortedItems = this.myData.sort((a: BurndownChart, b: BurndownChart) =>
+              new Date(a.chartDate).getDate() - new Date(b.chartDate).getDate()
+            );
+      
+            this.sortedItems.forEach(item => {
+              this.total.push(item.chartSum);
+            });
+      
+            this.sortedItems.forEach(item => {
+              this.labels.push(item.chartDate);
+            });
+      
+            this.lineChartData = [
+              { data: this.total, label: 'Burndown Line' },
+            ];
+      
+            this.lineChartLabels = this.labels;
+      
+            this.chart.chart.config.data.labels = this.lineChartLabels;
+      
+          });
   }
 
   // events

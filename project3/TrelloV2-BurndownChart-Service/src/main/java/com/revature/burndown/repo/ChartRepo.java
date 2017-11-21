@@ -11,4 +11,6 @@ import com.revature.burndown.bean.Chart;
 public interface ChartRepo extends CrudRepository<Chart,Integer>{
 	
 	List<Chart> findAll();
+	
+	List<Chart> findByChartBoard(int chartBoard);
 }
