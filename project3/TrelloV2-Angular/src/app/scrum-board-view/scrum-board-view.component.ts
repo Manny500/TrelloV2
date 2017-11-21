@@ -19,7 +19,7 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   displayLanes(): void{
-    //getting the current board's id (this value was set in home.component.ts)
+    //getting the current board's id (this value was set  in home.component.ts)
     this.currentBoardId = JSON.parse(localStorage.getItem("currentBoardId"));
     this.laneDislayService.getLanes().subscribe(result => {
       this.Lanes = result;
