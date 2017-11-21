@@ -15,7 +15,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<div *ngFor="let ScrumUsers of myData" >
+		<tr *ngFor="let ScrumUsers of myData" (click)="gotoRequests(ScrumUsers)" >
 		
 		 <td>{{ScrumUsers.userId}}</td>
 		 <td>{{ScrumUsers.firstname}}</td>
@@ -25,6 +25,6 @@
 		 <td>{{ScrumUsers.email}}</td>
 		 <td>{{ScrumUsers.team}}</td>
 
-	   </div>
+		</tr>
 	</tbody>
 </table>

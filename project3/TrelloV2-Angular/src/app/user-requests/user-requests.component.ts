@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ViewUsersService } from '../view-users/view-users.service';
 
 @Component({
   selector: 'app-user-requests',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-requests.component.css']
 })
 export class UserRequestsComponent implements OnInit {
+  idTest;
 
-  constructor() { }
+  constructor(private viewUsersService: ViewUsersService) { }
 
   ngOnInit() {
+    this.idTest = this.viewUsersService.getPass();
+  }
+
+  ngOnDestroy() {
+    
   }
 
 }
