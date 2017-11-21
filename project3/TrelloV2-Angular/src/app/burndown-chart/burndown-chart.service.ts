@@ -13,8 +13,8 @@ export class BurndownChartService {
     
     constructor(private http: Http) { }
 
-    getChart(){
-        return this.http.get(this.chartURL)
+    getChart(body: any){
+        return this.http.post(this.chartURL, body)
         .map(response => <BurndownChart[]> response.json())
         .do(data => console.log(data))
         .catch(this.handleError);
