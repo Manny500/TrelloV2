@@ -25,13 +25,13 @@
          
        </li>
        
-       <li class="nav-item">
+       <li *ngIf="currentUserRoleType == 1" class="nav-item">
        
          <a class="nav-link" id="users" routerLink="/viewUsers" routerLinkActive="active">View Users</a>
          
        </li>
        
-       <li class="nav-item">
+       <li *ngIf="currentUserRoleType == 1" class="nav-item">
        
          <a class="nav-link" id="RegisterUser" routerLink="/register" routerLinkActive="active">Register User</a>
          
@@ -39,7 +39,7 @@
     
      </ul>
    
-   <span class="h3 mx-auto">Scrum Master</span>
+   <span class="h3 mx-auto">Trello User</span>
    
      <ul class="navbar-nav ml-auto">
      

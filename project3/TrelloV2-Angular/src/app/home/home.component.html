@@ -1,4 +1,7 @@
 <app-navbar></app-navbar>
+
+
+
 <br>
 <button type="button" id="createBoardBtn" class="btn btn-primary btn-sm">+ Create Board</button>
 
@@ -13,16 +16,17 @@
 </div>
 
 <div class="grid grid-pad" style="margin: 30px">
-
-	<h2>Personal Boards:</h2>
-	<div *ngFor="let board of Boards" class="col-1-4" [routerLink]="['/trello']" >
-		<div *ngIf="board.tv2Team == 0">
-			<div (click)="storeBoardId(board.bId)" class="module board">
-				<h5>{{board.bTitle}}</h5>
+	<div *ngIf="currentUserRoleType == 1">
+		<h2>Personal Boards:</h2>
+		<div *ngFor="let board of Boards" class="col-1-4" [routerLink]="['/trello']">
+			<div *ngIf="board.tv2Team == 0">
+				<div (click)="storeBoardId(board.bId)" class="module board">
+					<h5>{{board.bTitle}}</h5>
+				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<h2>Team Boards:</h2>
 	<div *ngFor="let board of Boards" class="col-1-4" [routerLink]="['/trello']">
 		<div *ngIf="board.tv2Team == 1">

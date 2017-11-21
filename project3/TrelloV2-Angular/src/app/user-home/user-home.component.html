@@ -1,1 +1,12 @@
-<app-user-navbar></app-user-navbar>
+<app-navbar></app-navbar>
+
+<div class="grid grid-pad" style="margin: 30px">
+    <h2>Team Boards:</h2>
+    <div *ngFor="let board of Boards" class="col-1-4" [routerLink]="['/trello']">
+        <div *ngIf="board.tv2Team == 1">
+            <div (click)="storeBoardId(board.bId)" class="module board">
+                <h5>{{board.bTitle}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
