@@ -18,6 +18,17 @@ public class Chart {
 
 	@Column(name = "CHART_DATE")
 	private String chartDate;
+	
+	@Column(name = "B_ID")
+	private int chartBoard;
+
+	public int getChartBoard() {
+		return chartBoard;
+	}
+
+	public void setChartBoard(int chartBoard) {
+		this.chartBoard = chartBoard;
+	}
 
 	public Chart() {
 

@@ -11,6 +11,7 @@ import { ActivityComponent } from './activity/activity.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { CompanyBoardsComponent } from './company-boards/company-boards.component';
 // import { UserHomeComponent } from './user-home/user-home.component';
+import { UserRequestsComponent } from './user-requests/user-requests.component';
  
 const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'activity',  component: ActivityComponent },
   { path: 'register',  component: RegisterUserComponent },
   { path: 'publicBoards',  component: CompanyBoardsComponent },
+  { path: 'request',  component: UserRequestsComponent},
 ]; 
  
 // using { useHash: true } lets us make changes to recompile angular source files again without getting whitelabel page thing
