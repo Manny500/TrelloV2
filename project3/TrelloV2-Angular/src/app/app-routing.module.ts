@@ -10,7 +10,7 @@ import { ViewUsersComponent } from './view-users/view-users.component';
 import { ActivityComponent } from './activity/activity.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { CompanyBoardsComponent } from './company-boards/company-boards.component';
-import { UserHomeComponent } from './user-home/user-home.component';
+// import { UserHomeComponent } from './user-home/user-home.component';
 import { UserRequestsComponent } from './user-requests/user-requests.component';
  
 const routes: Routes = [
@@ -18,7 +18,6 @@ const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent},
   { path: 'login',  component: LoginComponent },
   { path: 'home',  component: HomeComponent },
-  { path: 'user-home',  component: UserHomeComponent },
   { path: 'trello',  component: ScrumBoardViewComponent },
   { path: 'chart',  component: BurndownChartComponent },
   { path: 'profile',  component: ProfileComponent },

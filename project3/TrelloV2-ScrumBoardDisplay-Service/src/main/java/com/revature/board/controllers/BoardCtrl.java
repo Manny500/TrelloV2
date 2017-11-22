@@ -18,6 +18,7 @@ public class BoardCtrl {
 	
 	private final static String GET_BOARD_URL = "/home";
 	private final static String GET_LANE_URL = "/trello";
+	private final static String GET_USER_BOARD_URL = "/user-home";
 
 	@Autowired
 	BoardRepo boardRepo;
@@ -27,6 +28,16 @@ public class BoardCtrl {
 	
 	@GetMapping(GET_BOARD_URL)
 	public ResponseEntity<List<Board>> getBoards() {
+		
+		List<Board> board = new ArrayList<Board>();
+		
+		board = boardRepo.findAll();
+		
+		return ResponseEntity.ok(board);
+	}
+	
+	@GetMapping(GET_USER_BOARD_URL)
+	public ResponseEntity<List<Board>> getUserBoards() {
 		
 		List<Board> board = new ArrayList<Board>();
 		
