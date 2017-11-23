@@ -4,10 +4,12 @@ import {Observable} from 'rxjs/Observable';
 
 import {Lane} from './lane-display.interface';
 import { Http } from '@angular/http';
+import { Card } from './card-display.interface';
 
 @Injectable()
 export class LaneDisplayService{
     private boardsUrl = 'board-display/trello';
+    private cardsUrl = 'board-display/showCard';
 
     constructor(private http: Http){}
 
@@ -19,6 +21,14 @@ export class LaneDisplayService{
         .map(response => <Lane[]> response.json())
         .do(data => console.log(data))
         .catch(this.handleError);
+    }
+      
+    getCards(){
+        console.log('inside getCards()');
+        return this.http.get(this.cardsUrl) 
+        .map(response => <Card[]> response.json())
+        .do(data => console.log(data))
+        .catch(this.handleError)
     }
 
     private handleError(error: any): Promise<any> {
