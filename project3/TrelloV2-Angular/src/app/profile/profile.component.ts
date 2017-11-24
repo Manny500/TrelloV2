@@ -34,17 +34,6 @@ export class ProfileComponent implements OnInit {
 
     this.profileService.getInfo().subscribe(result =>{
 
-     // this.myData = result;
-
-      // this.userId = this.myData.userId;
-      // this.firstName = this.myData.firstName;
-      // this.lastName = this.myData.lastName;
-      // this.userName = this.myData.userName;
-      // this.password = this.myData.password;
-      // this.team = this.myData.team;
-      // this.roleType = this.myData.roleType;
-      // this.email = this.myData.email;
-
       this.user = result;
       
       this.userId = this.user.userId;

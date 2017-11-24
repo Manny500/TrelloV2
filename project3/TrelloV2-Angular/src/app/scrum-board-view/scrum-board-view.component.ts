@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LaneDisplayService } from './lane-display.service';
 import { Lane } from './lane-display.interface';
 import { Card } from './card-display.interface';
@@ -17,6 +17,18 @@ export class ScrumBoardViewComponent implements OnInit {
   Cards: Card[];
   constructor(private laneDislayService: LaneDisplayService) { }
 
+  //
+  @Input() cardCreate: Card;
+  responseStatus:Object= [];
+  status:boolean;
+  //
+  lId: number;
+  cTitle: string;
+  cVerify: 0;
+  cWorth: string;
+  cDescription: string;
+  //
+
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
@@ -27,7 +39,7 @@ export class ScrumBoardViewComponent implements OnInit {
     this.currentBoardId = JSON.parse(localStorage.getItem("currentBoardId"));
     this.laneDislayService.getLanes().subscribe(result => {
       this.Lanes = result;
-      console.log("this.Lanes= " + this.Lanes)
+      console.log("this.Lanes = " + this.Lanes)
       localStorage.setItem('currentLanes', JSON.stringify(result))
     })
   }
@@ -40,5 +52,7 @@ export class ScrumBoardViewComponent implements OnInit {
       //localStorage.setItem('currentLanes', JSON.stringify(result))
     })
   }
+
+ 
 
 }
