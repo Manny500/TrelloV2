@@ -9,19 +9,29 @@ import { BoardDisplayService } from './board-display.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  
+  currentUserRoleType = JSON.parse(localStorage.getItem("currentUser")).roleType; 
   Boards: Board[];
+  
 
   constructor(private route: Router, private boardDisplayService: BoardDisplayService) { }
 
   ngOnInit() {
+    console.log(this.currentUserRoleType);
     this.displayBoards();
   }
 
   displayBoards(): void{
-    this.boardDisplayService.getBoards().subscribe(result => {
+    this.boardDisplayService.getMasterBoards().subscribe(result => {
       this.Boards = result;
+      
+      localStorage.setItem('currentBoards', JSON.stringify(result))
     })
+  }
+
+  //store the id of the board you click on as currentBoardId
+  storeBoardId(id): void{
+    localStorage.setItem("currentBoardId", JSON.stringify(id))
   }
 
 }
