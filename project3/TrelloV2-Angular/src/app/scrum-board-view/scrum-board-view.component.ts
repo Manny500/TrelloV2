@@ -46,22 +46,26 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   displayCards(): void{
-    this.showCard = true;
-    console.log('displayCards()');    
+    this.Cards = null;
+    console.log('displayCards()');   
+    console.log('showcards? ' +this.showCard);
     this.laneDislayService.getCards().subscribe(result => {
       this.Cards = result;
       console.log("this.Cards= " + this.Cards)
       //localStorage.setItem('currentLanes', JSON.stringify(result))
     })
+    
+    this.showCard = true;
   }
 
   done(){
     console.log('create card: done()');
+    this.showCard = false;
     console.log(this.lId);
     console.log(this.cTitle);
     console.log(this.cDescription); 
     this.cardCreate ={
-      cId: 0, //sql sequece will change this
+      cId: 0, //sql sequece will change this to appropriate number
       lId: this.lId,
       cVerify: 0,
       cWorth: this.cWorth,
@@ -75,8 +79,11 @@ export class ScrumBoardViewComponent implements OnInit {
       err => console.log(err),
       () => console.log('request completed')
     )
-    this.showCard = false;
-    this.displayCards();
+    console.log('done end');
+       setTimeout(function() {
+        this.displayCards();
+     }.bind(this), 1000);
+    
   }
 
 }
