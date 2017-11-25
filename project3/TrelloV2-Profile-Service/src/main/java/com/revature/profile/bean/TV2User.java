@@ -72,6 +72,18 @@ public class TV2User implements Serializable {
 		this.teamId = teamId;
 	}
 	
+	public TV2User(TV2User user) {
+
+		this.userId = user.userId;
+		this.firstName = user.firstName;
+		this.lastName = user.lastName;
+		this.userName = user.userName;
+		this.password = user.password;
+		this.roleType = user.roleType;
+		this.email = user.email;
+		this.teamId = user.teamId;
+		
+	}
 	
 
 	public int getUserId() {
