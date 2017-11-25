@@ -3,9 +3,13 @@ package com.revature.board.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.board.beans.Board;
@@ -22,6 +26,7 @@ public class BoardCtrl {
 	private final static String GET_LANE_URL = "/trello";
 	private final static String GET_USER_BOARD_URL = "/user-home";
 	private final static String GET_CARD_URL = "/showCard";
+	private final static String ADD_CARD_URL = "/addCard";
 	
 	@Autowired
 	BoardRepo boardRepo;
@@ -71,7 +76,19 @@ public class BoardCtrl {
 		return ResponseEntity.ok(card);
 		
 	}
-	
+	@RequestMapping(ADD_CARD_URL)
+	public ResponseEntity<Card> addCard(@RequestBody Card card, HttpServletRequest request){
+		System.out.println("addCard Ctrl");
+		System.out.println("card Title: "+ card.getcTitle());
+		
+		Card newCard = new Card();
+		newCard.setlId(card.getlId());
+		newCard.setcTitle(card.getcTitle());
+		newCard.setcWorth(card.getcWorth());
+	    newCard.setcDescription(card.getcDescription());
+	    cardRepo.save(newCard);
+	    return ResponseEntity.ok(card);
+	}
 	
 	
 }
