@@ -28,6 +28,8 @@ export class ScrumBoardViewComponent implements OnInit {
   cDescription: string;
   //
 
+  public showCard = true;
+
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
@@ -44,6 +46,7 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   displayCards(): void{
+    this.showCard = true;
     console.log('displayCards()');    
     this.laneDislayService.getCards().subscribe(result => {
       this.Cards = result;
@@ -72,6 +75,8 @@ export class ScrumBoardViewComponent implements OnInit {
       err => console.log(err),
       () => console.log('request completed')
     )
+    this.showCard = false;
+    this.displayCards();
   }
 
 }

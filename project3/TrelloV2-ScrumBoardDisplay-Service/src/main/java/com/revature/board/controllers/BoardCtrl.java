@@ -80,7 +80,7 @@ public class BoardCtrl {
 	public ResponseEntity<Card> addCard(@RequestBody Card card, HttpServletRequest request){
 		System.out.println("addCard Ctrl");
 		System.out.println("card Title: "+ card.getcTitle());
-		
+		System.out.println("card id??: " + card.getcId());
 		Card newCard = new Card();
 		newCard.setlId(card.getlId());
 		newCard.setcTitle(card.getcTitle());

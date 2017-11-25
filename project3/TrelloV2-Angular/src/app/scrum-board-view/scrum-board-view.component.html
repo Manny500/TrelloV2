@@ -5,7 +5,7 @@
 <br>
 
 <!-- show lanes and cards -->
-<div class="grid grid-pad">
+<div *ngIf="showCard" class="grid grid-pad">
   <div *ngFor="let lane of Lanes" class="col-1-4">
     <!-- add card button -->
     <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-sm">+Card</button>
