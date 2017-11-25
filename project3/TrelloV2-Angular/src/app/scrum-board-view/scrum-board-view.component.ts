@@ -16,7 +16,6 @@ export class ScrumBoardViewComponent implements OnInit {
 
   Cards: Card[];
   constructor(private laneDislayService: LaneDisplayService) { }
-
   //
   @Input() cardCreate: Card;
   responseStatus:Object= [];
@@ -24,8 +23,8 @@ export class ScrumBoardViewComponent implements OnInit {
   //
   lId: number;
   cTitle: string;
-  cVerify: 0;
-  cWorth: string;
+  cVerify: number;
+  cWorth: number;
   cDescription: string;
   //
 
@@ -53,6 +52,26 @@ export class ScrumBoardViewComponent implements OnInit {
     })
   }
 
- 
+  done(){
+    console.log('create card: done()');
+    console.log(this.lId);
+    console.log(this.cTitle);
+    console.log(this.cDescription); 
+    this.cardCreate ={
+      cId: 0, //sql sequece will change this
+      lId: this.lId,
+      cVerify: 0,
+      cWorth: this.cWorth,
+      cTitle: this.cTitle,
+      cDescription: this.cDescription
+    }
+
+
+    this.laneDislayService.addCard(this.cardCreate).subscribe(
+      data => console.log(this.responseStatus = data),
+      err => console.log(err),
+      () => console.log('request completed')
+    )
+  }
 
 }

@@ -10,6 +10,7 @@ import { Card } from './card-display.interface';
 export class LaneDisplayService{
     private boardsUrl = 'board-display/trello';
     private cardsUrl = 'board-display/showCard';
+    private addCardsUrl = 'board-display/addCard';
 
     constructor(private http: Http){}
 
@@ -31,8 +32,10 @@ export class LaneDisplayService{
         .catch(this.handleError)
     }
 
-    addCard(){
-        
+    addCard(cardCreate : Card){
+        return this.http.post(this.addCardsUrl, cardCreate, {
+        })
+        .map(res => res.json())
     }
 
     private handleError(error: any): Promise<any> {
