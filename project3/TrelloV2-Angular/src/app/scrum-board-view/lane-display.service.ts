@@ -10,7 +10,9 @@ import { Card } from './card-display.interface';
 export class LaneDisplayService{
     private boardsUrl = 'board-display/trello';
     private cardsUrl = 'board-display/showCard';
+    //private addCardsUrl = 'board-update/addCard'  <= change to this once we know how to sync database
     private addCardsUrl = 'board-display/addCard';
+
 
     constructor(private http: Http){}
 
