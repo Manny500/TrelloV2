@@ -1,9 +1,9 @@
 /.metadata/
 /.recommenders/
-project3/TrelloV2-BurndownChart-Service/logs/spring-boot-logging.log
-project3/TrelloV2-Permissions-Service/logs/spring-boot-logging.log
-project3/TrelloV2-Portal-Service/logs/spring-boot-logging.log
-project3/TrelloV2-Profile-Service/logs/spring-boot-logging.log
-project3/TrelloV2-ScrumBoardDisplay-Service/logs/spring-boot-logging.log
-project3/TrelloV2-ScrumBoardUpdate-Service/logs/spring-boot-logging.log
-project3/TrelloV2-Ticket-Service/logs/spring-boot-logging.log
+/TrelloV2-BurndownChart-Service/logs/spring-boot-logging.log
+/TrelloV2-Permissions-Service/logs/spring-boot-logging.log
+/TrelloV2-Portal-Service/logs/spring-boot-logging.log
+/TrelloV2-Profile-Service/logs/spring-boot-logging.log
+/TrelloV2-ScrumBoardDisplay-Service/logs/spring-boot-logging.log
+/TrelloV2-ScrumBoardUpdate-Service/logs/spring-boot-logging.log
+/TrelloV2-Ticket-Service/logs/spring-boot-logging.log
