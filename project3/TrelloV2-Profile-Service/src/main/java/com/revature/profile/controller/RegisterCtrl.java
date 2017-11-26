@@ -24,7 +24,7 @@ public class RegisterCtrl {
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){
 		
-		System.err.println("Inside registerUser");
+		System.err.println(user);
 		
 		TV2User clientUser = new TV2User(user);
 		

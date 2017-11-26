@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileUser } from '../profile/profile-user';
 import { Http } from '@angular/http';
+import { RegisterService } from './register-user.service';
 
 @Component({
   selector: 'app-register-user',
@@ -11,15 +12,19 @@ export class RegisterUserComponent implements OnInit {
   http: Http;
   private registerURL = 'profile/register';
 
-  constructor() { }
+  constructor(private registerService: RegisterService) { }
 
   ngOnInit() {
   }
 
-  submit(user : ProfileUser){
-    return this.http.post(this.registerURL, user, {
-    })
-    .map(res => res.json())
+  onClickSubmit(user : ProfileUser){
+    this.registerService.postUpdate(user).subscribe()
   }
+
+  // submit(user : ProfileUser){
+  //   return this.http.post(this.registerURL, user, {
+  //   })
+  //   .map(res => res.json())
+  // }
 
 }

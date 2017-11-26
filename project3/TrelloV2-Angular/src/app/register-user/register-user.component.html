@@ -1,41 +1,36 @@
 <app-navbar></app-navbar>
-<div id="register" style="color: white;">
+<form #register = "ngForm" (ngSubmit) = "onClickSubmit(register.value)" style="color: rgb(8, 0, 0);">
     
       <label>Username</label>
-      <input [(ngModel)]="user.userName" placeholder="Username">
-      
+      <input type = "text" name= "userName" placeholder="Username" ngModel><br>
   
     
       <label >Password</label>
-      <input [(ngModel)]="user.password" placeholder="Password"><br>
-    
+      <input type = "text" name= "password" placeholder="Password" ngModel><br>
     
       <label>FirstName</label>
-      <input [(ngModel)]="user.firstName" placeholder="FirstName"><br>
-   
+      <input type = "text" name= "firstName" placeholder="FirstName" ngModel><br>
     
     
       <label>LastName</label>
-      <input [(ngModel)]="user.lastName" placeholder="LastName"><br>
-   
+      <input type = "text" name= "lastName" placeholder="LastName" ngModel><br>
     
     
       <label>Role</label>
-      <input [(ngModel)]="user.roleType" placeholder="Role"><br>
-   
+      <input type = "number" name= "roleType" placeholder="Role" ngModel><br>
     
     
       <label>Email</label>
-      <input [(ngModel)]="user.email" placeholder="Email"><br>
+      <input type = "text" name= "email" placeholder="Email" ngModel><br>
    
     
     
       <label>Team Id</label>
-      <input [(ngModel)]="user.teamId" placeholder="Team Id"><br>
+      <input type = "number" name= "teamId" placeholder="Team Id" ngModel><br>
    
     
-      
-      <button type="submit" (click)="submit()" id="submitBtn" class="btn btn-primary">Submit</button>
+      <input type = "submit" value = "submit">
+      <!-- <button type="submit" (click)="submit()" id="submitBtn" class="btn btn-primary">Submit</button> -->
       
     
-  </div>
+</form>
