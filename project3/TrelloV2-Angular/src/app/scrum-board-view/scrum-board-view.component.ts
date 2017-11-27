@@ -47,6 +47,7 @@ export class ScrumBoardViewComponent implements OnInit {
       console.log("this.Lanes = " + this.Lanes)
       localStorage.setItem('currentLanes', JSON.stringify(result))
     })
+    this.showCard = true;
   }
 
   displayCards(): void {
@@ -99,7 +100,7 @@ export class ScrumBoardViewComponent implements OnInit {
         () => console.log('request completed')
       )
       setTimeout(function () {
-        this.displayCards();
+        this.displayLanes();
       }.bind(this), 1000);
     }
   }

@@ -10,5 +10,8 @@ import com.revature.board.beans.Lane;
 @Repository
 public interface LaneRepo extends CrudRepository<Lane,Integer> {
 	List<Lane> findAll();
+	
+	@SuppressWarnings("unchecked")
+	Lane save(Lane lane);
 
 }
