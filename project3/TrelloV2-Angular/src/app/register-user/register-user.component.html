@@ -1,61 +1,63 @@
 <app-navbar></app-navbar>
+
 <br>
-<form #register = "ngForm" (ngSubmit) = "onClickSubmit(register.value)" style="color: rgb(8, 0, 0);">
-    
-      <div class="form-group col-2 mx-auto">
-      
-      <label >Username</label>
-      <input type = "text" class="form-control" name= "userName" placeholder="Username" ngModel>
 
-      </div>
-    
-      <div class="form-group col-2 mx-auto">
-      
-      <label >Password</label>
-      <input type = "text" class="form-control" name= "password" placeholder="Password" ngModel>
+<form #register="ngForm" (ngSubmit)="onClickSubmit(register.value)" style="color: rgb(8, 0, 0);">
 
-      </div>
-    
-      <div class="form-group col-2 mx-auto">
-      
-      <label>FirstName</label>
-      <input type = "text" class="form-control" name= "firstName" placeholder="FirstName" ngModel>
-    
-      </div>
-    
       <div class="form-group col-2 mx-auto">
 
-      <label>LastName</label>
-      <input type = "text" class="form-control" name= "lastName" placeholder="LastName" ngModel>
-    
+            <label>Username</label>
+            <input type="text" class="form-control" name="userName" placeholder="Username" ngModel>
+
       </div>
-    
+
       <div class="form-group col-2 mx-auto">
-      
-      <label>Role</label>
-      <input type = "number" class="form-control" name= "roleType" placeholder="Role" ngModel>
-    
+
+            <label>Password</label>
+            <input type="text" class="form-control" name="password" placeholder="Password" ngModel>
+
       </div>
-    
+
       <div class="form-group col-2 mx-auto">
-      
-      <label>Email</label>
-      <input type = "text" class="form-control" name= "email" placeholder="Email" ngModel>
-   
+
+            <label>FirstName</label>
+            <input type="text" class="form-control" name="firstName" placeholder="FirstName" ngModel>
+
       </div>
-    
+
       <div class="form-group col-2 mx-auto">
-      
-      <label>Team Id</label>
-      <input type = "number" class="form-control" name= "teamId" placeholder="Team Id" ngModel>
-      
+
+            <label>LastName</label>
+            <input type="text" class="form-control" name="lastName" placeholder="LastName" ngModel>
+
       </div>
-    
+
+      <div class="form-group col-2 mx-auto">
+
+            <label>Role</label>
+            <input type="number" class="form-control" name="roleType" placeholder="Role" ngModel>
+
+      </div>
+
+      <div class="form-group col-2 mx-auto">
+
+            <label>Email</label>
+            <input type="text" class="form-control" name="email" placeholder="Email" ngModel>
+
+      </div>
+
+      <div class="form-group col-2 mx-auto">
+
+            <label>Team Id</label>
+            <input type="number" class="form-control" name="teamId" placeholder="Team Id" ngModel>
+
+      </div>
+
       <div class="form-inline justify-content-center">
-            
-      <!-- <input type = "submit" value = "submit"> -->
-      <button type = "submit" value = "submit" class="btn btn-primary">Submit</button>
+
+            <!-- <input type = "submit" value = "submit"> -->
+            <button type="submit" value="submit" class="btn btn-primary">Submit</button>
 
       </div>
-    
+
 </form>

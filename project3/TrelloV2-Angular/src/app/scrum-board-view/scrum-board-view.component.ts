@@ -4,56 +4,54 @@ import { Lane } from './lane-display.interface';
 import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
 
-
 @Component({
   selector: 'app-scrum-board-view',
   templateUrl: './scrum-board-view.component.html',
   styleUrls: ['./scrum-board-view.component.css']
 })
+
 export class ScrumBoardViewComponent implements OnInit {
 
   Lanes: Lane[];
-  currentBoardId : number;
-  currentCardId : number;
+  currentBoardId: number;
+  currentCardId: number;
   currentLaneId: number;
 
   Cards: Card[];
   constructor(private laneDislayService: LaneDisplayService) { }
 
   Tasks: Task[];
-  //
+  //two way binding
   @Input() cardCreate: Card;
   @Input() laneCreate: Lane;
+
   responseStatus: Object = [];
   status: boolean;
+
   //addCard
   lId: number;
   cTitle: string;
   cVerify: number;
   cWorth: number;
   cDescription: string;
+
   //addLane
   laneTitle: string;
+
   //
-
-
   public showCard = true;
 
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
-  
-  }
-  doSomething(): void{
-    console.log("clicked on checkbox")
+
   }
 
   displayLanes(): void {
-      //getting the current board's id (this value was set  in home.component.ts)
-      this.currentBoardId = JSON.parse(localStorage.getItem("currentBoardId"));
-      this.laneDislayService.getLanes().subscribe(result => {
+    //getting the current board's id (this value was set  in home.component.ts)
+    this.currentBoardId = JSON.parse(localStorage.getItem("currentBoardId"));
+    this.laneDislayService.getLanes().subscribe(result => {
       this.Lanes = result;
-      console.log("this.Lanes = " + this.Lanes)
       localStorage.setItem('currentLanes', JSON.stringify(result))
     })
     this.showCard = true;
@@ -61,30 +59,26 @@ export class ScrumBoardViewComponent implements OnInit {
 
   displayCards(): void {
     this.Cards = null;
-    console.log('displayCards()');
-    console.log('showcards? ' + this.showCard);
+
     this.laneDislayService.getCards().subscribe(result => {
       this.Cards = result;
-      console.log("this.Cards= " + this.Cards)
-      //localStorage.setItem('currentLanes', JSON.stringify(result))
+
     })
 
     this.showCard = true;
   }
 
   //this is storing the id of the card that was clicked as well as displaying the tasks.
-  displayTasks(cardId): void{
+  displayTasks(cardId): void {
     localStorage.setItem("currentCardId", JSON.stringify(cardId));
     this.currentCardId = JSON.parse(localStorage.getItem("currentCardId"));
-    console.log("you clicked on a card");
-    this.laneDislayService.getTasks().subscribe(result =>{
+    this.laneDislayService.getTasks().subscribe(result => {
       this.Tasks = result;
     })
   }
 
-  done(condition:number) {
+  done(condition: number) {
     if (condition == 1) {
-      console.log('create card: done()');
       this.showCard = false;
       this.cardCreate = {
         cId: 0, //sql sequece will change this to appropriate number
@@ -94,6 +88,7 @@ export class ScrumBoardViewComponent implements OnInit {
         cTitle: this.cTitle,
         cDescription: this.cDescription
       }
+
       this.laneDislayService.addCard(this.cardCreate).subscribe(
         data => console.log(this.responseStatus = data),
         err => console.log(err),
@@ -104,9 +99,9 @@ export class ScrumBoardViewComponent implements OnInit {
       }.bind(this), 1000);
 
     }
-    if(condition == 2){
-      console.log('create Lane: done()');
-      console.log(this.laneTitle);
+
+    if (condition == 2) {
+
       this.showCard = false;
       this.laneCreate = {
         laneId: 0,
@@ -124,7 +119,19 @@ export class ScrumBoardViewComponent implements OnInit {
     }
   }
 
-  updatecurrentLane(lId: number){
-      this.currentLaneId = lId;
+  updatecurrentLane(lId: number) {
+    this.currentLaneId = lId;
+  }
+
+  switchLane(currentCard: Card, lane: number) {
+    const currentLane: Lane = this.Lanes[lane];
+    currentCard.lId = currentLane.laneId;
+
+    this.laneDislayService.switchLane(currentCard).subscribe(
+      data => console.log(this.responseStatus = data),
+      err => console.log(err),
+      () => console.log('request completed')
+    )
+  
   }
 }

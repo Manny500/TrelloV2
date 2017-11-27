@@ -1,21 +1,30 @@
 <app-navbar></app-navbar>
+
 <br>
+
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
-<!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-sm">+Card</button> -->
+
 <button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
+
 <br>
 
 <div *ngIf="showCard" class="grid grid-pad" style="width:2000px;height:500px;overflow:auto">
 
-
   <!-- start of lane display -->
-  <div *ngFor="let lane of Lanes" class="col-1-4">
+  <div *ngFor="let lane of Lanes; index as i" class="col-1-4"> 
+
     <div class="card" style="background:rgb(185, 197, 207)">
+
       <div class="card-block">
+
         <table>
+
           <br>
+
           <div *ngIf="lane.bId == currentBoardId ">
+
             <div class="module lane">
+              
               <th>
                 <h2>{{lane.laneTitle}}</h2>
               </th>
@@ -23,6 +32,10 @@
                 <div *ngIf="card.lId == lane.laneId ">
                   <!-- <div class="module card"> -->
                   <tr>
+                    <td *ngIf="i > 0">
+                      <button type="button" class="btn-sm btn-primary" (click)="switchLane(card, i-1)">
+                        <</button>
+                    </td>
                     <td>
                       <div id="userStories" class="card">
                         <div class="card-block">
@@ -31,6 +44,9 @@
                         </div>
                       </div>
                       <!-- <h5 (click)="displayTasks(card.cId)" data-toggle="modal" data-target=".card-modal-sm">{{card.cTitle}}</h5> -->
+                    </td>
+                    <td>
+                      <button type="button" class="btn-sm btn-primary" (click)="switchLane(card,i+1)">></button>
                     </td>
                   </tr>
                 </div>
@@ -45,32 +61,6 @@
   <!-- end of lane display -->
 
 </div>
-<!-- show lanes and cards -->
-<!-- <div *ngIf="showCard" class="grid grid-pad" style="width:2000px;height:500px;overflow:auto">
-  <table>
-    <tr *ngFor="let lane of Lanes" class="col-1-4">
-      <br>
-      <div *ngIf="lane.bId == currentBoardId ">
-        <div class="module lane">
-          <th>
-            <h2>{{lane.laneTitle}}</h2>
-          </th>
-          <ng-container *ngFor="let card of Cards" class="col-1-4">
-            <div *ngIf="card.lId == lane.laneId ">
-              <!-- <div class="module card"> -->
-<!-- <tr>
-                <td>
-                  <h5 (click)="displayTasks(card.cId)" data-toggle="modal" data-target=".card-modal-sm">{{card.cTitle}}</h5>
-                </td>
-              </tr>
-            </div>
-          </ng-container>
-          <button type="button" class="btn btn-warning" (click)="updatecurrentLane(lane.laneId)" data-toggle="modal" data-target=".bd-example-modal-sm">+</button>
-        </div>
-      </div>
-    </tr>
-  </table>
-</div> -->
 
 <div class="modal fade card-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myCardModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
