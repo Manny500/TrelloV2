@@ -13,8 +13,8 @@
         <h5>{{lane.laneTitle}}</h5>
         <div *ngFor="let card of Cards" class="col-1-4">
           <div *ngIf="card.lId == lane.laneId ">
-            <div class="module card">
-              <h5>{{card.cTitle}}</h5>
+            <div (click)="displayTasks()" class="module card">
+              <h5 data-toggle="modal" data-target=".card-modal-sm">{{card.cTitle}}</h5>
             </div>
           </div>
         </div>
@@ -22,6 +22,28 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade card-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myCardModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cardModalLabel">Descriptions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>helo from card</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" (click)="done()" class="btn btn-primary" data-dismiss="modal">Done</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
 
 <!-- modal for adding cards -->
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

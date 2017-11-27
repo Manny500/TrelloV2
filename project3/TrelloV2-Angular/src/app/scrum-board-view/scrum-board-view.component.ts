@@ -58,6 +58,10 @@ export class ScrumBoardViewComponent implements OnInit {
     this.showCard = true;
   }
 
+  displayTasks(): void{
+    console.log("you clicked on a card");
+  }
+
   done(){
     console.log('create card: done()');
     this.showCard = false;
