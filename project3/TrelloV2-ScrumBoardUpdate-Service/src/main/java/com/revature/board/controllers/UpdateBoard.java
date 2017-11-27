@@ -19,7 +19,7 @@ public class UpdateBoard {
 	private final static String POST_UPDATE_BOARD_URL = "/updateBoard";
 
 	@RequestMapping(POST_UPDATE_BOARD_URL)
-	public String displayProfile(@RequestBody String payload) {
+	public String updateBoard(@RequestBody String payload) {
 
 		Random r = new Random();
 		System.out.println(payload);
