@@ -32,6 +32,8 @@ public class BoardCtrl {
 	private final static String GET_TASK_URL = "/showTask";
 	private final static String ADD_LANE_URL = "/addLane";
 	
+	private final static String POST_UPDATE_BOARD_URL = "/updateBoard2";
+	
 	@Autowired
 	BoardRepo boardRepo;
 	
@@ -41,6 +43,15 @@ public class BoardCtrl {
 	@Autowired
 	CardRepo cardRepo;
 	
+	@RequestMapping(POST_UPDATE_BOARD_URL)
+	public ResponseEntity<Board> updateBoard(@RequestBody Board board, HttpServletRequest request) {
+		System.err.println("In Update");
+		
+		board = boardRepo.save(board);
+		
+		
+		return ResponseEntity.ok(board);
+	}
 	@Autowired
 	TaskRepo taskRepo;
 	
