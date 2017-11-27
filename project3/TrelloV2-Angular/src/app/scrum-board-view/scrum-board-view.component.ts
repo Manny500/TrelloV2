@@ -13,6 +13,7 @@ export class ScrumBoardViewComponent implements OnInit {
 
   Lanes: Lane[];
   currentBoardId: number;
+  currentLaneId: number;
 
   Cards: Card[];
   constructor(private laneDislayService: LaneDisplayService) { }
@@ -103,5 +104,10 @@ export class ScrumBoardViewComponent implements OnInit {
         this.displayLanes();
       }.bind(this), 1000);
     }
+  }
+
+  updatecurrentLane(lId: number){
+      this.currentLaneId = lId;
+      console.log('this laneId = ' +this.currentLaneId);
   }
 }
