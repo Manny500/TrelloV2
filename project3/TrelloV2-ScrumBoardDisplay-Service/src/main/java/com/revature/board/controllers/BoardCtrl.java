@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.board.beans.Board;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
+import com.revature.board.beans.Task;
 import com.revature.board.repo.BoardRepo;
 import com.revature.board.repo.CardRepo;
 import com.revature.board.repo.LaneRepo;
+import com.revature.board.repo.TaskRepo;
 
 @RestController
 public class BoardCtrl {
@@ -27,6 +29,7 @@ public class BoardCtrl {
 	private final static String GET_USER_BOARD_URL = "/user-home";
 	private final static String GET_CARD_URL = "/showCard";
 	private final static String ADD_CARD_URL = "/addCard";
+	private final static String GET_TASK_URL = "/showTask";
 	private final static String ADD_LANE_URL = "/addLane";
 	
 	private final static String POST_UPDATE_BOARD_URL = "/updateBoard2";
@@ -49,6 +52,8 @@ public class BoardCtrl {
 		
 		return ResponseEntity.ok(board);
 	}
+	@Autowired
+	TaskRepo taskRepo;
 	
 	@GetMapping(GET_BOARD_URL)
 	public ResponseEntity<List<Board>> getBoards() {
@@ -89,6 +94,19 @@ public class BoardCtrl {
 		return ResponseEntity.ok(card);
 		
 	}
+	
+	@GetMapping(GET_TASK_URL)
+	public ResponseEntity<List<Task>> getTasks(){
+		System.out.println("============== getTasks() ===============");
+		List<Task> task = new ArrayList<Task>();
+		
+		task = taskRepo.findAll();
+		System.out.println(task);
+		
+		return ResponseEntity.ok(task);
+		
+	}
+	
 	@RequestMapping(ADD_CARD_URL)
 	public ResponseEntity<Card> addCard(@RequestBody Card card, HttpServletRequest request){
 		System.out.println("addCard Ctrl");

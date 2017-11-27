@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { LaneDisplayService } from './lane-display.service';
 import { Lane } from './lane-display.interface';
 import { Card } from './card-display.interface';
+import { Task } from './task-display.interface';
 
 
 @Component({
@@ -12,11 +13,14 @@ import { Card } from './card-display.interface';
 export class ScrumBoardViewComponent implements OnInit {
 
   Lanes: Lane[];
-  currentBoardId: number;
+  currentBoardId : number;
+  currentCardId : number;
   currentLaneId: number;
 
   Cards: Card[];
   constructor(private laneDislayService: LaneDisplayService) { }
+
+  Tasks: Task[];
   //
   @Input() cardCreate: Card;
   @Input() laneCreate: Lane;
@@ -38,6 +42,10 @@ export class ScrumBoardViewComponent implements OnInit {
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
+  
+  }
+  doSomething(): void{
+    console.log("clicked on checkbox")
   }
 
   displayLanes(): void {
@@ -62,6 +70,16 @@ export class ScrumBoardViewComponent implements OnInit {
     })
 
     this.showCard = true;
+  }
+
+  //this is storing the id of the card that was clicked as well as displaying the tasks.
+  displayTasks(cardId): void{
+    localStorage.setItem("currentCardId", JSON.stringify(cardId));
+    this.currentCardId = JSON.parse(localStorage.getItem("currentCardId"));
+    console.log("you clicked on a card");
+    this.laneDislayService.getTasks().subscribe(result =>{
+      this.Tasks = result;
+    })
   }
 
   done(condition:number) {
