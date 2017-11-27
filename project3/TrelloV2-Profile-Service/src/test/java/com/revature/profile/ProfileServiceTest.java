@@ -17,8 +17,8 @@ import com.revature.profile.service.ProfileService;
 //@SpringBootConfiguration(TrelloV2ProfileServiceApplication.class)
 //@SpringApplicationConfiguration(classes = TrelloV2ProfileServiceApplication.class)
 @SpringBootTest
-//@DatabaseSetup( "classpath:FillTestData.xml" )
-//@DatabaseTearDown( "classpath:DbClean.xml" )
+//@DatabaseSetup("classpath:FillTestData.xml")
+//@DatabaseTearDown("classpath:DbClean.xml")
 public class ProfileServiceTest {
 	  @Autowired
 	  private ProfileService profileService;
