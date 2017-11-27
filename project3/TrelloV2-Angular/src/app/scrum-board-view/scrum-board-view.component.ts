@@ -132,8 +132,6 @@ export class ScrumBoardViewComponent implements OnInit {
       err => console.log(err),
       () => console.log('request completed')
     )
-    setTimeout(function () {
-      this.displayCards();
-    }.bind(this), 1000);
+  
   }
 }
