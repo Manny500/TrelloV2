@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { LaneDisplayService } from './lane-display.service';
 import { Lane } from './lane-display.interface';
 import { Card } from './card-display.interface';
+import { Task } from './task-display.interface';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class ScrumBoardViewComponent implements OnInit {
 
   Cards: Card[];
   constructor(private laneDislayService: LaneDisplayService) { }
+
+  Tasks: Task[];
   //
   @Input() cardCreate: Card;
   responseStatus:Object= [];
@@ -60,6 +63,9 @@ export class ScrumBoardViewComponent implements OnInit {
 
   displayTasks(): void{
     console.log("you clicked on a card");
+    this.laneDislayService.getTasks().subscribe(result =>{
+      this.Tasks = result;
+    })
   }
 
   done(){

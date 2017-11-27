@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {Lane} from './lane-display.interface';
 import { Http } from '@angular/http';
 import { Card } from './card-display.interface';
+import { Task } from './task-display.interface';
 
 @Injectable()
 export class LaneDisplayService{
@@ -12,6 +13,7 @@ export class LaneDisplayService{
     private cardsUrl = 'board-display/showCard';
     //private addCardsUrl = 'board-update/addCard'  <= change to this once we know how to sync database
     private addCardsUrl = 'board-display/addCard';
+    private tasksUrl = 'board-display/showTask';
 
 
     constructor(private http: Http){}
@@ -34,13 +36,21 @@ export class LaneDisplayService{
         .catch(this.handleError)
     }
 
+    getTasks(){
+        console.log('inside getTasks()');
+        return this.http.get(this.tasksUrl) 
+        .map(response => <Task[]> response.json())
+        .do(data => console.log("from tasks "+data))
+        .catch(this.handleError)
+    }
+
     addCard(cardCreate : Card){
         return this.http.post(this.addCardsUrl, cardCreate, {
         })
         .map(res => res.json())
     }
 
-    
+
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
