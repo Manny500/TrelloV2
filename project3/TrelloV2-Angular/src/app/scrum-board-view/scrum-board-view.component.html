@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <br>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
-<button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-sm">+Card</button>
+<!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-sm">+Card</button> -->
 <button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
 <br>
 
@@ -13,14 +13,14 @@
       <br>
       <div *ngIf="lane.bId == currentBoardId ">
         <div class="module lane">
-          <th><h1>{{lane.laneTitle}}</h1></th>
+          <th><h2>{{lane.laneTitle}}</h2></th>
           <ng-container *ngFor="let card of Cards" class="col-1-4">
              <div *ngIf="card.lId == lane.laneId "> 
             <!-- <div class="module card"> -->
               <tr><td><h5>{{card.cTitle}}</h5></td></tr>
               </div>
           </ng-container>
-
+          <button type="button" class="btn btn-warning" (click)="updatecurrentLane(lane.laneId)" data-toggle="modal" data-target=".bd-example-modal-sm">+</button>
           </div>
           </div>
         
@@ -42,7 +42,7 @@
       </div>
       <div class="modal-body">
 
-        Lane ID:<input [(ngModel)]="lId" class="form-control" id="card-laneId">
+        <!-- Lane ID:<input [(ngModel)]="lId" class="form-control" id="card-laneId"> -->
         Title:<input [(ngModel)]="cTitle" class="form-control" id="card-title"> 
         Description:<input [(ngModel)]="cDescriptoin" class="form-control" id="card-description"> 
         Points:<input [(ngModel)]="cWorth" class="form-control" id="card-points">
