@@ -30,7 +30,7 @@ public class BoardCtrl {
 	private final static String GET_CARD_URL = "/showCard";
 	private final static String ADD_CARD_URL = "/addCard";
 	private final static String GET_TASK_URL = "/showTask";
-	
+	private final static String ADD_LANE_URL = "/addLane";
 	
 	@Autowired
 	BoardRepo boardRepo;
@@ -108,6 +108,17 @@ public class BoardCtrl {
 	    newCard.setcDescription(card.getcDescription());
 	    cardRepo.save(newCard);
 	    return ResponseEntity.ok(card);
+	}
+	@RequestMapping(ADD_LANE_URL)
+	public ResponseEntity<Lane> addlane(@RequestBody Lane lane, HttpServletRequest request){
+		
+		Lane newLane = new Lane();
+		newLane.setLaneId(lane.getLaneId());
+		newLane.setbId(lane.getbId());
+		newLane.setLaneTitle(lane.getLaneTitle());
+	   
+	    laneRepo.save(newLane);
+	    return ResponseEntity.ok(lane);
 	}
 	
 	

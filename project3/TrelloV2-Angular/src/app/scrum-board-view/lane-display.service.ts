@@ -11,9 +11,10 @@ import { Task } from './task-display.interface';
 export class LaneDisplayService{
     private boardsUrl = 'board-display/trello';
     private cardsUrl = 'board-display/showCard';
-    //private addCardsUrl = 'board-update/addCard'  <= change to this once we know how to sync database
     private addCardsUrl = 'board-display/addCard';
     private tasksUrl = 'board-display/showTask';
+    //private addLanessUrl = 'board-update/addLane'  <= change to this once we know how to sync database
+    private addLanesUrl = 'board-display/addLane';
 
 
     constructor(private http: Http){}
@@ -50,7 +51,11 @@ export class LaneDisplayService{
         .map(res => res.json())
     }
 
-
+    addLane(laneCreate : Lane){
+        return this.http.post(this.addLanesUrl, laneCreate, {
+        })
+        .map(res => res.json())
+    }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only

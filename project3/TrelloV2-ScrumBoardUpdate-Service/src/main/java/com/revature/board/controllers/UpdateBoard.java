@@ -1,4 +1,4 @@
-package com.revature.board.controller;
+package com.revature.board.controllers;
 
 import java.util.Random;
 
