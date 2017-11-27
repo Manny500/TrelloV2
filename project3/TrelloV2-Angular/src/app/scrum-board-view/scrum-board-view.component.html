@@ -5,23 +5,29 @@
 <br>
 
 <!-- show lanes and cards -->
-<div *ngIf="showCard" class="grid grid-pad">
-  <div *ngFor="let lane of Lanes" class="col-1-4">
-    <br>
-    <div *ngIf="lane.bId == currentBoardId ">
-      <div class="module lane">
-        <h5>{{lane.laneTitle}}</h5>
-        <div *ngFor="let card of Cards" class="col-1-4">
-          <div *ngIf="card.lId == lane.laneId ">
-            <div class="module card">
-              <h5>{{card.cTitle}}</h5>
-            </div>
+
+<div *ngIf="showCard" class="grid grid-pad" style="width:2000px;height:500px;overflow:auto">
+  <table>
+    <tr *ngFor="let lane of Lanes" class="col-1-4">
+      <br>
+      <div *ngIf="lane.bId == currentBoardId ">
+        <div class="module lane">
+          <th><h1>{{lane.laneTitle}}</h1></th>
+          <ng-container *ngFor="let card of Cards" class="col-1-4">
+             <div *ngIf="card.lId == lane.laneId "> 
+            <!-- <div class="module card"> -->
+              <tr><td><h5>{{card.cTitle}}</h5></td></tr>
+              </div>
+          </ng-container>
+
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          </div>
+        
+      
+    </tr>
+  </table>
 </div>
+
 
 <!-- modal for adding cards -->
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -35,23 +41,17 @@
       </div>
       <div class="modal-body">
 
-        Lane ID:<input [(ngModel)]="lId" class="form-control" id="card-laneId"> 
-        Title:<input [(ngModel)]="cTitle" class="form-control" id="card-title">
-        Description:<input [(ngModel)]="cDescriptoin" class="form-control" id="card-description">
-        Points:<input [(ngModel)]="cWorth" class="form-control" id="card-points">
+        Lane ID:
+        <input [(ngModel)]="lId" class="form-control" id="card-laneId"> Title:
+        <input [(ngModel)]="cTitle" class="form-control" id="card-title"> Description:
+        <input [(ngModel)]="cDescriptoin" class="form-control" id="card-description"> Points:
+        <input [(ngModel)]="cWorth" class="form-control" id="card-points">
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" (click)="done()" class="btn btn-primary" data-dismiss="modal">Done</button>
       </div>
-      <!-- Lane id : <input [(ngModel)]="lane.laneId" placeholder="name" />
-            ...
-            Enter Title: <input [(ngModel)]="card.cTitle" placeholder="name" /> <br>
-            ...
-            Enter Description: <input [(ngModel)]="card.cDescription" placeholder="name" /> <br>
-            ...
-            Enter Points: <input [(ngModel)]="card.cWorth" placeholder="name" /> <br> -->
     </div>
   </div>
 </div>
