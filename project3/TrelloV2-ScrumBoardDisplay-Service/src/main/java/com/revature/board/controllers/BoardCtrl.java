@@ -25,6 +25,7 @@ import com.revature.board.repo.TaskRepo;
 public class BoardCtrl {
 	
 	private final static String GET_BOARD_URL = "/home";
+	private final static String SWITCH_LANE_URL = "/updateCard";
 	private final static String GET_LANE_URL = "/trello";
 	private final static String GET_USER_BOARD_URL = "/user-home";
 	private final static String GET_CARD_URL = "/showCard";
@@ -98,9 +99,7 @@ public class BoardCtrl {
 	
 	@RequestMapping(ADD_CARD_URL)
 	public ResponseEntity<Card> addCard(@RequestBody Card card, HttpServletRequest request){
-		System.out.println("addCard Ctrl");
-		System.out.println("card Title: "+ card.getcTitle());
-		System.out.println("card id??: " + card.getcId());
+		
 		Card newCard = new Card();
 		newCard.setlId(card.getlId());
 		newCard.setcTitle(card.getcTitle());
@@ -109,6 +108,14 @@ public class BoardCtrl {
 	    cardRepo.save(newCard);
 	    return ResponseEntity.ok(card);
 	}
+	
+	@RequestMapping(SWITCH_LANE_URL)
+	public ResponseEntity<Card> switchLane(@RequestBody Card card, HttpServletRequest request){
+		
+		cardRepo.save(card);
+		return ResponseEntity.ok(card);
+	}
+	
 	@RequestMapping(ADD_LANE_URL)
 	public ResponseEntity<Lane> addlane(@RequestBody Lane lane, HttpServletRequest request){
 		
