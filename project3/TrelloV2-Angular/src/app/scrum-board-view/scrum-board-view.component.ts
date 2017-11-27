@@ -18,6 +18,7 @@ export class ScrumBoardViewComponent implements OnInit {
   constructor(private laneDislayService: LaneDisplayService) { }
   //
   @Input() cardCreate: Card;
+  @Input() laneCreate: Lane;
   responseStatus: Object = [];
   status: boolean;
   //addCard
@@ -27,7 +28,7 @@ export class ScrumBoardViewComponent implements OnInit {
   cWorth: number;
   cDescription: string;
   //addLane
-  lTitle: string;
+  laneTitle: string;
   //
 
 
@@ -39,9 +40,9 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   displayLanes(): void {
-    //getting the current board's id (this value was set  in home.component.ts)
-    this.currentBoardId = JSON.parse(localStorage.getItem("currentBoardId"));
-    this.laneDislayService.getLanes().subscribe(result => {
+      //getting the current board's id (this value was set  in home.component.ts)
+      this.currentBoardId = JSON.parse(localStorage.getItem("currentBoardId"));
+      this.laneDislayService.getLanes().subscribe(result => {
       this.Lanes = result;
       console.log("this.Lanes = " + this.Lanes)
       localStorage.setItem('currentLanes', JSON.stringify(result))
@@ -73,22 +74,33 @@ export class ScrumBoardViewComponent implements OnInit {
         cTitle: this.cTitle,
         cDescription: this.cDescription
       }
-    this.laneDislayService.addCard(this.cardCreate).subscribe(
-      data => console.log(this.responseStatus = data),
-      err => console.log(err),
-      () => console.log('request completed')
-    )
-    console.log('done end');
-    setTimeout(function () {
-      this.displayCards();
-    }.bind(this), 1000);
+      this.laneDislayService.addCard(this.cardCreate).subscribe(
+        data => console.log(this.responseStatus = data),
+        err => console.log(err),
+        () => console.log('request completed')
+      )
+      setTimeout(function () {
+        this.displayCards();
+      }.bind(this), 1000);
 
     }
     if(condition == 2){
       console.log('create Lane: done()');
-      console.log(this.lTitle);
+      console.log(this.laneTitle);
       this.showCard = false;
-      
+      this.laneCreate = {
+        laneId: 0,
+        bId: this.currentBoardId,
+        laneTitle: this.laneTitle
+      }
+      this.laneDislayService.addLane(this.laneCreate).subscribe(
+        data => console.log(this.responseStatus = data),
+        err => console.log(err),
+        () => console.log('request completed')
+      )
+      setTimeout(function () {
+        this.displayCards();
+      }.bind(this), 1000);
     }
   }
 }
