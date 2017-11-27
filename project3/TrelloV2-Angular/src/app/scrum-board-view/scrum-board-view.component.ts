@@ -14,6 +14,7 @@ export class ScrumBoardViewComponent implements OnInit {
 
   Lanes: Lane[];
   currentBoardId : number;
+  currentCardId : number;
 
   Cards: Card[];
   constructor(private laneDislayService: LaneDisplayService) { }
@@ -36,6 +37,10 @@ export class ScrumBoardViewComponent implements OnInit {
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
+  
+  }
+  doSomething(): void{
+    console.log("clicked on checkbox")
   }
 
   displayLanes(): void{
@@ -61,11 +66,18 @@ export class ScrumBoardViewComponent implements OnInit {
     this.showCard = true;
   }
 
-  displayTasks(): void{
+  displayTasks(cardId): void{
+    localStorage.setItem("currentCardId", JSON.stringify(cardId));
+    this.currentCardId = JSON.parse(localStorage.getItem("currentCardId"));
     console.log("you clicked on a card");
     this.laneDislayService.getTasks().subscribe(result =>{
       this.Tasks = result;
     })
+  }
+
+  storeCardId(cardId): void{
+    console.log(cardId);
+    localStorage.setItem("currentCardId", JSON.stringify(cardId));
   }
 
   done(){

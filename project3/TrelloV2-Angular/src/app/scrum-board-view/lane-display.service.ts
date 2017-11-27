@@ -40,7 +40,7 @@ export class LaneDisplayService{
         console.log('inside getTasks()');
         return this.http.get(this.tasksUrl) 
         .map(response => <Task[]> response.json())
-        .do(data => console.log("from tasks "+data))
+        .do(data => console.log(data))
         .catch(this.handleError)
     }
 

@@ -90,6 +90,7 @@ public class BoardCtrl {
 		List<Task> task = new ArrayList<Task>();
 		
 		task = taskRepo.findAll();
+		System.out.println(task);
 		
 		return ResponseEntity.ok(task);
 		

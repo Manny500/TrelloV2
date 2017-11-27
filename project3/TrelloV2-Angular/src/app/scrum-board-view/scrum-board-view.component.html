@@ -15,10 +15,10 @@
       <div *ngIf="lane.bId == currentBoardId ">
         <div class="module lane">
           <th><h1>{{lane.laneTitle}}</h1></th>
-          <ng-container (click)="getTasks()" class="module card" *ngFor="let card of Cards" class="col-1-4">
+          <ng-container class="module card" *ngFor="let card of Cards" class="col-1-4">
              <div *ngIf="card.lId == lane.laneId "> 
             <!-- <div class="module card"> -->
-              <tr><td><h5 data-toggle="modal" data-target=".card-modal-sm">{{card.cTitle}}</h5></td></tr>
+              <tr><td><h5 (click)="displayTasks(card.cId)"  data-toggle="modal" data-target=".card-modal-sm">{{card.cTitle}}</h5></td></tr>
               </div>
           </ng-container>
 
@@ -41,7 +41,10 @@
       </div>
       <div class="modal-body">
         <div *ngFor="let task of Tasks">
-          <div> {{task.info}}</div>
+          <div *ngIf="task.cardId == currentCardId">
+            <!-- replace doSomething() with an update T_complete function -->
+            <label ><input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}</label>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
