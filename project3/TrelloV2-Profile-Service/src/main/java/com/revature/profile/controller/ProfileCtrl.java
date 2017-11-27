@@ -17,7 +17,6 @@ public class ProfileCtrl {
 	@Autowired
 	ProfileRepo profileRepo;
 	
-	TV2User user;
 	
 	int aaaaaaaaaaa = 1; //get User ID
 	
@@ -25,19 +24,16 @@ public class ProfileCtrl {
 	private final static String POST_UPDATE_URL = "/updateInfo";
 	
 	@RequestMapping(POST_PROFILE_URL)
-	public ResponseEntity<TV2User> displayProfile(){
-		System.out.println("Inside displayProfile Controller");
+	public ResponseEntity<TV2User> displayProfile(@RequestBody TV2User user, HttpServletRequest request){
 		
-		user = (TV2User) profileRepo.findByUserId(aaaaaaaaaaa);
-		System.out.println("profile user : " + user);
+		user = profileRepo.findByUserId(user.getUserId());
 		
 		return ResponseEntity.ok(user);
 	}
 	
 	@RequestMapping(POST_UPDATE_URL)
 	public ResponseEntity<TV2User>  updateProfile(@RequestBody TV2User user, HttpServletRequest request){
-		System.out.println("update profile ctrl");
-		System.out.println("user first name: " + user.getFirstName());
+
 		
 		TV2User clientUser = new TV2User();
 		clientUser.setUserId(user.getUserId());

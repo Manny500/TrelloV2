@@ -5,13 +5,14 @@ import {Observable} from 'rxjs/Observable';
 import {Lane} from './lane-display.interface';
 import { Http } from '@angular/http';
 import { Card } from './card-display.interface';
+import { Task } from './task-display.interface';
 
 @Injectable()
 export class LaneDisplayService{
     private boardsUrl = 'board-display/trello';
     private cardsUrl = 'board-display/showCard';
-    //private addCardsUrl = 'board-update/addCard'  <= change to this once we know how to sync database
     private addCardsUrl = 'board-display/addCard';
+    private tasksUrl = 'board-display/showTask';
     //private addLanessUrl = 'board-update/addLane'  <= change to this once we know how to sync database
     private addLanesUrl = 'board-display/addLane';
 
@@ -32,6 +33,14 @@ export class LaneDisplayService{
         console.log('inside getCards()');
         return this.http.get(this.cardsUrl) 
         .map(response => <Card[]> response.json())
+        .do(data => console.log(data))
+        .catch(this.handleError)
+    }
+
+    getTasks(){
+        console.log('inside getTasks()');
+        return this.http.get(this.tasksUrl) 
+        .map(response => <Task[]> response.json())
         .do(data => console.log(data))
         .catch(this.handleError)
     }
