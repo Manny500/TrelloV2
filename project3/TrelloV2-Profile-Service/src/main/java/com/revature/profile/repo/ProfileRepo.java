@@ -9,6 +9,7 @@ public interface ProfileRepo extends CrudRepository<TV2User, Integer> {
 	
 	TV2User findByUserId(int userId);
     
+	TV2User findByuserName(String userName);
 
 	@SuppressWarnings("unchecked")
 	TV2User save(TV2User user);

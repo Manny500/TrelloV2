@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
    roleType: number;
    email: String;
   
+   temp: ProfileUser;
   
 
   constructor(private profileService: ProfileService) { }
@@ -31,9 +32,9 @@ export class ProfileComponent implements OnInit {
   status:boolean;
 
   ngOnInit() {
+    this.temp = JSON.parse(localStorage.getItem("currentUser"));
 
-    this.profileService.getInfo().subscribe(result =>{
-
+    this.profileService.getInfo(this.temp).subscribe(result =>{
       this.user = result;
       
       this.userId = this.user.userId;
