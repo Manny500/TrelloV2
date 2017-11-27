@@ -29,6 +29,7 @@ import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
 import { ViewUsersService } from './view-users/view-users.service';
 import { BoardDisplayService } from './home/board-display.service';
 import { LaneDisplayService } from './scrum-board-view/lane-display.service';
+import { RegisterService } from './register-user/register-user.service';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { LaneDisplayService } from './scrum-board-view/lane-display.service';
     TV2UserService,
     BoardDisplayService,
     ViewUsersService,
-    LaneDisplayService
+    LaneDisplayService,
+    RegisterService
   ],
 
   bootstrap: [AppComponent]
