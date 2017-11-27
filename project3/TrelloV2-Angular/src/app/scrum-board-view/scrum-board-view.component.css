@@ -6,6 +6,7 @@
 
 
  #userStories:hover {
+    
     background-color: #EEE;
     cursor: pointer;
     color: #607d8b;
@@ -15,12 +16,17 @@
     background:rgb(219, 222, 224);
   }
 
+  #addLaneBtn{
+    margin-left: 25px;
+  }
+
   .grid {
     margin: 0;
   }
   
   
   .grid-pad {
+    margin-left: 25px;
     padding: 5px 0;
   }
   .grid-pad > [class*='col-']:last-of-type {

@@ -18,9 +18,12 @@ export class ScrumBoardViewComponent implements OnInit {
   currentLaneId: number;
 
   Cards: Card[];
+  Tasks: Task[];
+
+  addTask: boolean;
   constructor(private laneDislayService: LaneDisplayService) { }
 
-  Tasks: Task[];
+  
   //
   @Input() cardCreate: Card;
   @Input() laneCreate: Lane;
@@ -74,6 +77,7 @@ export class ScrumBoardViewComponent implements OnInit {
 
   //this is storing the id of the card that was clicked as well as displaying the tasks.
   displayTasks(cardId): void{
+    this.addTask = true;
     localStorage.setItem("currentCardId", JSON.stringify(cardId));
     this.currentCardId = JSON.parse(localStorage.getItem("currentCardId"));
     console.log("you clicked on a card");
