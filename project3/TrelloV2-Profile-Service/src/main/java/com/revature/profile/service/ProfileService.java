@@ -10,18 +10,18 @@ import com.revature.profile.repo.ProfileRepo;
 public class ProfileService {
 	
 	//@Autowired
-	private ProfileRepo repo;
+	private ProfileRepo profileRepo;
 	
 	@Autowired
-	public ProfileService(ProfileRepo repo) {
-		this.repo = repo;
+	public ProfileService(ProfileRepo profileRepo) {
+		this.profileRepo = profileRepo;
 	}
 	
 	
 	public TV2User findByUserId(int userId) {
-		return repo.findByUserId(userId);
+		return profileRepo.findByUserId(userId);
 	}
 	public TV2User save(TV2User user) {
-		return repo.save(user);
+		return profileRepo.save(user);
 	}
 }

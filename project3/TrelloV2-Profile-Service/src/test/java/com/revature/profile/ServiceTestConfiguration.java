@@ -13,6 +13,8 @@ import com.revature.profile.repo.ProfileRepo;
  * The @Primary annotation is there to make sure this instance is used instead of a real one for autowiring.  
  * The method itself creates and returns a Mockito mock of our ProfileRepo class.
  */
+
+//configure application context for the tests
 @Profile("test")
 @Configuration
 public class ServiceTestConfiguration {

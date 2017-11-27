@@ -1,5 +1,7 @@
 package com.revature.profile;
 
+import static junit.framework.Assert.assertEquals;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -8,30 +10,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.revature.profile.bean.TV2User;
 import com.revature.profile.repo.ProfileRepo;
 import com.revature.profile.service.ProfileService;
+
+import junit.framework.Assert;
 
 
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
-//@SpringBootConfiguration(TrelloV2ProfileServiceApplication.class)
-//@SpringApplicationConfiguration(classes = TrelloV2ProfileServiceApplication.class)
-@SpringBootTest
-//@DatabaseSetup("classpath:FillTestData.xml")
-//@DatabaseTearDown("classpath:DbClean.xml")
+@SpringBootTest(classes = TrelloV2ProfileServiceApplication.class)
 public class ProfileServiceTest {
-	  @Autowired
-	  private ProfileService profileService;
-	  
-	  @Autowired
-	  private ProfileRepo profileRepo;
-	  
-	  @SuppressWarnings("deprecation")
-	  @Test
-	  public void testFindByUserId() {
-//	      Mockito.when(profileRepo.findAll()).thenReturn("Mock user name");        
-//	      String testName = profileService.getUserName("SomeId");
-//	      Assert.assertEquals("Mock user name", testName);
-	  }
-	 
+	
+	@Autowired
+	private ProfileService profileService;
+	@Autowired
+	private ProfileRepo profileRepo;
+
+	@SuppressWarnings("deprecation")
+	@Test
+	public void findByUserId() {
+		TV2User mockUser = new TV2User();
+		Mockito.when( Mockito.mock(ProfileRepo.class).findByUserId(1)).thenReturn(mockUser);
+		TV2User user = profileService.findByUserId(1);
+		Assert.assertEquals("John", user.getFirstName());
+	}
 }
