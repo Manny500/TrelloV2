@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.board.beans.Card;
+import com.revature.board.beans.Lane;
 import com.revature.board.repo.CardRepo;
 
 @RestController
 public class BoardCtrl {
 	private final static String ADD_CARD_URL = "/addCard";
-	
+	private final static String ADD_LANE_URL = "/addLane";
 	@Autowired
 	CardRepo cardRepo;
 	
@@ -30,5 +31,16 @@ public class BoardCtrl {
 	    newCard.setcDescription(card.getcDescription());
 	    cardRepo.save(newCard);
 	    return ResponseEntity.ok(card);
+	}
+	@RequestMapping(ADD_LANE_URL)
+	public ResponseEntity<Lane> addlane(@RequestBody Lane lane, HttpServletRequest request){
+		
+		Lane newLane = new Lane();
+		newLane.setLaneId(lane.getLaneId());
+		newLane.setbId(lane.getbId());
+		newLane.setLaneTitle(lane.getLaneTitle());
+	   
+	    laneRepo.save(newLane);
+	    return ResponseEntity.ok(lane);
 	}
 }

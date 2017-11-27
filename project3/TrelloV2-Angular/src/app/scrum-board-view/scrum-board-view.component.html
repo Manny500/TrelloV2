@@ -1,7 +1,8 @@
 <app-navbar></app-navbar>
 <br>
-<button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
 <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-sm">+Card</button>
+<button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
 <br>
 
 <!-- show lanes and cards -->
@@ -41,16 +42,38 @@
       </div>
       <div class="modal-body">
 
-        Lane ID:
-        <input [(ngModel)]="lId" class="form-control" id="card-laneId"> Title:
-        <input [(ngModel)]="cTitle" class="form-control" id="card-title"> Description:
-        <input [(ngModel)]="cDescriptoin" class="form-control" id="card-description"> Points:
-        <input [(ngModel)]="cWorth" class="form-control" id="card-points">
+        Lane ID:<input [(ngModel)]="lId" class="form-control" id="card-laneId">
+        Title:<input [(ngModel)]="cTitle" class="form-control" id="card-title"> 
+        Description:<input [(ngModel)]="cDescriptoin" class="form-control" id="card-description"> 
+        Points:<input [(ngModel)]="cWorth" class="form-control" id="card-points">
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" (click)="done()" class="btn btn-primary" data-dismiss="modal">Done</button>
+        <button type="button" (click)="done(1)" class="btn btn-primary" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal for adding lanes -->
+<div class="modal fade bd-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cardModal">Create a New Lane</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        Title:<input [(ngModel)]="laneTitle" class="form-control" id="line-title"> 
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" (click)="done(2)" class="btn btn-primary" data-dismiss="modal">Done</button>
       </div>
     </div>
   </div>
