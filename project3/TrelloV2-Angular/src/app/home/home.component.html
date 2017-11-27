@@ -1,7 +1,10 @@
 <app-navbar></app-navbar>
 
 <br>
+<div *ngIf="currentUserRoleType == 1">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2" style="padding:20px;margin:30px">+ Create Board</button>
+</div>
+
 <!-- modal for adding Boards -->
 <div class="modal fade bd-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">

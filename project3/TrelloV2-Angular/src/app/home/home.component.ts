@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   @Input() makeBoard: Board;
   responseStatus: Object = [];
 
+
   //CreateBoard
   bId: number;
   tv2Id: number;
@@ -26,7 +27,6 @@ export class HomeComponent implements OnInit {
   constructor(private route: Router, private boardDisplayService: BoardDisplayService) { }
 
   ngOnInit() {
-    console.log(this.currentUserRoleType);
     this.displayBoards();
   }
 
