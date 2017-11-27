@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
 import com.revature.board.repo.CardRepo;
+import com.revature.board.repo.LaneRepo;
 
 @RestController
 public class BoardCtrl {
@@ -18,6 +19,8 @@ public class BoardCtrl {
 	private final static String ADD_LANE_URL = "/addLane";
 	@Autowired
 	CardRepo cardRepo;
+	@Autowired
+	LaneRepo laneRepo;
 	
 	@RequestMapping(ADD_CARD_URL)
 	public ResponseEntity<Card> addCard(@RequestBody Card card, HttpServletRequest request){
