@@ -5,21 +5,23 @@
 <br>
 
 <!-- show lanes and cards -->
-<div *ngIf="showCard" class="grid grid-pad">
+<div *ngIf="showCard" class="grid grid-pad" style="width:800px;height:700px;overflow:auto">
   <div *ngFor="let lane of Lanes" class="col-1-4">
     <br>
+    <tr>
     <div *ngIf="lane.bId == currentBoardId ">
       <div class="module lane">
-        <h5>{{lane.laneTitle}}</h5>
+        <th>{{lane.laneTitle}}</th>
         <div *ngFor="let card of Cards" class="col-1-4">
           <div *ngIf="card.lId == lane.laneId ">
             <div class="module card">
-              <h5>{{card.cTitle}}</h5>
+              <td>{{card.cTitle}}</td>
             </div>
           </div>
         </div>
       </div>
     </div>
+    </tr>
   </div>
 </div>
 
@@ -45,13 +47,6 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" (click)="done()" class="btn btn-primary" data-dismiss="modal">Done</button>
       </div>
-      <!-- Lane id : <input [(ngModel)]="lane.laneId" placeholder="name" />
-            ...
-            Enter Title: <input [(ngModel)]="card.cTitle" placeholder="name" /> <br>
-            ...
-            Enter Description: <input [(ngModel)]="card.cDescription" placeholder="name" /> <br>
-            ...
-            Enter Points: <input [(ngModel)]="card.cWorth" placeholder="name" /> <br> -->
     </div>
   </div>
 </div>
