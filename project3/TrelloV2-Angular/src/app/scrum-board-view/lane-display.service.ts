@@ -12,6 +12,8 @@ export class LaneDisplayService{
     private cardsUrl = 'board-display/showCard';
     //private addCardsUrl = 'board-update/addCard'  <= change to this once we know how to sync database
     private addCardsUrl = 'board-display/addCard';
+    //private addLanessUrl = 'board-update/addLane'  <= change to this once we know how to sync database
+    private addLanesUrl = 'board-display/addLane';
 
 
     constructor(private http: Http){}
@@ -36,6 +38,12 @@ export class LaneDisplayService{
 
     addCard(cardCreate : Card){
         return this.http.post(this.addCardsUrl, cardCreate, {
+        })
+        .map(res => res.json())
+    }
+
+    addLane(laneCreate : Lane){
+        return this.http.post(this.addLanesUrl, laneCreate, {
         })
         .map(res => res.json())
     }
