@@ -70,7 +70,7 @@ export class ScrumBoardViewComponent implements OnInit {
       this.showCard = false;
       this.cardCreate = {
         cId: 0, //sql sequece will change this to appropriate number
-        lId: this.lId,
+        lId: this.currentLaneId,
         cVerify: 0,
         cWorth: this.cWorth,
         cTitle: this.cTitle,
@@ -108,6 +108,5 @@ export class ScrumBoardViewComponent implements OnInit {
 
   updatecurrentLane(lId: number){
       this.currentLaneId = lId;
-      console.log('this laneId = ' +this.currentLaneId);
   }
 }
