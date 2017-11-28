@@ -3,6 +3,7 @@ import { LaneDisplayService } from './lane-display.service';
 import { Lane } from './lane-display.interface';
 import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
+import { BurndownDto } from './burndown-dto.interface';
 
 @Component({
   selector: 'app-scrum-board-view',
@@ -18,9 +19,13 @@ export class ScrumBoardViewComponent implements OnInit {
   currentLaneId: number;
 
   Cards: Card[];
+<<<<<<< HEAD
   Tasks: Task[];
 
   showTaskBtns: boolean;
+=======
+  boardCards: Card[] = [];
+>>>>>>> d2cd4c8d88382030359b1190fa4b5709734a8db9
   constructor(private laneDislayService: LaneDisplayService) { }
 
   
@@ -28,6 +33,7 @@ export class ScrumBoardViewComponent implements OnInit {
   @Input() taskCreate: Task;
   @Input() cardCreate: Card;
   @Input() laneCreate: Lane;
+  @Input() burndownCreate: BurndownDto;
 
   responseStatus: Object = [];
   status: boolean;
@@ -54,7 +60,14 @@ export class ScrumBoardViewComponent implements OnInit {
 
   }
 
+<<<<<<< HEAD
   
+=======
+  push(card: Card){
+    this.boardCards.push(card);
+    console.log(this.boardCards);
+  }
+>>>>>>> d2cd4c8d88382030359b1190fa4b5709734a8db9
 
   displayLanes(): void {
     //getting the current board's id (this value was set  in home.component.ts)
@@ -122,7 +135,16 @@ export class ScrumBoardViewComponent implements OnInit {
         err => console.log(err),
         () => console.log('request completed')
       )
+      // this.burndownCreate = {
+      //   bId: this.currentBoardId,
+      //   cards: this.boardCards
+      // }
+
+
+      // console.log("from done(1): ");
+      // console.log(this.boardCards);
       setTimeout(function () {
+        // this.laneDislayService.updateBurndownChart(this.burndownCreate);
         this.displayCards();
       }.bind(this), 1000);
 
@@ -141,10 +163,13 @@ export class ScrumBoardViewComponent implements OnInit {
         err => console.log(err),
         () => console.log('request completed')
       )
+
+      
       setTimeout(function () {
         this.displayLanes();
       }.bind(this), 1000);
     }
+    
   }
 
   updatecurrentLane(lId: number) {

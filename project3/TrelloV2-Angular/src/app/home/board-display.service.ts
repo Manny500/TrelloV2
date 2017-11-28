@@ -9,7 +9,7 @@ import { Http } from '@angular/http';
 export class BoardDisplayService{
     private masterBoardsUrl = 'board-display/home';
     // private userBoardsUrl = 'board-display/user-home'
-    private makeBoardsUrl = 'board-display/updateBoard2';
+    private makeBoardsUrl = 'board-update/addBoard';
 
     constructor(private http: Http){ }
 
@@ -24,15 +24,8 @@ export class BoardDisplayService{
     addBoard(boardCreate: Board){
         return this.http.post(this.makeBoardsUrl, boardCreate, {
         })
-        .map(res => res.json())
         
     }
-    // getUserBoards(){
-    //     return this.http.get(this.userBoardsUrl)
-    //     .map(response => <Board[]> response.json())
-    //     .do(data => console.log(data))
-    //     .catch(this.handleError);
-    // }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only

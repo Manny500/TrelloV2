@@ -6,19 +6,24 @@ import {Lane} from './lane-display.interface';
 import { Http } from '@angular/http';
 import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
+import { BurndownDto } from './burndown-dto.interface';
 
 @Injectable()
 export class LaneDisplayService{
 
     private boardsUrl = 'board-display/trello';
     private cardsUrl = 'board-display/showCard';
+<<<<<<< HEAD
     private addCardsUrl = 'board-display/addCard';
     private addTaskUrl = 'board-display/addTask';
     private switchLaneUrl = 'board-display/updateCard';
+=======
+    private addCardsUrl = 'board-update/addCard';
+    private switchLaneUrl = 'board-update/updateCard';
+>>>>>>> d2cd4c8d88382030359b1190fa4b5709734a8db9
     private tasksUrl = 'board-display/showTask';
-    //private addLanessUrl = 'board-update/addLane'  <= change to this once we know how to sync database
-    private addLanesUrl = 'board-display/addLane';
-
+    private addLanesUrl = 'board-update/addLane';
+    private burndownUpdateUrl = 'board-update/updateBurndown';
 
     constructor(private http: Http){}
 
@@ -57,19 +62,21 @@ export class LaneDisplayService{
     addCard(cardCreate : Card){
         return this.http.post(this.addCardsUrl, cardCreate, {
         })
-        .map(res => res.json())
     }
 
     switchLane(cardCreate : Card){
         return this.http.post(this.switchLaneUrl, cardCreate, {
         })
-        .map(res => res.json())
     }
 
     addLane(laneCreate : Lane){
         return this.http.post(this.addLanesUrl, laneCreate, {
         })
-        .map(res => res.json())
+    }
+
+    updateBurndownChart(burndownCreate: BurndownDto){
+        return this.http.post(this.burndownUpdateUrl, burndownCreate, {
+        })
     }
 
     private handleError(error: any): Promise<any> {

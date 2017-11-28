@@ -29,7 +29,9 @@
                 <h2>{{lane.laneTitle}}</h2>
               </th>
               <ng-container *ngFor="let card of Cards" class="col-1-4">
-                <div *ngIf="card.lId == lane.laneId ">
+                <div *ngIf="card.lId == lane.laneId">
+                 
+                    
                   <!-- <div class="module card"> -->
                   <tr>
                     <td *ngIf="i > 0">
