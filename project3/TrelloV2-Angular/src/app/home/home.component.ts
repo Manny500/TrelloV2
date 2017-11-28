@@ -53,14 +53,12 @@ export class HomeComponent implements OnInit {
         bTitle: this.bTitle,
         tv2Team: JSON.parse(localStorage.getItem("currentUser")).team
       }
+      
       this.boardDisplayService.addBoard(this.makeBoard).subscribe(
         data => console.log(this.responseStatus = data),
         err => console.log(err),
         () => console.log('request completed')
       )
-      // setTimeout(function () {
-      //   this.displayCards();
-      // }.bind(this), 1000);
 
     }
   }
