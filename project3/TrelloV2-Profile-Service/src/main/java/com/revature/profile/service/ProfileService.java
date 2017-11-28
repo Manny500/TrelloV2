@@ -1,5 +1,7 @@
 package com.revature.profile.service;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,13 +11,14 @@ import com.revature.profile.repo.ProfileRepo;
 @Service
 public class ProfileService {
 	
-	//@Autowired
+	@Resource
+	@Autowired
 	private ProfileRepo profileRepo;
 	
-	@Autowired
-	public ProfileService(ProfileRepo profileRepo) {
-		this.profileRepo = profileRepo;
-	}
+//	@Autowired
+//	public ProfileService(ProfileRepo profileRepo) {
+//		this.profileRepo = profileRepo;
+//	}
 	
 	
 	public TV2User findByUserId(int userId) {
@@ -23,5 +26,13 @@ public class ProfileService {
 	}
 	public TV2User save(TV2User user) {
 		return profileRepo.save(user);
+	}
+	
+	/**
+     * This setter method should be used only by unit tests.
+     * @param personRepository
+     */
+	public void setProfileRepo (ProfileRepo profileRepo) {
+		this.profileRepo = profileRepo;
 	}
 }
