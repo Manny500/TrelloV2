@@ -13,14 +13,9 @@ export class LaneDisplayService{
 
     private boardsUrl = 'board-display/trello';
     private cardsUrl = 'board-display/showCard';
-<<<<<<< HEAD
-    private addCardsUrl = 'board-display/addCard';
-    private addTaskUrl = 'board-display/addTask';
-    private switchLaneUrl = 'board-display/updateCard';
-=======
     private addCardsUrl = 'board-update/addCard';
+    private addTaskUrl = 'board-update/addTask';
     private switchLaneUrl = 'board-update/updateCard';
->>>>>>> d2cd4c8d88382030359b1190fa4b5709734a8db9
     private tasksUrl = 'board-display/showTask';
     private addLanesUrl = 'board-update/addLane';
     private burndownUpdateUrl = 'board-update/updateBurndown';
@@ -56,7 +51,7 @@ export class LaneDisplayService{
     postTask(taskCreate: Task){
         return this.http.post(this.addTaskUrl, taskCreate, {
         })
-        .map(res => res.json())
+       
     }
 
     addCard(cardCreate : Card){

@@ -4,6 +4,7 @@ import { Lane } from './lane-display.interface';
 import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
 import { BurndownDto } from './burndown-dto.interface';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-scrum-board-view',
@@ -19,13 +20,11 @@ export class ScrumBoardViewComponent implements OnInit {
   currentLaneId: number;
 
   Cards: Card[];
-<<<<<<< HEAD
   Tasks: Task[];
 
   showTaskBtns: boolean;
-=======
   boardCards: Card[] = [];
->>>>>>> d2cd4c8d88382030359b1190fa4b5709734a8db9
+ 
   constructor(private laneDislayService: LaneDisplayService) { }
 
   
@@ -57,17 +56,14 @@ export class ScrumBoardViewComponent implements OnInit {
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
+    
 
   }
 
-<<<<<<< HEAD
-  
-=======
   push(card: Card){
     this.boardCards.push(card);
     console.log(this.boardCards);
   }
->>>>>>> d2cd4c8d88382030359b1190fa4b5709734a8db9
 
   displayLanes(): void {
     //getting the current board's id (this value was set  in home.component.ts)
@@ -84,6 +80,8 @@ export class ScrumBoardViewComponent implements OnInit {
 
     this.laneDislayService.getCards().subscribe(result => {
       this.Cards = result;
+      this.boardCards = this.Cards;
+      
 
     })
 
@@ -130,21 +128,14 @@ export class ScrumBoardViewComponent implements OnInit {
         cDescription: this.cDescription
       }
 
+      this.boardCards.push(this.cardCreate);
       this.laneDislayService.addCard(this.cardCreate).subscribe(
         data => console.log(this.responseStatus = data),
         err => console.log(err),
         () => console.log('request completed')
       )
-      // this.burndownCreate = {
-      //   bId: this.currentBoardId,
-      //   cards: this.boardCards
-      // }
 
-
-      // console.log("from done(1): ");
-      // console.log(this.boardCards);
       setTimeout(function () {
-        // this.laneDislayService.updateBurndownChart(this.burndownCreate);
         this.displayCards();
       }.bind(this), 1000);
 
@@ -169,6 +160,17 @@ export class ScrumBoardViewComponent implements OnInit {
         this.displayLanes();
       }.bind(this), 1000);
     }
+
+    this.burndownCreate = {
+      bId: this.currentBoardId,
+      cards: this.boardCards,
+      lanes: this.Lanes
+    }
+
+    console.log("from done(1): ");
+    console.log(this.burndownCreate);
+    this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
+    console.log("passed updateBurndown method")
     
   }
 

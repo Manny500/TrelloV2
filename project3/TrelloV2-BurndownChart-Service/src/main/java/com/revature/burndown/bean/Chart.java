@@ -33,6 +33,11 @@ public class Chart {
 	public Chart() {
 
 	}
+	
+	public Chart(int chartBoard, int chartSum) {
+		this.chartBoard = chartBoard;
+		this.chartSum = chartSum;
+	}
 
 	public int getChartId() {
 		return chartId;
