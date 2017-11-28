@@ -48,7 +48,7 @@ export class ScrumBoardViewComponent implements OnInit {
   laneTitle: string;
 
   //addTask
-  info: string;
+  inputedTaskInfo: string;
 
   //
   public showCard = true;
@@ -99,12 +99,12 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   addTask(): void{
-    console.log(this.info);
+    console.log(this.inputedTaskInfo);
     this.taskCreate = {
       taskId: 0,
       cardId : this.currentCardId,
       status: 0,
-      info: this.info
+      info: this.inputedTaskInfo
     }
     this.laneDislayService.postTask(this.taskCreate).subscribe(
       data => console.log(this.responseStatus = data),
@@ -114,6 +114,8 @@ export class ScrumBoardViewComponent implements OnInit {
     setTimeout(function () {
       this.displayTasks(this.currentCardId);
     }.bind(this), 1000);
+
+    this.inputedTaskInfo="";
   }
 
   done(condition: number) {
@@ -138,6 +140,10 @@ export class ScrumBoardViewComponent implements OnInit {
       setTimeout(function () {
         this.displayCards();
       }.bind(this), 1000);
+
+      this.cWorth = null;
+      this.cTitle = "";
+      this.cDescription = "";
 
     }
 
