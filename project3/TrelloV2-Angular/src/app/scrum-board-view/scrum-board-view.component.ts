@@ -3,6 +3,7 @@ import { LaneDisplayService } from './lane-display.service';
 import { Lane } from './lane-display.interface';
 import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
+import { BurndownDto } from './burndown-dto.interface';
 
 @Component({
   selector: 'app-scrum-board-view',
@@ -18,12 +19,14 @@ export class ScrumBoardViewComponent implements OnInit {
   currentLaneId: number;
 
   Cards: Card[];
+  boardCards: Card[] = [];
   constructor(private laneDislayService: LaneDisplayService) { }
 
   Tasks: Task[];
   //two way binding
   @Input() cardCreate: Card;
   @Input() laneCreate: Lane;
+  @Input() burndownCreate: BurndownDto;
 
   responseStatus: Object = [];
   status: boolean;
@@ -45,6 +48,11 @@ export class ScrumBoardViewComponent implements OnInit {
     this.displayLanes();
     this.displayCards();
 
+  }
+
+  push(card: Card){
+    this.boardCards.push(card);
+    console.log(this.boardCards);
   }
 
   displayLanes(): void {
@@ -94,7 +102,16 @@ export class ScrumBoardViewComponent implements OnInit {
         err => console.log(err),
         () => console.log('request completed')
       )
+      // this.burndownCreate = {
+      //   bId: this.currentBoardId,
+      //   cards: this.boardCards
+      // }
+
+
+      // console.log("from done(1): ");
+      // console.log(this.boardCards);
       setTimeout(function () {
+        // this.laneDislayService.updateBurndownChart(this.burndownCreate);
         this.displayCards();
       }.bind(this), 1000);
 
@@ -113,10 +130,13 @@ export class ScrumBoardViewComponent implements OnInit {
         err => console.log(err),
         () => console.log('request completed')
       )
+
+      
       setTimeout(function () {
         this.displayLanes();
       }.bind(this), 1000);
     }
+    
   }
 
   updatecurrentLane(lId: number) {
