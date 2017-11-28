@@ -3,47 +3,53 @@ package com.revature.board.controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.board.beans.Card;
-import com.revature.board.beans.Lane;
-import com.revature.board.repo.CardRepo;
-import com.revature.board.repo.LaneRepo;
+import com.revature.board.message.Messaging;
 
 @RestController
 public class BoardCtrl {
 	private final static String ADD_CARD_URL = "/addCard";
 	private final static String ADD_LANE_URL = "/addLane";
+	private final static String ADD_BOARD_URL = "/addBoard";
+	private final static String SWITCH_LANE_URL = "/updateCard";
+
 	@Autowired
-	CardRepo cardRepo;
-	@Autowired
-	LaneRepo laneRepo;
+	Messaging mysource;
 	
+	@RequestMapping(SWITCH_LANE_URL)
+	public String switchLane(@RequestBody String payload, HttpServletRequest request) {
+
+		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 4).build());
+
+		return "Success";
+	}
+
 	@RequestMapping(ADD_CARD_URL)
-	public ResponseEntity<Card> addCard(@RequestBody Card card, HttpServletRequest request){
-		System.out.println("addCard Ctrl");
-		System.out.println("card Title: "+ card.getcTitle());
-		System.out.println("card id??: " + card.getcId());
-		Card newCard = new Card();
-		newCard.setlId(card.getlId());
-		newCard.setcTitle(card.getcTitle());
-		newCard.setcWorth(card.getcWorth());
-	    newCard.setcDescription(card.getcDescription());
-	    cardRepo.save(newCard);
-	    return ResponseEntity.ok(card);
+	public String addCard(@RequestBody String payload, HttpServletRequest request) {
+
+		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 3).build());
+
+		return "Success";
 	}
+
 	@RequestMapping(ADD_LANE_URL)
-	public ResponseEntity<Lane> addlane(@RequestBody Lane lane, HttpServletRequest request){
-		
-		Lane newLane = new Lane();
-		newLane.setLaneId(lane.getLaneId());
-		newLane.setbId(lane.getbId());
-		newLane.setLaneTitle(lane.getLaneTitle());
-	   
-	    laneRepo.save(newLane);
-	    return ResponseEntity.ok(lane);
+	public String addlane(@RequestBody String payload, HttpServletRequest request) {
+
+		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 2).build());
+
+		return "Success";
 	}
+
+	@RequestMapping(ADD_BOARD_URL)
+	public String addBoard(@RequestBody String payload, HttpServletRequest request) {
+
+		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 1).build());
+
+		return "Success";
+	}
+
 }
