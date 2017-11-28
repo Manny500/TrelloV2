@@ -1,18 +1,30 @@
 <app-navbar></app-navbar>
+
 <br>
-<button id="addLaneBtn"type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
-<!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-sm">+Card</button> -->
+
+<button id="addLaneBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
+
 <button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
+
 <br>
 
 <div *ngIf="showCard" class="grid grid-pad" style="width:2000px;height:500px;overflow:auto">
-  <div *ngFor="let lane of Lanes" class="col-1-4">
+
+  <!-- start of lane display -->
+  <div *ngFor="let lane of Lanes; index as i" class="col-1-4">
+
     <div class="card" style="background:rgb(185, 197, 207)">
+
       <div class="card-block">
+
         <table>
+
           <br>
+
           <div *ngIf="lane.bId == currentBoardId ">
+
             <div class="module lane">
+
               <th>
                 <h2>{{lane.laneTitle}}</h2>
               </th>
@@ -20,13 +32,20 @@
                 <div *ngIf="card.lId == lane.laneId ">
                   <!-- <div class="module card"> -->
                   <tr>
+                    <td *ngIf="i > 0">
+                      <button type="button" class="btn-sm btn-primary" (click)="switchLane(card, i-1)">
+                        <</button>
+                    </td>
                     <td>
                       <div id="userStories" class="card">
-                        <div class="card-block">
-                          <h6 (click)="displayTasks(card.cId)" data-toggle="modal" data-target=".card-modal-sm" class="card-title">{{card.cTitle}}</h6>
+                        <div (click)="displayTasks(card.cId)" class="card-block">
+                          <h6 data-toggle="modal" data-target=".card-modal-sm" class="card-title">{{card.cTitle}}</h6>
                           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                         </div>
                       </div>
+                    </td>
+                    <td>
+                      <button type="button" class="btn-sm btn-primary" (click)="switchLane(card,i+1)">></button>
                     </td>
                   </tr>
                 </div>
@@ -56,19 +75,25 @@
             <label>
               <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
             </label>
-              
-    
+
+
           </div>
         </div>
-        <textarea style="word-wrap:break-word;overflow-x:hidden;background:transparent" type="text" placeholder="add task"></textarea>
+        <br>
+        <div [hidden]="showTaskBtns" id="taskInput" (click)="showTaskBtns=true">add a task...</div>
+
         
-        <div *ngIf="addTask"> 
-            <button type="button" class="btn btn-secondary">add task</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
-        </div> 
+          <input [hidden]="!showTaskBtns" [(ngModel)]="info" type="text" placeholder="add task" />
+          <div *ngIf="showTaskBtns">
+
+            <button (click)="showTaskBtns=false; addTask()" type="button" class="btn btn-secondary">add task</button>
+            <button (click)="showTaskBtns=false" type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
+          </div>
+        
+
       </div>
       <div class="modal-footer">
-        
+
         <button type="button" (click)="done()" class="btn btn-primary" data-dismiss="modal">Done</button>
       </div>
 

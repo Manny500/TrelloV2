@@ -9,9 +9,12 @@ import { Task } from './task-display.interface';
 
 @Injectable()
 export class LaneDisplayService{
+
     private boardsUrl = 'board-display/trello';
     private cardsUrl = 'board-display/showCard';
     private addCardsUrl = 'board-display/addCard';
+    private addTaskUrl = 'board-display/addTask';
+    private switchLaneUrl = 'board-display/updateCard';
     private tasksUrl = 'board-display/showTask';
     //private addLanessUrl = 'board-update/addLane'  <= change to this once we know how to sync database
     private addLanesUrl = 'board-display/addLane';
@@ -45,8 +48,20 @@ export class LaneDisplayService{
         .catch(this.handleError)
     }
 
+    postTask(taskCreate: Task){
+        return this.http.post(this.addTaskUrl, taskCreate, {
+        })
+        .map(res => res.json())
+    }
+
     addCard(cardCreate : Card){
         return this.http.post(this.addCardsUrl, cardCreate, {
+        })
+        .map(res => res.json())
+    }
+
+    switchLane(cardCreate : Card){
+        return this.http.post(this.switchLaneUrl, cardCreate, {
         })
         .map(res => res.json())
     }

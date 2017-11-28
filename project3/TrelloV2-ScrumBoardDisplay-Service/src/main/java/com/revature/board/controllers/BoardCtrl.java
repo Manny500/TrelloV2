@@ -25,12 +25,17 @@ import com.revature.board.repo.TaskRepo;
 public class BoardCtrl {
 	
 	private final static String GET_BOARD_URL = "/home";
+	private final static String SWITCH_LANE_URL = "/updateCard";
 	private final static String GET_LANE_URL = "/trello";
 	private final static String GET_USER_BOARD_URL = "/user-home";
 	private final static String GET_CARD_URL = "/showCard";
 	private final static String ADD_CARD_URL = "/addCard";
 	private final static String GET_TASK_URL = "/showTask";
+	private final static String ADD_TASK_URL = "/addTask";
+
 	private final static String ADD_LANE_URL = "/addLane";
+	
+	private final static String POST_UPDATE_BOARD_URL = "/updateBoard2";
 	
 	@Autowired
 	BoardRepo boardRepo;
@@ -41,6 +46,15 @@ public class BoardCtrl {
 	@Autowired
 	CardRepo cardRepo;
 	
+	@RequestMapping(POST_UPDATE_BOARD_URL)
+	public ResponseEntity<Board> updateBoard(@RequestBody Board board, HttpServletRequest request) {
+		System.err.println("In Update");
+		
+		board = boardRepo.save(board);
+		
+		
+		return ResponseEntity.ok(board);
+	}
 	@Autowired
 	TaskRepo taskRepo;
 	
@@ -95,12 +109,21 @@ public class BoardCtrl {
 		return ResponseEntity.ok(task);
 		
 	}
+	@RequestMapping(ADD_TASK_URL)
+	public ResponseEntity<Task> addTask(@RequestBody Task task, HttpServletRequest request){
+		
+		Task newTask = new Task();
+		newTask.setCardId(task.getCardId());
+		newTask.setInfo(task.getInfo());
+		newTask.setStatus(task.getStatus());
+		newTask.setTaskId(task.getTaskId());
+		taskRepo.save(newTask);
+	    return ResponseEntity.ok(task);
+	}
 	
 	@RequestMapping(ADD_CARD_URL)
 	public ResponseEntity<Card> addCard(@RequestBody Card card, HttpServletRequest request){
-		System.out.println("addCard Ctrl");
-		System.out.println("card Title: "+ card.getcTitle());
-		System.out.println("card id??: " + card.getcId());
+		
 		Card newCard = new Card();
 		newCard.setlId(card.getlId());
 		newCard.setcTitle(card.getcTitle());
@@ -109,6 +132,14 @@ public class BoardCtrl {
 	    cardRepo.save(newCard);
 	    return ResponseEntity.ok(card);
 	}
+	
+	@RequestMapping(SWITCH_LANE_URL)
+	public ResponseEntity<Card> switchLane(@RequestBody Card card, HttpServletRequest request){
+		
+		cardRepo.save(card);
+		return ResponseEntity.ok(card);
+	}
+	
 	@RequestMapping(ADD_LANE_URL)
 	public ResponseEntity<Lane> addlane(@RequestBody Lane lane, HttpServletRequest request){
 		
