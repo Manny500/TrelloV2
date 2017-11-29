@@ -1,3 +1,4 @@
+
 --Lookup table
 CREATE TABLE CARD
   (

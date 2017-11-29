@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.profile.bean.TV2User;
 import com.revature.profile.message.Messaging;
 import com.revature.profile.repo.ProfileRepo;
+import com.revature.profile.service.ProfileService;
 
 @RestController
 public class ProfileCtrl {
@@ -27,10 +28,13 @@ public class ProfileCtrl {
 	@Autowired
 	ProfileRepo profileRepo;
 	
+	@Autowired
+	ProfileService service;
+	
 	@RequestMapping(POST_PROFILE_URL)
 	public ResponseEntity<TV2User> displayProfile(@RequestBody TV2User user, HttpServletRequest request){
 		
-		user = profileRepo.findByUserId(user.getUserId());
+		user = service.findByUserId(user.getUserId());
 		
 		return ResponseEntity.ok(user);
 	}
@@ -51,10 +55,10 @@ public class ProfileCtrl {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
+		service.save(user);
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 1).build());
 		
-		profileRepo.save(user);
+		
 		return ResponseEntity.ok(user);
 		
 		
