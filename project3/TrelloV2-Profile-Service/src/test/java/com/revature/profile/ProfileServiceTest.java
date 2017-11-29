@@ -24,6 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.revature.profile.bean.TV2User;
 import com.revature.profile.repo.ProfileRepo;
 import com.revature.profile.service.ProfileService;
+import com.revature.profile.service.UserNotFoundException;
 
 import junit.framework.Assert;
 
@@ -42,6 +43,8 @@ public class ProfileServiceTest {
 	private static final int uId = 1;
 	private static final String firstName = "John";
 	private static final String lastName = "Snow";
+	private static final String updateFirstName = "Johnny";
+	private static final String updateLastName = "SnowWhite";
 
 	@Before
 	public void setUp() {
@@ -56,7 +59,7 @@ public class ProfileServiceTest {
 		TV2User user = ProfileTestUtil.createModelObject(uId, firstName, lastName);
 		when(profileRepoMock.findByUserId(uId)).thenReturn(user);
 		
-		TV2User returned =  profileService.findByUserId(uId);
+		TV2User returned =  profileService.findByUserId(1);
 		
 		verify(profileRepoMock, times(1)).findByUserId(uId);
 		verifyNoMoreInteractions(profileRepoMock);
@@ -64,7 +67,27 @@ public class ProfileServiceTest {
 		assertEquals(user, returned);
 		
 	}
-
+	
+	@Test//(expected = UserNotFoundException.class)
+	public void testSave() { //update
+		TV2User updated = ProfileTestUtil.createModelObject(uId,updateFirstName,updateLastName);
+		TV2User user = ProfileTestUtil.createModelObject(uId, firstName, lastName);
+	
+		when(profileRepoMock.save(user)).thenReturn(updated);
+		
+		TV2User returned = profileService.save(user);
+		
+		verify(profileRepoMock, times(1)).save(user);
+		verifyNoMoreInteractions(profileRepoMock);
+		
+		assertUser(updated, returned);
+	}
+	
+	private void assertUser(TV2User expected, TV2User actual) {
+		assertEquals(expected.getUserId(), actual.getUserId());
+		assertEquals(expected.getFirstName(), actual.getFirstName());
+		assertEquals(expected.getLastName(), actual.getLastName());
+	}
 	
 //	@Test
 //	public void testFindAll() {
@@ -78,7 +101,7 @@ public class ProfileServiceTest {
 //		//call the main method you want to test
 //		List result = profileService.findAll();
 //		
-//		//Mock Alert: verify the method was caled
+//		//Mock Alert: verify the method was called
 //		verify(profileRepoMock).findAll();
 //	}
 }

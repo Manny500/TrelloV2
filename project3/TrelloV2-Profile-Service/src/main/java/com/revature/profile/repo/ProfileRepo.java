@@ -15,5 +15,7 @@ public interface ProfileRepo extends CrudRepository<TV2User, Integer> {
 	@SuppressWarnings("unchecked")
 	TV2User save(TV2User user);
 	
+	TV2User findOne(int userId);
+	
 }
  
