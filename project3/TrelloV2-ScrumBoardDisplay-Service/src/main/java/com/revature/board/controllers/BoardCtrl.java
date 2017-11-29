@@ -3,6 +3,7 @@ package com.revature.board.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.board.beans.Board;
+import com.revature.board.beans.BurndownDto;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
 import com.revature.board.beans.Task;
@@ -30,6 +32,7 @@ public class BoardCtrl {
 	private final static String GET_USER_BOARD_URL = "/user-home";
 	private final static String GET_CARD_URL = "/showCard";
 	private final static String GET_TASK_URL = "/showTask";
+
 
 	@Autowired
 	BoardRepo boardRepo;
@@ -66,6 +69,14 @@ public class BoardCtrl {
 
 		cardRepo.save(card);
 	}
+	
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 6")
+	public void addTask(@RequestBody Task task) {
+
+		taskRepo.save(task);
+	}
+	
+	
 
 	@GetMapping(GET_BOARD_URL)
 	public ResponseEntity<List<Board>> getBoards() {

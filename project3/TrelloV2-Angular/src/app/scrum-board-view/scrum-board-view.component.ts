@@ -4,6 +4,7 @@ import { Lane } from './lane-display.interface';
 import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
 import { BurndownDto } from './burndown-dto.interface';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-scrum-board-view',
@@ -19,11 +20,16 @@ export class ScrumBoardViewComponent implements OnInit {
   currentLaneId: number;
 
   Cards: Card[];
+  Tasks: Task[];
+
+  showTaskBtns: boolean;
   boardCards: Card[] = [];
+ 
   constructor(private laneDislayService: LaneDisplayService) { }
 
-  Tasks: Task[];
+  
   //two way binding
+  @Input() taskCreate: Task;
   @Input() cardCreate: Card;
   @Input() laneCreate: Lane;
   @Input() burndownCreate: BurndownDto;
@@ -41,12 +47,16 @@ export class ScrumBoardViewComponent implements OnInit {
   //addLane
   laneTitle: string;
 
+  //addTask
+  inputedTaskInfo: string;
+
   //
   public showCard = true;
 
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
+    
 
   }
 
@@ -70,19 +80,42 @@ export class ScrumBoardViewComponent implements OnInit {
 
     this.laneDislayService.getCards().subscribe(result => {
       this.Cards = result;
+      this.boardCards = this.Cards;
+      
 
     })
 
     this.showCard = true;
   }
 
-  //this is storing the id of the card that was clicked as well as displaying the tasks.
+  //this handles storing the id of the card that was clicked as well as displaying the tasks.
   displayTasks(cardId): void {
+    
     localStorage.setItem("currentCardId", JSON.stringify(cardId));
     this.currentCardId = JSON.parse(localStorage.getItem("currentCardId"));
     this.laneDislayService.getTasks().subscribe(result => {
       this.Tasks = result;
     })
+  }
+
+  addTask(): void{
+    console.log(this.inputedTaskInfo);
+    this.taskCreate = {
+      taskId: 0,
+      cardId : this.currentCardId,
+      status: 0,
+      info: this.inputedTaskInfo
+    }
+    this.laneDislayService.postTask(this.taskCreate).subscribe(
+      data => console.log(this.responseStatus = data),
+      err => console.log(err),
+      () => console.log('request completed')
+    )
+    setTimeout(function () {
+      this.displayTasks(this.currentCardId);
+    }.bind(this), 1000);
+
+    this.inputedTaskInfo="";
   }
 
   done(condition: number) {
@@ -97,23 +130,20 @@ export class ScrumBoardViewComponent implements OnInit {
         cDescription: this.cDescription
       }
 
+      this.boardCards.push(this.cardCreate);
       this.laneDislayService.addCard(this.cardCreate).subscribe(
         data => console.log(this.responseStatus = data),
         err => console.log(err),
         () => console.log('request completed')
       )
-      // this.burndownCreate = {
-      //   bId: this.currentBoardId,
-      //   cards: this.boardCards
-      // }
 
-
-      // console.log("from done(1): ");
-      // console.log(this.boardCards);
       setTimeout(function () {
-        // this.laneDislayService.updateBurndownChart(this.burndownCreate);
         this.displayCards();
       }.bind(this), 1000);
+
+      this.cWorth = null;
+      this.cTitle = "";
+      this.cDescription = "";
 
     }
 
@@ -136,6 +166,17 @@ export class ScrumBoardViewComponent implements OnInit {
         this.displayLanes();
       }.bind(this), 1000);
     }
+
+    this.burndownCreate = {
+      bId: this.currentBoardId,
+      cards: this.boardCards,
+      lanes: this.Lanes
+    }
+
+    console.log("from done(1): ");
+    console.log(this.burndownCreate);
+    this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
+    console.log("passed updateBurndown method")
     
   }
 

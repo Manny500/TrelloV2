@@ -10,4 +10,9 @@ import com.revature.board.beans.Task;
 @Repository
 public interface TaskRepo extends CrudRepository<Task, Integer>{
 	List<Task> findAll();
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	Task save(Task task);
 }

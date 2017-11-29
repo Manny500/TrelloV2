@@ -2,7 +2,7 @@
 
 <br>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
+<button id="addLaneBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
 
 <button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
 
@@ -11,7 +11,7 @@
 <div *ngIf="showCard" class="grid grid-pad" style="width:2000px;height:500px;overflow:auto">
 
   <!-- start of lane display -->
-  <div *ngFor="let lane of Lanes; index as i" class="col-1-4"> 
+  <div *ngFor="let lane of Lanes; index as i" class="col-1-4">
 
     <div class="card" style="background:rgb(185, 197, 207)">
 
@@ -24,12 +24,12 @@
           <div *ngIf="lane.bId == currentBoardId ">
 
             <div class="module lane">
-              
+
               <th>
                 <h2>{{lane.laneTitle}}</h2>
               </th>
               <ng-container *ngFor="let card of Cards" class="col-1-4">
-                <div *ngIf="card.lId == lane.laneId">
+                <div *ngIf="card.lId == lane.laneId" >
                  
                     
                   <!-- <div class="module card"> -->
@@ -40,12 +40,11 @@
                     </td>
                     <td>
                       <div id="userStories" class="card">
-                        <div class="card-block">
-                          <h6 (click)="displayTasks(card.cId)" data-toggle="modal" data-target=".card-modal-sm" class="card-title">{{card.cTitle}}</h6>
+                        <div (click)="displayTasks(card.cId)" class="card-block">
+                          <h6 data-toggle="modal" data-target=".card-modal-sm" class="card-title">{{card.cTitle}}</h6>
                           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                         </div>
                       </div>
-                      <!-- <h5 (click)="displayTasks(card.cId)" data-toggle="modal" data-target=".card-modal-sm">{{card.cTitle}}</h5> -->
                     </td>
                     <td>
                       <button type="button" class="btn-sm btn-primary" (click)="switchLane(card,i+1)">></button>
@@ -60,8 +59,6 @@
       </div>
     </div>
   </div>
-  <!-- end of lane display -->
-
 </div>
 
 <div class="modal fade card-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myCardModalLabel" aria-hidden="true">
@@ -78,12 +75,27 @@
           <div *ngIf="task.cardId == currentCardId">
             <!-- replace doSomething() with an update T_complete function -->
             <label>
-              <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}</label>
+              <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
+            </label>
+
+
           </div>
         </div>
+        <br>
+        <div [hidden]="showTaskBtns" id="taskInput" (click)="showTaskBtns=true">add a task...</div>
+
+        
+          <input [hidden]="!showTaskBtns" [(ngModel)]="inputedTaskInfo" type="text" placeholder="add task" />
+          <div *ngIf="showTaskBtns">
+
+            <button (click)="showTaskBtns=false; addTask()" type="button" class="btn btn-secondary">add task</button>
+            <button (click)="showTaskBtns=false" type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
+          </div>
+        
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
         <button type="button" (click)="done()" class="btn btn-primary" data-dismiss="modal">Done</button>
       </div>
 
@@ -107,7 +119,7 @@
         <!-- Lane ID:<input [(ngModel)]="lId" class="form-control" id="card-laneId"> -->
         Title:
         <input [(ngModel)]="cTitle" class="form-control" id="card-title"> Description:
-        <input [(ngModel)]="cDescriptoin" class="form-control" id="card-description"> Points:
+        <input [(ngModel)]="cDescription" class="form-control" id="card-description"> Points:
         <input [(ngModel)]="cWorth" class="form-control" id="card-points">
 
       </div>
