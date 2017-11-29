@@ -56,7 +56,15 @@ public class TV2User implements Serializable {
 	}
 	
 	
+	
 
+
+	public TV2User(int userId, String firstName, String lastName) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public TV2User(int userId, String firstName, String lastName, String userName, String password, int roleType,
 			String email, int teamId) {
