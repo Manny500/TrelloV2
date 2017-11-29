@@ -1,7 +1,7 @@
 server:
  port: 8090
 # contextPath: /auth
- 
+
 keystore:
  password: mySecretKey
 spring:

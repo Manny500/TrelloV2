@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
 
         this.tv2userService.createTV2User(this.tv2user).subscribe(
           response => {
-
             localStorage.setItem('currentUser', response._body);
             this.router.navigateByUrl('/home');
           })
