@@ -5,6 +5,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,9 @@ import com.revature.home.service.LoginService;
 
 @EnableBinding(Sink.class)
 @RestController
+@EnableResourceServer 
 public class LoginCtrl {
+	
 	@Autowired
 	TV2UserRepo userRepo;
 	
@@ -34,6 +37,7 @@ public class LoginCtrl {
 		}else {
 			user = new TV2User();
 		}
+
 		return ResponseEntity.ok(user);
 	}
 	

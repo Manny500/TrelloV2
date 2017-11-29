@@ -8,6 +8,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ import com.revature.board.service.DisplayService;
 
 @EnableBinding(Sink.class)
 @RestController
+@EnableResourceServer
 public class BoardCtrl {
 
 	private final static String GET_BOARD_URL = "/home";

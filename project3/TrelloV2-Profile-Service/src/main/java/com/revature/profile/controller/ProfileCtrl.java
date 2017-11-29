@@ -1,11 +1,11 @@
 package com.revature.profile.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +18,7 @@ import com.revature.profile.repo.ProfileRepo;
 import com.revature.profile.service.ProfileService;
 
 @RestController
+@EnableResourceServer
 public class ProfileCtrl {
 	
 	private final static String POST_PROFILE_URL = "/userInfo";

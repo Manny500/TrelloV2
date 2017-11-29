@@ -8,5 +8,37 @@ spring:
 server:
     port: 8765
    
-   
- 
+zuul:
+ routes:
+   authServer:
+     path: /auth-service/**
+     sensitiveHeaders:
+     serviceId: auth-service  
+   portalEndpoint:
+     path: /portal/**
+     sensitiveHeaders:
+     serviceId: portal  
+   burnEndpoint:
+     path: /burndown/**
+     sensitiveHeaders:
+     serviceId: burndown
+   permissionsEndpoint:
+     path: /permissions/**
+     sensitiveHeaders:
+     serviceId: permissions
+   profileEndpoint:
+     path: /profile/**
+     sensitiveHeaders:
+     serviceId: profile
+   board-displayEndpoint:
+     path: /board-display/**
+     sensitiveHeaders:
+     serviceId: board-display
+   board-updateEndpoint:
+     path: /board-update/**
+     sensitiveHeaders:
+     serviceId: board-update
+   ticketEndpoint:
+     path: /ticket/**
+     sensitiveHeaders:
+     serviceId: ticket  
