@@ -1,32 +1,107 @@
 <app-navbar></app-navbar>
-<br>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
-<!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-sm">+Card</button> -->
-<button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
+
 <br>
 
-<!-- show lanes and cards -->
+<button id="addLaneBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
+
+<button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
+
+<br>
 
 <div *ngIf="showCard" class="grid grid-pad" style="width:2000px;height:500px;overflow:auto">
-  <table>
-    <tr *ngFor="let lane of Lanes" class="col-1-4">
-      <br>
-      <div *ngIf="lane.bId == currentBoardId ">
-        <div class="module lane">
-          <th><h2>{{lane.laneTitle}}</h2></th>
-          <ng-container *ngFor="let card of Cards" class="col-1-4">
-             <div *ngIf="card.lId == lane.laneId "> 
-            <!-- <div class="module card"> -->
-              <tr><td><h5>{{card.cTitle}}</h5></td></tr>
-              </div>
-          </ng-container>
-          <button type="button" class="btn btn-warning" (click)="updatecurrentLane(lane.laneId)" data-toggle="modal" data-target=".bd-example-modal-sm">+</button>
+
+  <!-- start of lane display -->
+  <div *ngFor="let lane of Lanes; index as i" class="col-1-4">
+
+    <div class="card" style="background:rgb(185, 197, 207)">
+
+      <div class="card-block">
+
+        <table>
+
+          <br>
+
+          <div *ngIf="lane.bId == currentBoardId ">
+
+            <div class="module lane">
+
+              <th>
+                <h2>{{lane.laneTitle}}</h2>
+              </th>
+              <ng-container *ngFor="let card of Cards" class="col-1-4">
+                <div *ngIf="card.lId == lane.laneId" >
+                 
+                    
+                  <!-- <div class="module card"> -->
+                  <tr>
+                    <td *ngIf="i > 0">
+                      <button type="button" class="btn-sm btn-primary" (click)="switchLane(card, i-1)">
+                        <</button>
+                    </td>
+                    <td>
+                      <div id="userStories" class="card">
+                        <div (click)="displayTasks(card.cId)" class="card-block">
+                          <h6 data-toggle="modal" data-target=".card-modal-sm" class="card-title">{{card.cTitle}}</h6>
+                          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button type="button" class="btn-sm btn-primary" (click)="switchLane(card,i+1)">></button>
+                    </td>
+                  </tr>
+                </div>
+              </ng-container>
+              <button type="button" class="btn btn-warning" (click)="updatecurrentLane(lane.laneId)" data-toggle="modal" data-target=".bd-example-modal-sm">+</button>
+            </div>
           </div>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade card-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myCardModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cardModalLabel">Descriptions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let task of Tasks">
+          <div *ngIf="task.cardId == currentCardId">
+            <!-- replace doSomething() with an update T_complete function -->
+            <li class="tasks">
+                <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
+                <button class="delete" (click)="deleteTask(task)">x</button>
+            </li>
+
+
+          </div>
+        </div>
+        <br>
+        <div [hidden]="showTaskBtns" id="taskInput" (click)="showTaskBtns=true">add a task...</div>
+
+        
+          <input [hidden]="!showTaskBtns" [(ngModel)]="inputedTaskInfo" type="text" placeholder="add task" />
+          <div *ngIf="showTaskBtns">
+
+            <button (click)="showTaskBtns=false; addTask()" type="button" class="btn btn-secondary">add task</button>
+            <button (click)="showTaskBtns=false" type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
           </div>
         
-      
-    </tr>
-  </table>
+
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" (click)="done()" class="btn btn-primary" data-dismiss="modal">Done</button>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 
@@ -43,9 +118,10 @@
       <div class="modal-body">
 
         <!-- Lane ID:<input [(ngModel)]="lId" class="form-control" id="card-laneId"> -->
-        Title:<input [(ngModel)]="cTitle" class="form-control" id="card-title"> 
-        Description:<input [(ngModel)]="cDescriptoin" class="form-control" id="card-description"> 
-        Points:<input [(ngModel)]="cWorth" class="form-control" id="card-points">
+        Title:
+        <input [(ngModel)]="cTitle" class="form-control" id="card-title"> Description:
+        <input [(ngModel)]="cDescription" class="form-control" id="card-description"> Points:
+        <input [(ngModel)]="cWorth" class="form-control" id="card-points">
 
       </div>
       <div class="modal-footer">
@@ -67,9 +143,10 @@
         </button>
       </div>
       <div class="modal-body">
-        
-        Title:<input [(ngModel)]="laneTitle" class="form-control" id="line-title"> 
-  
+
+        Title:
+        <input [(ngModel)]="laneTitle" class="form-control" id="line-title">
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Board } from './board-display.interface';
 import { Router } from '@angular/router';
 import { BoardDisplayService } from './board-display.service';
@@ -13,11 +13,20 @@ export class HomeComponent implements OnInit {
   currentUserRoleType = JSON.parse(localStorage.getItem("currentUser")).roleType; 
   Boards: Board[];
   
+  @Input() makeBoard: Board;
+  responseStatus: Object = [];
+
+
+  //CreateBoard
+  bId: number;
+  tv2Id: number;
+  bTotal: number;
+  bTitle: string;
+  tv2Team: number;
 
   constructor(private route: Router, private boardDisplayService: BoardDisplayService) { }
 
   ngOnInit() {
-    console.log(this.currentUserRoleType);
     this.displayBoards();
   }
 
@@ -32,6 +41,26 @@ export class HomeComponent implements OnInit {
   //store the id of the board you click on as currentBoardId
   storeBoardId(id): void{
     localStorage.setItem("currentBoardId", JSON.stringify(id))
+  }
+
+  done(condition:number) {
+    if (condition == 1) {
+      console.log('create Board: done()');
+      this.makeBoard = {
+        bId: 0, //sql sequece will change this to appropriate number
+        tv2Id: JSON.parse(localStorage.getItem("currentUser")).userId,
+        bTotal: 0,
+        bTitle: this.bTitle,
+        tv2Team: JSON.parse(localStorage.getItem("currentUser")).team
+      }
+      
+      this.boardDisplayService.addBoard(this.makeBoard).subscribe(
+        data => console.log(this.responseStatus = data),
+        err => console.log(err),
+        () => console.log('request completed')
+      )
+
+    }
   }
 
 }

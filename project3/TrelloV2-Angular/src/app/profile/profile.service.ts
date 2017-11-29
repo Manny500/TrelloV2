@@ -9,21 +9,19 @@ export class ProfileService {
   returnProfileStatus:Object = [];
   private profileURL = 'profile/userInfo';
   private updateURL = 'profile/updateInfo';
+  
 
   constructor(public _http: Http) { 
     this.http = _http;
   }
 
-  getInfo(){
-      return this.http.get(this.profileURL)
-      .map(response => <ProfileUser[]> response.json())
-      .do(data => console.log(data))
-      .catch(this.handleError);
+  getInfo(user: ProfileUser){
+      return this.http.post(this.profileURL, user, {
+      })
+      .map(res => res.json())
   }
 
   postUpdate(user : ProfileUser){
-    console.log('sending post request to java');
-    console.log(user.firstName);
     return this.http.post(this.updateURL, user, {
     })
     .map(res => res.json())

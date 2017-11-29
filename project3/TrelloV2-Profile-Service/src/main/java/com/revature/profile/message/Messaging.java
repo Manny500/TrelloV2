@@ -1,4 +1,4 @@
-package com.revature.board.message;
+package com.revature.profile.message;
 
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
@@ -8,9 +8,7 @@ import org.springframework.messaging.MessageChannel;
  */
 public interface Messaging {
 
-	@Output("flashcardmessage1")
-	MessageChannel fcMessagePlace1();
-	
-	
+	@Output("profileChannel")
+	MessageChannel profileChannel();
 	
 }
