@@ -1,5 +1,7 @@
 package com.revature.permissions.beans;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,49 +10,83 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name="TV2_USER")
+@Table(name = "TV2_USER")
 @Component
-public class TV2User {
+public class TV2User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "TV2_ID")
 	private int userId;
-	
+
 	@Column(name = "TV2_FN")
-	private String firstname;
-	
+	private String firstName;
+
 	@Column(name = "TV2_LS")
-	private String lastname;
-	
+	private String lastName;
+
 	@Column(name = "TV2_USERNAME")
-	private String username;
-	
+	private String userName;
+
 	@Column(name = "TV2_PASSWORD")
 	private String password;
-	
-	@Column(name = "TV2_TEAM")
-	private int team;
-	
+
 	@Column(name = "RT_ID")
 	private int roleType;
-	
+
 	@Column(name = "TV2_EMAIL")
 	private String email;
 
+	@Column(name = "TV2_TEAM")
+	private int teamId;
+
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "boardUser", fetch = FetchType.EAGER)
+//	private Set<Board> boards = new HashSet<Board>();
+
 	public TV2User() {
+
+	}
+
+	public TV2User(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
+	
+	
+
+
+	public TV2User(int userId, String firstName, String lastName, String userName, String password, int roleType,
+			String email, int teamId) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.password = password;
+		this.roleType = roleType;
+		this.email = email;
+		this.teamId = teamId;
+	}
+	
+	public TV2User(TV2User user) {
+
+		this.userId = user.userId;
+		this.firstName = user.firstName;
+		this.lastName = user.lastName;
+		this.userName = user.userName;
+		this.password = user.password;
+		this.roleType = user.roleType;
+		this.email = user.email;
+		this.teamId = user.teamId;
 		
 	}
 	
-	
-	public TV2User(int userId, String username, String password, int team, int roleType) {
-		super();
-		this.userId = userId;
-		this.username = username;
-		this.password = password;
-		this.team = team;
-		this.roleType = roleType;
-	}
-
-
 
 	public int getUserId() {
 		return userId;
@@ -60,28 +96,28 @@ public class TV2User {
 		this.userId = userId;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -90,14 +126,6 @@ public class TV2User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public int getTeam() {
-		return team;
-	}
-
-	public void setTeam(int team) {
-		this.team = team;
 	}
 
 	public int getRoleType() {
@@ -115,7 +143,17 @@ public class TV2User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-	
+
+	public int getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(int teamId) {
+		this.teamId = teamId;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

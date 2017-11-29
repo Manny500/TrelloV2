@@ -3,7 +3,6 @@ package com.revature.board.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.board.beans.Board;
-import com.revature.board.beans.BurndownDto;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
 import com.revature.board.beans.Task;
