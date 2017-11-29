@@ -33,7 +33,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 			.secret("j")
 			.authorizedGrantTypes("client_credentials")
 			.scopes("resource-server-read")
-			.accessTokenValiditySeconds(20);
+			.accessTokenValiditySeconds(32000);
 	}
 
 

@@ -11,17 +11,25 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  tv2user: TV2User = {userId: null, userName: '', password: '', teamId: null, roleType: null, email: null, firstName: null, lastName: null}
-  constructor(private tv2userService: TV2UserService, private router: Router) {}
+  tv2user: TV2User = { userId: null, userName: '', password: '', teamId: null, roleType: null, email: null, firstName: null, lastName: null }
+  constructor(private tv2userService: TV2UserService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  onSubmit(){
-    this.tv2userService.createTV2User(this.tv2user).subscribe(
+  onSubmit() {
+    this.tv2userService.authenticate(this.tv2user).map(res => res.json()).subscribe(
       response => {
-          this.router.navigateByUrl('/home');
-          localStorage.setItem('currentUser', JSON.stringify(response));
+
+        localStorage.setItem('currentToken', JSON.stringify({ userName: this.tv2user.userName, token: response.access_token }));
+
+        this.tv2userService.createTV2User(this.tv2user).subscribe(
+          response => {
+
+            localStorage.setItem('currentUser', response._body);
+            this.router.navigateByUrl('/home');
+          })
+
       });
   }
 

@@ -1,17 +1,51 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-
-import {TV2User} from './tv2user.interface';
+import { Injectable } from '@angular/core';
+import { Headers, Http, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Base64 } from 'js-base64';
+import { TV2User } from './tv2user.interface';
 
 @Injectable()
-export class TV2UserService{
-    private static readonly POST_USER_URL = 'portal/login';
-    private headers = new HttpHeaders({'Content-Type': 'application/json'});
+export class TV2UserService {
 
-    constructor(private http: HttpClient){}
+    url: string;
+    urlEndpoint: string;
+    headers: Headers;
+    options: RequestOptions;
+    creds: String;
+    updatedUser: string;
+
+    private POST_USER_URL = 'portal/login';
+    private POST_AUTH_URL = 'auth-service/oauth/token';
+    
+
+    constructor(private http: Http) { }
 
     createTV2User(tv2user: TV2User): Observable<any> {
-        return this.http.post(TV2UserService.POST_USER_URL, tv2user, {headers: this.headers});
+        // this.urlEndpoint = "http://localhost:9090/login";
+
+        this.headers = new Headers({
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('currentToken')).token
+        });
+
+        this.options = new RequestOptions({ headers: this.headers });
+
+        return this.http.post(this.POST_USER_URL, tv2user, { headers: this.headers });
+    }
+
+    authenticate(user: TV2User): Observable<any> {
+
+        // this.url = "http://localhost:8090/auth/oauth/token";
+
+        this.headers = new Headers({
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Basic " + Base64.encode(user.userName + ':' + user.password)
+        });
+
+        this.options = new RequestOptions({ headers: this.headers });
+        this.creds = 'grant_type=client_credentials';
+
+        // this.creds = 'grant_type=authorization_code';
+        return this.http.post(this.POST_AUTH_URL, this.creds, this.options);
     }
 }
