@@ -76,7 +76,7 @@
             <!-- replace doSomething() with an update T_complete function -->
             <li class="tasks">
                 <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
-                <button class="delete" (click)="deleteTask(task)">x</button>
+                <a class="delete" (click)="removeTask(task)">x</a>
             </li>
 
 

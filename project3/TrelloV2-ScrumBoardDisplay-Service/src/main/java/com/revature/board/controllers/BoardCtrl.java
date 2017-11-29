@@ -74,6 +74,12 @@ public class BoardCtrl {
 		taskRepo.save(task);
 	}
 	
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 7")
+	public void delTask(@RequestBody Task task) {
+
+		taskRepo.delete(task);
+	}
+	
 	
 
 	@GetMapping(GET_BOARD_URL)

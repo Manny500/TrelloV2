@@ -34,13 +34,11 @@ public class PermissionCtrl {
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 1")
 	public void updateProfile(@RequestBody TV2User user) {
-		System.err.println("updating user");
 		repo.save(user);
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 2")
 	public void addUser(@RequestBody TV2User user) {
-		System.out.println("tryinng to sync registered user PermissionsDB!!!!@@@@@!@!@!@!@!@!@");
 		repo.save(user);
 	}
 
