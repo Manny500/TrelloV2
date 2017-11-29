@@ -195,4 +195,8 @@ export class ScrumBoardViewComponent implements OnInit {
     )
   
   }
+
+  removeTask(taskToRemove){
+    this.laneDislayService.deleteTask(taskToRemove);
+  }
 }
