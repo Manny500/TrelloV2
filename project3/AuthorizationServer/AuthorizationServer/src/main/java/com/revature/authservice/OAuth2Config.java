@@ -1,4 +1,4 @@
-package com.tryyourskill;
+package com.revature.authservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +16,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
+import com.revature.authservice.service.TV2UserService;
+
+
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
@@ -26,13 +29,17 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
+	@Autowired
+	private TV2UserService tv2UserService;
+	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-			.withClient("j")
-			.secret("j")
+			.withClient("ClientId")
+			.secret("secret")
 			.authorizedGrantTypes("client_credentials")
-			.scopes("resource-server-read")
+			.scopes("user_info")
+			.autoApprove(true)
 			.accessTokenValiditySeconds(32000);
 	}
 
@@ -40,7 +47,8 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtTokenEnhancer())
-				.authenticationManager(authenticationManager);
+				.authenticationManager(authenticationManager)
+				.userDetailsService(tv2UserService);
 	}
 
 	@Override

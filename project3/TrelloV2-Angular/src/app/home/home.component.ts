@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit {
 
   done(condition:number) {
     if (condition == 1) {
-      console.log('create Board: done()');
       this.makeBoard = {
         bId: 0, //sql sequece will change this to appropriate number
         tv2Id: JSON.parse(localStorage.getItem("currentUser")).userId,

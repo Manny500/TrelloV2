@@ -1,4 +1,4 @@
-package com.tryyourskill;
+package com.revature.authservice;
 
 import java.io.IOException;
 

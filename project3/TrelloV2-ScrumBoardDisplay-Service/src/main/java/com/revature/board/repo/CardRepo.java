@@ -13,4 +13,6 @@ public interface CardRepo extends CrudRepository<Card,Integer>{
 	
 	@SuppressWarnings("unchecked")
 	Card save(Card card);
+	
+	 void delete(Card card);
 }
