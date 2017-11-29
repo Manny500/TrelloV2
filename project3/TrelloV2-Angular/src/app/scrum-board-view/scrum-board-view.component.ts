@@ -62,7 +62,6 @@ export class ScrumBoardViewComponent implements OnInit {
 
   push(card: Card){
     this.boardCards.push(card);
-    console.log(this.boardCards);
   }
 
   displayLanes(): void {
@@ -99,7 +98,6 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   addTask(): void{
-    console.log(this.inputedTaskInfo);
     this.taskCreate = {
       taskId: 0,
       cardId : this.currentCardId,
@@ -173,10 +171,7 @@ export class ScrumBoardViewComponent implements OnInit {
       lanes: this.Lanes
     }
 
-    console.log("from done(1): ");
-    console.log(this.burndownCreate);
     this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
-    console.log("passed updateBurndown method")
     
   }
 
@@ -185,7 +180,6 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   switchLane(currentCard: Card, lane: number) {
-    console.log('switchimg ' + currentCard);
     const currentLane: Lane = this.Lanes[lane];
     currentCard.lId = currentLane.laneId;
 
@@ -198,7 +192,6 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   removeCard(currentCard: Card){
-      console.log('deleting ' + currentCard);
       this.laneDislayService.deleteCard(currentCard).subscribe(
         data => console.log(this.responseStatus = data),
         err => console.log(err),
@@ -211,7 +204,6 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   removeTask(taskToRemove){
-    console.log("trying to delete "+ taskToRemove);
     this.laneDislayService.deleteTask(taskToRemove).subscribe(
       data => console.log(this.responseStatus = data),
       err => console.log(err),
