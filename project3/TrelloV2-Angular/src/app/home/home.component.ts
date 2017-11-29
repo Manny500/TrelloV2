@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit {
       
       localStorage.setItem('currentBoards', JSON.stringify(result))
     })
+    this.tv2Id = JSON.parse(localStorage.getItem("currentUser")).userId;
+    this.tv2Team = JSON.parse(localStorage.getItem("currentUser")).teamId;
   }
 
   //store the id of the board you click on as currentBoardId

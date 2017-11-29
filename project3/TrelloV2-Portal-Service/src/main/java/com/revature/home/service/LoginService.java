@@ -15,7 +15,7 @@ public class LoginService {
 	private TV2UserRepo repo;
 
 	public TV2User findByUsername(String username) {
-		return repo.findByUsername(username);
+		return repo.findByUserName(username);
 	}
 	public TV2User save(TV2User user) {
 		return repo.save(user);
