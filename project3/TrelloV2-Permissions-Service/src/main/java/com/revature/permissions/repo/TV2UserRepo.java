@@ -11,5 +11,6 @@ import com.revature.permissions.beans.TV2User;
 public interface TV2UserRepo extends CrudRepository<TV2User,Integer>{
 
 	List<TV2User> findAll();
-
+	
+	TV2User save(TV2User user);
 }
