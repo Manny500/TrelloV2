@@ -20,6 +20,7 @@ import com.revature.board.repo.BoardRepo;
 import com.revature.board.repo.CardRepo;
 import com.revature.board.repo.LaneRepo;
 import com.revature.board.repo.TaskRepo;
+import com.revature.board.service.DisplayService;
 
 @EnableBinding(Sink.class)
 @RestController
@@ -43,35 +44,38 @@ public class BoardCtrl {
 
 	@Autowired
 	TaskRepo taskRepo;
+	
+	@Autowired
+	DisplayService service;
 
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 1")
 	public void addBoard(@RequestBody Board board) {
 
-		boardRepo.save(board);
+		service.saveBoard(board);
 	}
 
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 2")
 	public void addLane(@RequestBody Lane lane) {
 
-		laneRepo.save(lane);
+		service.saveLane(lane);
 	}
 
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 3")
 	public void addCard(@RequestBody Card card) {
 
-		cardRepo.save(card);
+		service.saveCard(card);
 	}
 
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 4")
 	public void switchLane(@RequestBody Card card) {
 
-		cardRepo.save(card);
+		service.saveCard(card);
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 6")
 	public void addTask(@RequestBody Task task) {
 
-		taskRepo.save(task);
+		service.saveTask(task);
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 7")
@@ -87,7 +91,7 @@ public class BoardCtrl {
 
 		List<Board> board = new ArrayList<Board>();
 
-		board = boardRepo.findAll();
+		board = service.findAllBoard();
 
 		return ResponseEntity.ok(board);
 	}
@@ -97,7 +101,7 @@ public class BoardCtrl {
 
 		List<Board> board = new ArrayList<Board>();
 
-		board = boardRepo.findAll();
+		board = service.findAllBoard();
 
 		return ResponseEntity.ok(board);
 	}
@@ -107,7 +111,7 @@ public class BoardCtrl {
 		
 		List<Lane> lane = new ArrayList<Lane>();
 
-		lane = laneRepo.findAll();
+		lane = service.findAllLane();
 
 		return ResponseEntity.ok(lane);
 	}
@@ -117,7 +121,7 @@ public class BoardCtrl {
 		
 		List<Card> card = new ArrayList<Card>();
 
-		card = cardRepo.findAll();
+		card = service.findAllCard();
 
 		return ResponseEntity.ok(card);
 	}
@@ -127,7 +131,7 @@ public class BoardCtrl {
 		
 		List<Task> task = new ArrayList<Task>();
 
-		task = taskRepo.findAll();
+		task = service.findAllTask();
 
 		return ResponseEntity.ok(task);
 	}

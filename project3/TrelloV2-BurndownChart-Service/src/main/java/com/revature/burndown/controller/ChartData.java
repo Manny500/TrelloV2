@@ -21,6 +21,7 @@ import com.revature.burndown.bean.Card;
 import com.revature.burndown.bean.Chart;
 import com.revature.burndown.bean.Lane;
 import com.revature.burndown.repo.ChartRepo;
+import com.revature.burndown.service.ChartService;
 
 @EnableBinding(Sink.class)
 @RestController
@@ -29,6 +30,9 @@ public class ChartData {
 	@Autowired
 	ChartRepo chartRepo;
 	
+	@Autowired
+	ChartService service;
+	
 	ArrayList<Chart> list;
 	
 	private final static String POST_FACEUSER_URL = "/data";
@@ -36,7 +40,7 @@ public class ChartData {
 	@RequestMapping(POST_FACEUSER_URL)
 	public ResponseEntity<ArrayList<Chart>> authenticateFaceuser(@RequestBody Board board) {
 				
-		list = (ArrayList<Chart>) chartRepo.findByChartBoard(board.getBoardId());
+		list = (ArrayList<Chart>) service.findByChartBoard(board.getBoardId());
 					
 		return ResponseEntity.ok(list);
 	}	
@@ -64,7 +68,7 @@ public class ChartData {
 		chart.setChartSum(newSum);
 		chart.setChartDate(currentDate);
 		
-		chartRepo.save(chart);
+		service.save(chart);
 		
 	}
 }
