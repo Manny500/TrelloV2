@@ -8,6 +8,6 @@ import com.revature.home.beans.TV2User;
 @Repository(value="TV2UserRepoImpl")
 public interface TV2UserRepo extends CrudRepository<TV2User,Integer>{
 
-	TV2User findByUsername(String username);
+	TV2User findByUserName(String userName);
 
 }
