@@ -10,22 +10,22 @@ import { ViewUsersComponent } from './view-users/view-users.component';
 import { ActivityComponent } from './activity/activity.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { CompanyBoardsComponent } from './company-boards/company-boards.component';
-// import { UserHomeComponent } from './user-home/user-home.component';
+import {AuthGuard} from './auth-guard.service';
 import { UserRequestsComponent } from './user-requests/user-requests.component';
  
 const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent},
   { path: 'login',  component: LoginComponent },
-  { path: 'home',  component: HomeComponent },
-  { path: 'trello',  component: ScrumBoardViewComponent },
-  { path: 'chart',  component: BurndownChartComponent },
-  { path: 'profile',  component: ProfileComponent },
-  { path: 'viewUsers',  component: ViewUsersComponent },
-  { path: 'activity',  component: ActivityComponent },
-  { path: 'register',  component: RegisterUserComponent },
-  { path: 'publicBoards',  component: CompanyBoardsComponent },
-  { path: 'request',  component: UserRequestsComponent},
+  { path: 'home',  component: HomeComponent,canActivate: [AuthGuard] },
+  { path: 'trello',  component: ScrumBoardViewComponent,canActivate: [AuthGuard] },
+  { path: 'chart',  component: BurndownChartComponent,canActivate: [AuthGuard] },
+  { path: 'profile',  component: ProfileComponent,canActivate: [AuthGuard] },
+  { path: 'viewUsers',  component: ViewUsersComponent,canActivate: [AuthGuard] },
+  { path: 'activity',  component: ActivityComponent,canActivate: [AuthGuard] },
+  { path: 'register',  component: RegisterUserComponent,canActivate: [AuthGuard] },
+  { path: 'publicBoards',  component: CompanyBoardsComponent,canActivate: [AuthGuard] },
+  { path: 'request',  component: UserRequestsComponent,canActivate: [AuthGuard]},
 ]; 
  
 // using { useHash: true } lets us make changes to recompile angular source files again without getting whitelabel page thing
