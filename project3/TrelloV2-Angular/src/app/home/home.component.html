@@ -42,7 +42,7 @@
 </div> -->
 
 <div class="grid grid-pad" style="margin: 30px">
-	<div *ngIf="currentUserRoleType == 1">
+	<div *ngIf="currentUserRoleType == 1 ">
 		<h2>Personal Boards:</h2>
 		<div *ngFor="let board of Boards" class="col-1-4" [routerLink]="['/trello']">
 			<div *ngIf="tv2Id == board.tv2Id">

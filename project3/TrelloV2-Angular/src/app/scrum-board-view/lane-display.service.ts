@@ -71,7 +71,7 @@ export class LaneDisplayService{
     }
 
     deleteTask(task: Task){
-        return this.http.delete(this.addTaskUrl,task)
+        return this.http.post(this.deleteTaskUrl,task)
     }
 
     updateBurndownChart(burndownCreate: BurndownDto){
