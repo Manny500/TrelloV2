@@ -53,6 +53,9 @@ public class DisplayService {
 	public Card saveCard(Card card) {
 		return cRepo.save(card);
 	}
+	public void deleteCard(Card card) {
+		cRepo.delete(card);
+	}
 	
 	//Task
 	public List<Task> findAllTask(){
@@ -62,7 +65,8 @@ public class DisplayService {
 	public Task saveTask(Task task) {
 		return tRepo.save(task);
 	}
-	public void delete(Task task) {
+	public void deleteTask(Task task) {
 		tRepo.delete(task);
 	}
+	
 }
