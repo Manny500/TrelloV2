@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.revature.home.beans.TV2User;
 import com.revature.home.repo.TV2UserRepo;
+import com.revature.home.service.LoginService;
 
 @EnableBinding(Sink.class)
 @Controller
@@ -19,12 +20,15 @@ public class LoginCtrl {
 	@Autowired
 	TV2UserRepo userRepo;
 	
+	@Autowired
+	LoginService service;
+	
 	private final static String POST_USER_URL = "/login";
 
 	@RequestMapping(POST_USER_URL)
 	public ResponseEntity<TV2User> authenticateUser(@RequestBody TV2User user) {
 		System.out.println("helllo from login");
-		TV2User tu = userRepo.findByUsername(user.getUsername());
+		TV2User tu = service.findByUsername(user.getUsername());
 		
 		if(tu != null) {
 				
@@ -44,13 +48,13 @@ public class LoginCtrl {
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 1")
 	public void updateUser(@RequestBody TV2User user) {
 
-		userRepo.save(user);
+		service.save(user);
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 2")
 	public void addUser(@RequestBody TV2User user) {
 		System.out.println("tryinng to sync registered user PORTALDB!!!!@@@@@!@!@!@!@!@!@");
-		userRepo.save(user);
+		service.save(user);
 	}
 
 }
