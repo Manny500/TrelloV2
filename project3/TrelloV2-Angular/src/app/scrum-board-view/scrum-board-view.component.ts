@@ -196,12 +196,22 @@ export class ScrumBoardViewComponent implements OnInit {
   
   }
 
+  removeCard(cardToRemove){
+      console.log('deleting ' + cardToRemove);
+      console.log(cardToRemove.cTitle);
+      this.laneDislayService.deleteCard(cardToRemove).subscribe(
+        data => console.log(this.responseStatus = data),
+        err => console.log(err),
+        () => console.log('delete Card request completed')
+      );
+  }
+
   removeTask(taskToRemove){
     console.log("trying to delete "+ taskToRemove);
     this.laneDislayService.deleteTask(taskToRemove).subscribe(
       data => console.log(this.responseStatus = data),
       err => console.log(err),
-      () => console.log('delete request completed')
+      () => console.log('delete Task request completed')
     );
 
     this.displayTasks(taskToRemove.cardId);

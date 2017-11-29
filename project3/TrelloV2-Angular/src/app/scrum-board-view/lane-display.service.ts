@@ -14,6 +14,7 @@ export class LaneDisplayService{
     private boardsUrl = 'board-display/trello';
     private cardsUrl = 'board-display/showCard';
     private addCardsUrl = 'board-update/addCard';
+    private deleteCardUrl = 'board-update/deleteCard';
     private addTaskUrl = 'board-update/addTask';
     private deleteTaskUrl = 'board-update/deleteTask';
     private switchLaneUrl = 'board-update/updateCard';
@@ -68,6 +69,9 @@ export class LaneDisplayService{
     addLane(laneCreate : Lane){
         return this.http.post(this.addLanesUrl, laneCreate, {
         })
+    }
+    deleteCard(card: Card){
+        return this.http.post(this.deleteCardUrl,card)
     }
 
     deleteTask(task: Task){
