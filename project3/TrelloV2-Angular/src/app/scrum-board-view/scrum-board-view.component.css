@@ -38,15 +38,17 @@
     padding-right: 10px;
   }
   .tasks{
+    
     list-style-type: none;
   }
   
-button.delete{
-  float:right;
-  margin-top: 2px;
-  margin-right: .8em;
-  background-color: gray !important;
-  color:white;
+a.delete{
+  
+  float:right; 
+   
+}
+a.delete:hover{
+  cursor: pointer;
 }
  
   

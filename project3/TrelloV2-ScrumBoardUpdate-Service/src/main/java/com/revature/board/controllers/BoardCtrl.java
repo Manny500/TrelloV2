@@ -18,6 +18,7 @@ public class BoardCtrl {
 	private final static String ADD_BOARD_URL = "/addBoard";
 	private final static String SWITCH_LANE_URL = "/updateCard";
 	private final static String UPDATE_BURNDOWN_URL = "/updateBurndown";
+	private final static String DELETE_TASK_URL = "/deleteTask";
 
 	@Autowired
 	Messaging mysource;
@@ -68,6 +69,15 @@ public class BoardCtrl {
 		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 1).build());
 
 		return "Success";
+	}
+	
+	@RequestMapping(DELETE_TASK_URL)
+	public String deleteTask(@RequestBody String payload, HttpServletRequest request) {
+		
+		
+		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 7).build());
+
+		return "Success deleted card";
 	}
 	
 	
