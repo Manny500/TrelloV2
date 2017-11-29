@@ -63,8 +63,8 @@ public class ChartData {
 		chart.setChartBoard(dto.getbId());
 		chart.setChartSum(newSum);
 		chart.setChartDate(currentDate);
-		System.out.println("charts new sum is: "+ newSum);
+		
 		chartRepo.save(chart);
-		System.out.println("chart should be saved in database now.");
+		
 	}
 }

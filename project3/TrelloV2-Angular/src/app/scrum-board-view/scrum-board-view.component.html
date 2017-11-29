@@ -74,9 +74,10 @@
         <div *ngFor="let task of Tasks">
           <div *ngIf="task.cardId == currentCardId">
             <!-- replace doSomething() with an update T_complete function -->
-            <label>
-              <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
-            </label>
+            <li class="tasks">
+                <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
+                <button class="delete" (click)="deleteTask(task)">x</button>
+            </li>
 
 
           </div>
