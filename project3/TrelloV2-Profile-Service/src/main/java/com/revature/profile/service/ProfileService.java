@@ -11,7 +11,7 @@ import com.revature.profile.repo.ProfileRepo;
 @Service
 public class ProfileService {
 	
-	@Resource
+	//@Resource
 	@Autowired
 	private ProfileRepo profileRepo;
 	

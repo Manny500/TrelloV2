@@ -55,10 +55,10 @@ public class ProfileCtrl {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
+		service.save(user);
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 1).build());
 		
-		service.save(user);
+		
 		return ResponseEntity.ok(user);
 		
 		
