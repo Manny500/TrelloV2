@@ -8,18 +8,17 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.permissions.beans.TV2User;
 import com.revature.permissions.repo.TV2UserRepo;
 import com.revature.permissions.service.PermissionService;
 
-
 @EnableBinding(Sink.class)
 @EnableEurekaClient
-@Controller
+@RestController
 public class PermissionCtrl {
 	
 	@Autowired
@@ -39,8 +38,12 @@ public class PermissionCtrl {
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 1")
 	public void updateProfile(@RequestBody TV2User user) {
+
 		
 		service.save(user);
+
+		System.err.println("updating user");
+
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 2")
