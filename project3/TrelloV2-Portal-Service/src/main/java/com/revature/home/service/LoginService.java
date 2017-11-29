@@ -1,7 +1,5 @@
 package com.revature.home.service;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +8,13 @@ import com.revature.home.repo.TV2UserRepo;
 
 @Service
 public class LoginService {
-	//@Resource
+
 	@Autowired
 	private TV2UserRepo repo;
 
-	public TV2User findByUsername(String username) {
-		return repo.findByUsername(username);
+	public TV2User findByUsername(String userName) {
+		return repo.findByUserName(userName);
+
 	}
 	public TV2User save(TV2User user) {
 		return repo.save(user);

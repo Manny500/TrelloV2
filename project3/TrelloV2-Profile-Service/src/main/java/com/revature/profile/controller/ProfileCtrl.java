@@ -1,11 +1,11 @@
 package com.revature.profile.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +18,7 @@ import com.revature.profile.repo.ProfileRepo;
 import com.revature.profile.service.ProfileService;
 
 @RestController
+@EnableResourceServer
 public class ProfileCtrl {
 	
 	private final static String POST_PROFILE_URL = "/userInfo";
@@ -34,7 +35,6 @@ public class ProfileCtrl {
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){
 		
-		System.err.println("about update to macro 2");
 
 		String payload = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -44,9 +44,7 @@ public class ProfileCtrl {
 			e.printStackTrace();
 		}
 		
-		System.err.println(payload);
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 2).build());
-		System.err.println("sent update to macro 2");
 		profileRepo.save(user);
 		
 		return ResponseEntity.ok(user);
@@ -66,7 +64,6 @@ public class ProfileCtrl {
 	@RequestMapping(POST_UPDATE_URL)
 	public ResponseEntity<TV2User>  updateProfile(@RequestBody TV2User user, HttpServletRequest request){
 
-		System.err.println("about update to macro 1");
 
 		String payload = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -76,9 +73,7 @@ public class ProfileCtrl {
 			e.printStackTrace();
 		}
 
-		System.err.println(payload);
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 1).build());
-		System.err.println("sent update to macro 1");
 		profileRepo.save(user);
     
 		return ResponseEntity.ok(user);

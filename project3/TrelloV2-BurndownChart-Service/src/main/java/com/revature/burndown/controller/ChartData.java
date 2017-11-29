@@ -10,10 +10,10 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.revature.burndown.bean.Board;
 import com.revature.burndown.bean.BurndownDto;
@@ -21,13 +21,18 @@ import com.revature.burndown.bean.Card;
 import com.revature.burndown.bean.Chart;
 import com.revature.burndown.bean.Lane;
 import com.revature.burndown.repo.ChartRepo;
+import com.revature.burndown.service.ChartService;
 
 @EnableBinding(Sink.class)
 @RestController
+@EnableResourceServer
 public class ChartData {
 
 	@Autowired
 	ChartRepo chartRepo;
+	
+	@Autowired
+	ChartService service;
 	
 	ArrayList<Chart> list;
 	
@@ -36,7 +41,7 @@ public class ChartData {
 	@RequestMapping(POST_FACEUSER_URL)
 	public ResponseEntity<ArrayList<Chart>> authenticateFaceuser(@RequestBody Board board) {
 				
-		list = (ArrayList<Chart>) chartRepo.findByChartBoard(board.getBoardId());
+		list = (ArrayList<Chart>) service.findByChartBoard(board.getBoardId());
 					
 		return ResponseEntity.ok(list);
 	}	
@@ -64,7 +69,7 @@ public class ChartData {
 		chart.setChartSum(newSum);
 		chart.setChartDate(currentDate);
 		
-		chartRepo.save(chart);
+		service.save(chart);
 		
 	}
 }

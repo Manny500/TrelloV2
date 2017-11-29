@@ -1,0 +1,14 @@
+server:
+ port: 8090
+# contextPath: /auth
+ 
+keystore:
+ password: mySecretKey
+spring:
+  application:
+    name: auth-service
+  datasource:
+   tomcat:
+     initial-size: 2  
+  mvc:
+    dispatchOptionsRequest: true

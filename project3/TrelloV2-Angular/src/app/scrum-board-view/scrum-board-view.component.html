@@ -8,7 +8,7 @@
 
 <br>
 
-<div *ngIf="showCard" class="grid grid-pad" style="width:2000px;height:500px;overflow:auto">
+<div *ngIf="showCard" class="grid grid-pad" style="width:3000px;height:500px;overflow:auto">
 
   <!-- start of lane display -->
   <div *ngFor="let lane of Lanes; index as i" class="col-1-4">
@@ -76,7 +76,7 @@
             <!-- replace doSomething() with an update T_complete function -->
             <li class="tasks">
                 <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
-                <button class="delete" (click)="deleteTask(task)">x</button>
+                <a class="delete" (click)="removeTask(task)">x</a>
             </li>
 
 

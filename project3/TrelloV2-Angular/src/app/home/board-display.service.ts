@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
 import {Board} from './board-display.interface';
-import { Http } from '@angular/http';
 
 @Injectable()
 export class BoardDisplayService{
@@ -11,10 +10,22 @@ export class BoardDisplayService{
     // private userBoardsUrl = 'board-display/user-home'
     private makeBoardsUrl = 'board-update/addBoard';
 
-    constructor(private http: Http){ }
+    url: string;
+    urlEndpoint: string;
+    creds: String;
+    updatedUser: string;
+
+    headers = new Headers({
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('currentToken')).token
+    });
+
+    options = new RequestOptions({ headers: this.headers });
+
+    constructor(private http: Http){}
 
     getMasterBoards(){
-        return this.http.get(this.masterBoardsUrl)
+        return this.http.get(this.masterBoardsUrl,this.options)
         .map(response => <Board[]> response.json())
         .do(data => console.log(data))
         .catch(this.handleError);
@@ -22,8 +33,7 @@ export class BoardDisplayService{
 
 
     addBoard(boardCreate: Board){
-        return this.http.post(this.makeBoardsUrl, boardCreate, {
-        })
+        return this.http.post(this.makeBoardsUrl, boardCreate, this.options)
         
     }
 

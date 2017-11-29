@@ -15,4 +15,6 @@ public interface TaskRepo extends CrudRepository<Task, Integer>{
 	
 	@SuppressWarnings("unchecked")
 	Task save(Task task);
+	
+	void delete(Task task);
 }
