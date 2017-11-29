@@ -21,7 +21,6 @@ export class TV2UserService {
     constructor(private http: Http) { }
 
     createTV2User(tv2user: TV2User): Observable<any> {
-        // this.urlEndpoint = "http://localhost:9090/login";
 
         this.headers = new Headers({
             "Content-Type": "application/json",
@@ -30,12 +29,10 @@ export class TV2UserService {
 
         this.options = new RequestOptions({ headers: this.headers });
 
-        return this.http.post(this.POST_USER_URL, tv2user, { headers: this.headers });
+        return this.http.post(this.POST_USER_URL, tv2user, this.options);
     }
 
     authenticate(user: TV2User): Observable<any> {
-
-        // this.url = "http://localhost:8090/auth/oauth/token";
 
         this.headers = new Headers({
             "Content-Type": "application/x-www-form-urlencoded",
@@ -45,7 +42,6 @@ export class TV2UserService {
         this.options = new RequestOptions({ headers: this.headers });
         this.creds = 'grant_type=client_credentials';
 
-        // this.creds = 'grant_type=authorization_code';
         return this.http.post(this.POST_AUTH_URL, this.creds, this.options);
     }
 }

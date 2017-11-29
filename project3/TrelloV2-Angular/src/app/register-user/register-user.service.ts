@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Http, HttpModule, Response} from '@angular/http';
+import { Headers,HttpModule, Response, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { ProfileUser } from '../profile/profile-user';
 
 @Injectable()
 export class RegisterService {
-  http: Http;
   returnProfileStatus:Object = [];
   private registerURL = 'profile/register';
 
-  constructor(public _http: Http) { 
-    this.http = _http;
-  }
+  url: string;
+  urlEndpoint: string;
+  creds: String;
+  updatedUser: string;
+
+  headers = new Headers({
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('currentToken')).token
+  });
+
+  options = new RequestOptions({ headers: this.headers });
+
+  constructor(private http: Http){}
 
   postUpdate(user : ProfileUser){
-    return this.http.post(this.registerURL, user, {
-    })
+    return this.http.post(this.registerURL, user, this.options)
     .map(res => res.json())
   }
 

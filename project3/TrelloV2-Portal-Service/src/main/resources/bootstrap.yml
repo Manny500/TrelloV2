@@ -14,5 +14,4 @@ security:
      jwt:
        keyUri: http://localhost:8090/oauth/token_key
 server:
- port: 9090
-    
+ port: 0
