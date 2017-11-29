@@ -36,7 +36,7 @@ export class TV2UserService {
 
         this.headers = new Headers({
             "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": "Basic " + Base64.encode(user.userName + ':' + user.password)
+            "Authorization": "Basic " + Base64.encode("ClientId" + ':' + "secret")
         });
 
         this.options = new RequestOptions({ headers: this.headers });

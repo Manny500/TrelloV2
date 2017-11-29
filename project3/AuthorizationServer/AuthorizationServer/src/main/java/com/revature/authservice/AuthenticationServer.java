@@ -1,4 +1,4 @@
-package com.tryyourskill;
+package com.revature.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
