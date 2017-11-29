@@ -62,4 +62,7 @@ public class DisplayService {
 	public Task saveTask(Task task) {
 		return tRepo.save(task);
 	}
+	public void delete(Task task) {
+		tRepo.delete(task);
+	}
 }
