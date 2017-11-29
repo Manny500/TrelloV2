@@ -185,6 +185,7 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   switchLane(currentCard: Card, lane: number) {
+    console.log('switchimg ' + currentCard);
     const currentLane: Lane = this.Lanes[lane];
     currentCard.lId = currentLane.laneId;
 
@@ -196,12 +197,25 @@ export class ScrumBoardViewComponent implements OnInit {
   
   }
 
+  removeCard(currentCard: Card){
+      console.log('deleting ' + currentCard);
+      this.laneDislayService.deleteCard(currentCard).subscribe(
+        data => console.log(this.responseStatus = data),
+        err => console.log(err),
+        () => console.log('delete Card request completed')
+      );
+  
+      // setTimeout(function () {
+      //   this.displayCards();
+      // }.bind(this), 1000);
+  }
+
   removeTask(taskToRemove){
     console.log("trying to delete "+ taskToRemove);
     this.laneDislayService.deleteTask(taskToRemove).subscribe(
       data => console.log(this.responseStatus = data),
       err => console.log(err),
-      () => console.log('delete request completed')
+      () => console.log('delete Task request completed')
     );
 
     this.displayTasks(taskToRemove.cardId);

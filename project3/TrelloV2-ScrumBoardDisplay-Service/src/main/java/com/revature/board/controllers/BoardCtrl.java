@@ -17,10 +17,6 @@ import com.revature.board.beans.Board;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
 import com.revature.board.beans.Task;
-import com.revature.board.repo.BoardRepo;
-import com.revature.board.repo.CardRepo;
-import com.revature.board.repo.LaneRepo;
-import com.revature.board.repo.TaskRepo;
 import com.revature.board.service.DisplayService;
 
 @EnableBinding(Sink.class)
@@ -34,19 +30,19 @@ public class BoardCtrl {
 	private final static String GET_CARD_URL = "/showCard";
 	private final static String GET_TASK_URL = "/showTask";
 
-
-	@Autowired
-	BoardRepo boardRepo;
-
-	@Autowired
-	LaneRepo laneRepo;
-
-	@Autowired
-	CardRepo cardRepo;
-
-	@Autowired
-	TaskRepo taskRepo;
-	
+//
+//	@Autowired
+//	BoardRepo boardRepo;
+//
+//	@Autowired
+//	LaneRepo laneRepo;
+//
+//	@Autowired
+//	CardRepo cardRepo;
+//
+//	@Autowired
+//	TaskRepo taskRepo;
+//	
 	@Autowired
 	DisplayService service;
 
@@ -83,7 +79,12 @@ public class BoardCtrl {
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 7")
 	public void delTask(@RequestBody Task task) {
 
-		taskRepo.delete(task);
+		service.deleteTask(task);
+	}
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 8")
+	public void delCard(@RequestBody Card card) {
+		System.out.println("delete Card listener");
+		service.deleteCard(card);
 	}
 	
 	

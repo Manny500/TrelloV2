@@ -40,6 +40,7 @@ public class PermissionCtrl {
 	public void updateProfile(@RequestBody TV2User user) {
 
 		service.save(user);
+		System.err.println("updating user");
 
 	}
 	
