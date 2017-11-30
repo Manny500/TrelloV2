@@ -71,5 +71,8 @@ public class DisplayService {
 	public void deleteTask(Task task) {
 		tRepo.delete(task);
 	}
+	public void deleteTaskById(int id) {
+		tRepo.deleteById(id);
+	}
 	
 }
