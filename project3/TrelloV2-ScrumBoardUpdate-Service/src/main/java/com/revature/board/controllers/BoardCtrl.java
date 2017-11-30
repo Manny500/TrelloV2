@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.board.message.Messaging;
 
 @RestController
+@EnableResourceServer
 public class BoardCtrl {
 	private final static String ADD_TASK_URL = "/addTask";
 	private final static String ADD_CARD_URL = "/addCard";
@@ -19,6 +21,7 @@ public class BoardCtrl {
 	private final static String SWITCH_LANE_URL = "/updateCard";
 	private final static String UPDATE_BURNDOWN_URL = "/updateBurndown";
 	private final static String DELETE_TASK_URL = "/deleteTask";
+	private final static String DELETE_CARD_URL = "/deleteCard";
 
 	@Autowired
 	Messaging mysource;
@@ -76,6 +79,14 @@ public class BoardCtrl {
 		
 		
 		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 7).build());
+
+		return "Success deleted card";
+	}
+	@RequestMapping(DELETE_CARD_URL)
+	public String deleteCard(@RequestBody String payload, HttpServletRequest request) {
+		
+		System.out.println("----------------------" + payload +"------------------");
+		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 8).build());
 
 		return "Success deleted card";
 	}

@@ -3,11 +3,11 @@ package com.revature.permissions.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +17,8 @@ import com.revature.permissions.repo.TV2UserRepo;
 import com.revature.permissions.service.PermissionService;
 
 @EnableBinding(Sink.class)
-@EnableEurekaClient
 @RestController
+@EnableResourceServer
 public class PermissionCtrl {
 	
 	@Autowired
@@ -40,6 +40,7 @@ public class PermissionCtrl {
 	public void updateProfile(@RequestBody TV2User user) {
 
 		service.save(user);
+		System.err.println("updating user");
 
 	}
 	

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, RequestOptions,Headers, Response} from '@angular/http';
 import { ProfileUser } from '../profile/profile-user';
 
 
@@ -10,10 +10,22 @@ export class ViewUsersService {
 
   private profileURL = 'permissions/viewAll';
 
-  constructor(private http: Http) { }
+  url: string;
+  urlEndpoint: string;
+  creds: String;
+  updatedUser: string;
+
+  headers = new Headers({
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('currentToken')).token
+  });
+
+  options = new RequestOptions({ headers: this.headers });
+
+  constructor(private http: Http){}
 
   getInfo(){
-      return this.http.get(this.profileURL)
+      return this.http.get(this.profileURL, this.options)
       .map(response => <ProfileUser[]> response.json())
       .do(data => console.log(data))
       .catch(this.handleError);

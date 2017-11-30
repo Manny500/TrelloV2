@@ -24,7 +24,7 @@ import { ChartsModule } from 'ng2-charts';
 import { BurndownChartService } from './burndown-chart/burndown-chart.service';
 import { DatePipe } from '@angular/common';
 import { ProfileService } from './profile/profile.service';
-// import { UserHomeComponent } from './user-home/user-home.component';
+import {AuthGuard} from './auth-guard.service';
 import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
 import { ViewUsersService } from './view-users/view-users.service';
 import { BoardDisplayService } from './home/board-display.service';
@@ -69,7 +69,8 @@ import { RegisterService } from './register-user/register-user.service';
     BoardDisplayService,
     ViewUsersService,
     LaneDisplayService,
-    RegisterService
+    RegisterService,
+    AuthGuard
   ],
 
   bootstrap: [AppComponent]

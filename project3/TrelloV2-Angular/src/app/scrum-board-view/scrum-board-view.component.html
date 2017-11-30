@@ -49,6 +49,9 @@
                     <td>
                       <button type="button" class="btn-sm btn-primary" (click)="switchLane(card,i+1)">></button>
                     </td>
+                    <td>
+                      <button type="button" class="btn-sm btn-danger" (click)="removeCard(card);Cards.pop(card)">X</button>
+                    </td>
                   </tr>
                 </div>
               </ng-container>
