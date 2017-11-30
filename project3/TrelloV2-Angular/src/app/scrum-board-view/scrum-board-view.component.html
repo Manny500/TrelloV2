@@ -28,9 +28,9 @@
               <th>
                 <h2>{{lane.laneTitle}}</h2>
               </th>
-              <!-- <td>
-                <button type="button" class="btn-sm btn-danger" (click)="removeCard(card);Cards.pop(card)">X</button>
-              </td> -->
+               <td>
+                <button type="button" class="btn-sm btn-danger"  style="float: right;" (click)="removeLane(lane);Lanes.pop(lane)">X</button>
+              </td> 
               <ng-container *ngFor="let card of Cards" class="col-1-4">
                 <div *ngIf="card.lId == lane.laneId" >
                  
