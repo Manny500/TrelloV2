@@ -83,8 +83,12 @@ public class BoardCtrl {
 	}
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 8")
 	public void delCard(@RequestBody Card card) {
-		System.out.println("delete Card listener");
 		service.deleteCard(card);
+	}
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 9")
+	public void delLane(@RequestBody Lane lane) {
+		System.out.println("delete Lane listener");
+		service.deleteLane(lane);
 	}
 	
 	

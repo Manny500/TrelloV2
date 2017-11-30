@@ -196,6 +196,9 @@ export class ScrumBoardViewComponent implements OnInit {
       err => console.log(err),
       () => console.log('delete Lane request completed')
     );
+    setTimeout(function () {
+      this.displayLanes();
+    }.bind(this), 1000);
   }
 
   removeCard(currentCard: Card){
@@ -215,9 +218,9 @@ export class ScrumBoardViewComponent implements OnInit {
       err => console.log(err),
       () => console.log('delete Task request completed')
     );
-    // setTimeout(function () {
-    //   this.displayTasks(taskToRemove.cardId);
-    // }.bind(this), 1000);
+    setTimeout(function () {
+      this.displayTasks(taskToRemove.cardId);
+    }.bind(this), 1000);
     
   }
 }
