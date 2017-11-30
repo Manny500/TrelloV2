@@ -30,19 +30,6 @@ public class BoardCtrl {
 	private final static String GET_CARD_URL = "/showCard";
 	private final static String GET_TASK_URL = "/showTask";
 
-//
-//	@Autowired
-//	BoardRepo boardRepo;
-//
-//	@Autowired
-//	LaneRepo laneRepo;
-//
-//	@Autowired
-//	CardRepo cardRepo;
-//
-//	@Autowired
-//	TaskRepo taskRepo;
-//	
 	@Autowired
 	DisplayService service;
 
@@ -81,6 +68,7 @@ public class BoardCtrl {
 
 		service.deleteTask(task);
 	}
+	
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 8")
 	public void delCard(@RequestBody Card card) {
 		List<Task> tasks = service.findByCardId(card.getcId());

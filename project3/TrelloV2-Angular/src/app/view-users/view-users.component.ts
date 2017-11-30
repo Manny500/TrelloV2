@@ -15,19 +15,16 @@ export class ViewUsersComponent implements OnInit {
   constructor(private viewUsersService: ViewUsersService, private router: Router) { }
 
   ngOnInit() {
-    
-    this.viewUsersService.getInfo().subscribe(result =>{
-      
-            this.myData = result;
-      
-          });
+
+    this.viewUsersService.getInfo().subscribe(result => {
+
+      this.myData = result;
+
+    });
   }
 
   gotoRequests(user: ProfileUser): void {
-    
-      // console.log(user);
-      // let link = ['/request', user.userId];
-      this.viewUsersService.setPass(user.userId);
+    this.viewUsersService.setPass(user.userId);
     this.router.navigate(['/request']);
   }
 

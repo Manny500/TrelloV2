@@ -3,7 +3,4 @@ spring:
     name: config
   datasource:
    tomcat:
-     initial-size: 2    
-server:
-    port: 8888
-    
+     initial-size: 2        

@@ -19,25 +19,23 @@
 
         <table>
 
-          <br>
-
           <!-- <div *ngIf="lane.bId == currentBoardId "> -->
-
             <div class="module lane">
 
               <th>
-                <h2>{{lane.laneTitle}}</h2>
+                <h3>{{lane.laneTitle}}</h3>
               </th>
+
                <td>
                 <button type="button" class="btn-sm btn-danger"  style="float:right;" (click)="removeLane(lane);Lanes.pop(lane)">X</button>
               </td> 
+
               <ng-container *ngFor="let card of Cards" class="col-1-4">
-                <div *ngIf="card.lId == lane.laneId" >
-                 
-                    
+                <div *ngIf="card.lId == lane.laneId">
+
                   <!-- <div class="module card"> -->
                   <tr>
-                    <td *ngIf="i > 0">
+                    <td *ngIf="i > 1">
                       <button type="button" class="btn-sm btn-primary" (click)="switchLane(card, i-1)">
                         <</button>
                     </td>
@@ -45,11 +43,10 @@
                       <div id="userStories" class="card">
                         <div (click)="displayTasks(card.cId)" class="card-block">
                           <h6 data-toggle="modal" data-target=".card-modal-sm" class="card-title">{{card.cTitle}}</h6>
-                          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                         </div>
                       </div>
                     </td>
-                    <td>
+                    <td *ngIf="i < Lanes.length-1">
                       <button type="button" class="btn-sm btn-primary" (click)="switchLane(card,i+1)">></button>
                     </td>
                     <td>
@@ -79,10 +76,9 @@
       <div class="modal-body">
         <div *ngFor="let task of Tasks">
           <div *ngIf="task.cardId == currentCardId">
-            <!-- replace doSomething() with an update T_complete function -->
             <li class="tasks">
-                <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
-                <a class="delete" (click)="removeTask(task);Tasks.pop(task)">x</a>
+              <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
+              <a class="delete" (click)="removeTask(task);Tasks.pop(task)">x</a>
             </li>
 
 
@@ -91,14 +87,14 @@
         <br>
         <div [hidden]="showTaskBtns" id="taskInput" (click)="showTaskBtns=true">add a task...</div>
 
-        
-          <input [hidden]="!showTaskBtns" [(ngModel)]="inputedTaskInfo" type="text" placeholder="add task" />
-          <div *ngIf="showTaskBtns">
 
-            <button (click)="showTaskBtns=false; addTask();" type="button" class="btn btn-secondary">add task</button>
-            <button (click)="showTaskBtns=false" type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
-          </div>
-        
+        <input [hidden]="!showTaskBtns" [(ngModel)]="inputedTaskInfo" type="text" placeholder="add task" />
+        <div *ngIf="showTaskBtns">
+
+          <button (click)="showTaskBtns=false; addTask();" type="button" class="btn btn-secondary">add task</button>
+          <button (click)="showTaskBtns=false" type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
+        </div>
+
 
       </div>
       <div class="modal-footer">

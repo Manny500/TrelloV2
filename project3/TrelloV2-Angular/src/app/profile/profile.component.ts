@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
    lastName: String;
    userName: String;
    password: String;
-   team: number;
+   teamId: number;
    roleType: number;
    email: String;
   
@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
       this.lastName = this.user.lastName;
       this.userName = this.user.userName;
       this.password = this.user.password;
-      this.team = this.user.team;
+      this.teamId = this.user.teamId;
       this.roleType = this.user.roleType;
       this.email = this.user.email;
     });
@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
      this.lastName = this.user.lastName;
      this.userName = this.user.userName;
      this.password = this.user.password;
-     this.team = this.user.team;
+     this.teamId = this.user.teamId;
      this.roleType = this.user.roleType;
      this.email = this.user.email;
  

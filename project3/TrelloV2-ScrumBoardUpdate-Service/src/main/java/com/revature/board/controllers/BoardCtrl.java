@@ -14,6 +14,7 @@ import com.revature.board.message.Messaging;
 @RestController
 @EnableResourceServer
 public class BoardCtrl {
+	
 	private final static String ADD_TASK_URL = "/addTask";
 	private final static String ADD_CARD_URL = "/addCard";
 	private final static String ADD_LANE_URL = "/addLane";
@@ -78,11 +79,11 @@ public class BoardCtrl {
 	@RequestMapping(DELETE_TASK_URL)
 	public String deleteTask(@RequestBody String payload, HttpServletRequest request) {
 		
-		
 		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 7).build());
 
 		return "Success deleted task";
 	}
+  
 	@RequestMapping(DELETE_CARD_URL)
 	public String deleteCard(@RequestBody String payload, HttpServletRequest request) {
 		
@@ -90,6 +91,7 @@ public class BoardCtrl {
 
 		return "Success deleted card";
 	}
+
 	@RequestMapping(DELETE_LANE_URL)
 	public String deleteLane(@RequestBody String payload, HttpServletRequest request) {
 		
@@ -98,7 +100,5 @@ public class BoardCtrl {
 
 		return "Success deleted lane";
 	}
-	
-	
 
 }

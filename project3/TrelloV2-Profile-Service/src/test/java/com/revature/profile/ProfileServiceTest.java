@@ -7,26 +7,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.profile.bean.TV2User;
 import com.revature.profile.repo.ProfileRepo;
 import com.revature.profile.service.ProfileService;
-import com.revature.profile.service.UserNotFoundException;
-
-import junit.framework.Assert;
 
 
 //@ActiveProfiles("test")
@@ -54,6 +44,7 @@ public class ProfileServiceTest {
 		profileService.setProfileRepo(profileRepoMock);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testFindByUserId() {
 		TV2User user = ProfileTestUtil.createModelObject(uId, firstName, lastName);
@@ -83,6 +74,7 @@ public class ProfileServiceTest {
 		assertUser(updated, returned);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void assertUser(TV2User expected, TV2User actual) {
 		assertEquals(expected.getUserId(), actual.getUserId());
 		assertEquals(expected.getFirstName(), actual.getFirstName());
