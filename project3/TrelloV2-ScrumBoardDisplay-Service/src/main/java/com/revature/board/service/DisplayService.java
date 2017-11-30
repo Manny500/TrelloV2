@@ -44,6 +44,10 @@ public class DisplayService {
 		return lRepo.save(lane);
 	}
 	
+	public void deleteLane(Lane lane) {
+		lRepo.delete(lane);
+	}
+	
 	//Card
 	public List<Card> findAllCard(){
 		return cRepo.findAll();

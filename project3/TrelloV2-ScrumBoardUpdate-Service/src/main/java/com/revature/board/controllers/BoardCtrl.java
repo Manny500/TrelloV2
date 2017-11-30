@@ -23,6 +23,7 @@ public class BoardCtrl {
 	private final static String UPDATE_BURNDOWN_URL = "/updateBurndown";
 	private final static String DELETE_TASK_URL = "/deleteTask";
 	private final static String DELETE_CARD_URL = "/deleteCard";
+	private final static String DELETE_LANE_URL = "/deleteLane";
 
 	@Autowired
 	Messaging mysource;
@@ -80,14 +81,24 @@ public class BoardCtrl {
 		
 		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 7).build());
 
-		return "Success deleted card";
+		return "Success deleted task";
 	}
+  
 	@RequestMapping(DELETE_CARD_URL)
 	public String deleteCard(@RequestBody String payload, HttpServletRequest request) {
 		
 		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 8).build());
 
 		return "Success deleted card";
+	}
+
+	@RequestMapping(DELETE_LANE_URL)
+	public String deleteLane(@RequestBody String payload, HttpServletRequest request) {
+		
+		System.out.println("----------------------" + payload +"------------------");
+		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 9).build());
+
+		return "Success deleted lane";
 	}
 
 }

@@ -21,6 +21,7 @@ export class LaneDisplayService{
     private switchLaneUrl = 'board-update/updateCard';
     private tasksUrl = 'board-display/showTask';
     private addLanesUrl = 'board-update/addLane';
+    private deleteLaneUrl = 'board-update/deleteLane';
     private burndownUpdateUrl = 'board-update/updateBurndown';
 
 
@@ -78,6 +79,10 @@ export class LaneDisplayService{
     addLane(laneCreate : Lane){
         return this.http.post(this.addLanesUrl, laneCreate, this.options)
     }
+    deleteLane(lane: Lane){
+        return this.http.post(this.deleteLaneUrl,lane, this.options)
+    }
+
     deleteCard(card: Card){
         return this.http.post(this.deleteCardUrl,card, this.options)
     }
