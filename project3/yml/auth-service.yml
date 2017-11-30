@@ -1,0 +1,18 @@
+server:
+ port: 8090
+
+keystore:
+ password: mySecretKey
+spring:
+  application:
+    name: auth-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://localhost:8888/
+  datasource:
+   tomcat:
+     initial-size: 2  
+  mvc:
+    dispatchOptionsRequest: true

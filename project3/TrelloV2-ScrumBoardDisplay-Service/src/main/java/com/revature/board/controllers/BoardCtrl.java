@@ -83,6 +83,70 @@ public class BoardCtrl {
 		service.deleteLane(lane);
 	}
 	
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 10")
+	public void delBoard(@RequestBody Board board) {
+		
+		
+		List<Lane> allLanes = service.findAllLane();
+		
+		List<Lane> boardLanes = new ArrayList<Lane>();
+		
+		for(int i = 0; i < allLanes.size(); i++) {
+			
+			if(allLanes.get(i).getbId() == board.getbId()) {
+				
+				boardLanes.add(allLanes.get(i));
+			}
+			
+		}
+		
+		List<Card> allCards = service.findAllCard();
+		
+		List<Card> boardCards = new ArrayList<Card>();
+		
+		for(int b = 0; b < boardLanes.size(); b++) {
+			
+			for(int i = 0; i < allCards.size(); i++) {
+				
+				if(allCards.get(i).getlId() == boardLanes.get(b).getLaneId()) {
+					
+					boardCards.add(allCards.get(i));
+					
+				}
+			}
+		}
+		
+		List<Task> allTasks = service.findAllTask();
+		
+		List<Task> boardTasks = new ArrayList<Task>();
+		
+		for(int b = 0; b < boardCards.size(); b++) {
+			
+			for(int i = 0; i < allTasks.size(); i++) {
+				
+				if(allTasks.get(i).getCardId() == boardCards.get(b).getcId()) {
+					
+					boardTasks.add(allTasks.get(i));
+					
+				}
+			}
+		}
+		
+		for(int i = 0; i < boardTasks.size(); i++) {
+			service.deleteTask(boardTasks.get(i));
+		}
+		
+		for(int i = 0; i < boardCards.size(); i++) {
+			service.deleteCard(boardCards.get(i));
+		}
+		
+		for(int i = 0; i < boardLanes.size(); i++) {
+			service.deleteLane(boardLanes.get(i));
+		}
+		
+		service.deleteBoard(board);
+	}
+	
 	
 
 	@GetMapping(GET_BOARD_URL)
