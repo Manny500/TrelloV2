@@ -198,14 +198,18 @@ export class ScrumBoardViewComponent implements OnInit {
   
   }
   removeLane(laneToRemove){
-    this.laneDislayService.deleteLane(laneToRemove).subscribe(
-      data => console.log(this.responseStatus = data),
-      err => console.log(err),
-      () => console.log('delete Lane request completed')
-    );
-    setTimeout(function () {
-      this.displayLanes();
-    }.bind(this), 1000);
+    if(confirm("Are you sure to delete "+ laneToRemove +"?")) {
+      this.laneDislayService.deleteLane(laneToRemove).subscribe(
+        data => console.log(this.responseStatus = data),
+        err => console.log(err),
+        () => console.log('delete Lane request completed')
+      );
+      setTimeout(function () {
+        this.displayLanes();
+      }.bind(this), 1000);
+    }
+
+   
   }
 
  
