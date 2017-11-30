@@ -10,6 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class TV2UserDetails extends TV2User implements UserDetails{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public TV2UserDetails(final TV2User user) {
 		super(user);
 	}

@@ -6,5 +6,5 @@ export class ProfileUser{
     password: String;
     roleType: number;
     email: String;
-    team: number;
+    teamId: number;
 }

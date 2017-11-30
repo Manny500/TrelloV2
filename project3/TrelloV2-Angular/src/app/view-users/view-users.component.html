@@ -17,12 +17,12 @@
 		<tr *ngFor="let ScrumUsers of myData" (click)="gotoRequests(ScrumUsers)">
 
 			<td>{{ScrumUsers.userId}}</td>
-			<td>{{ScrumUsers.firstname}}</td>
-			<td>{{ScrumUsers.lastname}}</td>
-			<td>{{ScrumUsers.username}}</td>
+			<td>{{ScrumUsers.firstName}}</td>
+			<td>{{ScrumUsers.lastName}}</td>
+			<td>{{ScrumUsers.userName}}</td>
 			<td>{{ScrumUsers.roleType}}</td>
 			<td>{{ScrumUsers.email}}</td>
-			<td>{{ScrumUsers.team}}</td>
+			<td>{{ScrumUsers.teamId}}</td>
 
 		</tr>
 	</tbody>
