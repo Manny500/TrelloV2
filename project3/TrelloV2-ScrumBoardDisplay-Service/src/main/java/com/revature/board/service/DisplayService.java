@@ -13,6 +13,7 @@ import com.revature.board.repo.BoardRepo;
 import com.revature.board.repo.CardRepo;
 import com.revature.board.repo.LaneRepo;
 import com.revature.board.repo.TaskRepo;
+import com.revature.profile.repo.ProfileRepo;
 
 @Service
 public class DisplayService {
@@ -76,5 +77,21 @@ public class DisplayService {
 		tRepo.delete(task);
 	}
 
+	/**
+     * This setter method should be used only by unit tests.
+     * @param personRepository
+     */
+	public void setBoardRepo (BoardRepo repo) {
+		this.bRepo = repo;
+	}
+	public void setLaneRepo (LaneRepo repo) {
+		this.lRepo = repo;
+	}
+	public void setCardRepo (CardRepo repo) {
+		this.cRepo = repo;
+	}
+	public void setTaskRepo (TaskRepo repo) {
+		this.tRepo = repo;
+	}
 	
 }
