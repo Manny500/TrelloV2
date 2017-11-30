@@ -190,6 +190,13 @@ export class ScrumBoardViewComponent implements OnInit {
     )
   
   }
+  removeLane(laneToRemove){
+    this.laneDislayService.deleteLane(laneToRemove).subscribe(
+      data => console.log(this.responseStatus = data),
+      err => console.log(err),
+      () => console.log('delete Lane request completed')
+    );
+  }
 
   removeCard(currentCard: Card){
       this.laneDislayService.deleteCard(currentCard).subscribe(
@@ -197,9 +204,9 @@ export class ScrumBoardViewComponent implements OnInit {
         err => console.log(err),
         () => console.log('delete Card request completed')
       );
-      setTimeout(function () {
-        this.displayCards();
-      }.bind(this), 1000);
+      // setTimeout(function () {
+      //   this.displayCards();
+      // }.bind(this), 1000);
   }
 
   removeTask(taskToRemove){
@@ -208,9 +215,9 @@ export class ScrumBoardViewComponent implements OnInit {
       err => console.log(err),
       () => console.log('delete Task request completed')
     );
-    setTimeout(function () {
-      this.displayTasks(taskToRemove.cardId);
-    }.bind(this), 1000);
+    // setTimeout(function () {
+    //   this.displayTasks(taskToRemove.cardId);
+    // }.bind(this), 1000);
     
   }
 }
