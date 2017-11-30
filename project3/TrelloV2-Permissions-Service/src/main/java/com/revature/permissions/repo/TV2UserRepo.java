@@ -12,5 +12,6 @@ public interface TV2UserRepo extends CrudRepository<TV2User,Integer>{
 
 	List<TV2User> findAll();
 	
+	@SuppressWarnings("unchecked")
 	TV2User save(TV2User user);
 }

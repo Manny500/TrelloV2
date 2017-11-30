@@ -181,6 +181,10 @@ export class ScrumBoardViewComponent implements OnInit {
     this.currentLaneId = lId;
   }
 
+  removeCardFromArray(id: number){
+    this.boardCards = this.boardCards.filter(item => item.cId !== id);
+  }
+
   switchLane(currentCard: Card, lane: number) {
     const currentLane: Lane = this.Lanes[lane];
     currentCard.lId = currentLane.laneId;
@@ -192,10 +196,18 @@ export class ScrumBoardViewComponent implements OnInit {
     )
   
   }
-
-  removeCardFromArray(id: number) {
-    this.boardCards = this.boardCards.filter(item => item.cId !== id);
+  removeLane(laneToRemove){
+    this.laneDislayService.deleteLane(laneToRemove).subscribe(
+      data => console.log(this.responseStatus = data),
+      err => console.log(err),
+      () => console.log('delete Lane request completed')
+    );
+    setTimeout(function () {
+      this.displayLanes();
+    }.bind(this), 1000);
   }
+
+ 
 
   removeCard(currentCard: Card){
       this.laneDislayService.deleteCard(currentCard).subscribe(

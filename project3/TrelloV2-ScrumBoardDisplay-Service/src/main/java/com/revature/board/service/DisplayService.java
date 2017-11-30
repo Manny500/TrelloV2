@@ -3,7 +3,6 @@ package com.revature.board.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import com.revature.board.beans.Board;
@@ -45,6 +44,10 @@ public class DisplayService {
 		return lRepo.save(lane);
 	}
 	
+	public void deleteLane(Lane lane) {
+		lRepo.delete(lane);
+	}
+	
 	//Card
 	public List<Card> findAllCard(){
 		return cRepo.findAll();
@@ -62,11 +65,16 @@ public class DisplayService {
 		return tRepo.findAll();
 	}
 	
+	public List<Task> findByCardId(int cardId){
+		return tRepo.findByCardId(cardId);
+	}
+	
 	public Task saveTask(Task task) {
 		return tRepo.save(task);
 	}
 	public void deleteTask(Task task) {
 		tRepo.delete(task);
 	}
+
 	
 }
