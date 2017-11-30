@@ -198,7 +198,8 @@ export class ScrumBoardViewComponent implements OnInit {
   
   }
   removeLane(laneToRemove, lId : number, laneTitle: string){
-    if(confirm("Are you sure to delete \" "+ laneTitle +"\" ?" +"\nThe cards will also be deleted at the same time!")) {
+    if(confirm("Are you sure to delete \" "+ laneTitle +"\" ?" 
+              +"\nThe cards will also be deleted at the same time!")) {
 
       this.laneDislayService.deleteLane(laneToRemove).subscribe(
         data => console.log(this.responseStatus = data),
