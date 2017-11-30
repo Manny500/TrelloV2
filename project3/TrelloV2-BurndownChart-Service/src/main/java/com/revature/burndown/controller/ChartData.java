@@ -10,10 +10,10 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.revature.burndown.bean.Board;
 import com.revature.burndown.bean.BurndownDto;
@@ -25,6 +25,7 @@ import com.revature.burndown.service.ChartService;
 
 @EnableBinding(Sink.class)
 @RestController
+@EnableResourceServer
 public class ChartData {
 
 	@Autowired

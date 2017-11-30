@@ -59,7 +59,6 @@ export class ProfileComponent implements OnInit {
     this.showUpdate = false;
     this.showTable = true;
     this.showDone = true;
-    console.log(this.showTable);
     
   //   setTimeout(function() {
   //     this.edited = false;
@@ -67,8 +66,6 @@ export class ProfileComponent implements OnInit {
   //   }.bind(this), 3000);
    }
    done(){
-     console.log('done() is called: ');
-     console.log(this.user.firstName);
      this.showTable = false;
      this.showDone = false;
      this.showUpdate = true;

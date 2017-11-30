@@ -4,7 +4,14 @@ spring:
   datasource:
    tomcat:
      initial-size: 2
-    
+
+security:
+ oauth2:
+   resource:
+     accessTokenUri: http://localhost:8090/oauth/check_token
+     userAuthorizationUri: http://localhost:8090/oauth/authorize
+     userInfoUri: http://localhost:8090/user
+     jwt:
+       keyUri: http://localhost:8090/oauth/token_key
 server:
-    port: 0
-    
+ port: 0

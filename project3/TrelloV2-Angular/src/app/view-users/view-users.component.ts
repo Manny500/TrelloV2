@@ -19,7 +19,6 @@ export class ViewUsersComponent implements OnInit {
     this.viewUsersService.getInfo().subscribe(result =>{
       
             this.myData = result;
-            console.log(this.myData);
       
           });
   }
