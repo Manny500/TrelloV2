@@ -80,5 +80,21 @@ public class DisplayService {
 		tRepo.delete(task);
 	}
 
+	/**
+     * This setter method should be used only by unit tests.
+     * @param personRepository
+     */
+	public void setBoardRepo (BoardRepo repo) {
+		this.bRepo = repo;
+	}
+	public void setLaneRepo (LaneRepo repo) {
+		this.lRepo = repo;
+	}
+	public void setCardRepo (CardRepo repo) {
+		this.cRepo = repo;
+	}
+	public void setTaskRepo (TaskRepo repo) {
+		this.tRepo = repo;
+	}
 	
 }
