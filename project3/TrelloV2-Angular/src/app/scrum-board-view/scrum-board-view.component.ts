@@ -53,6 +53,8 @@ export class ScrumBoardViewComponent implements OnInit {
   //
   public showCard = true;
 
+  taskStatus: number;
+
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
@@ -69,6 +71,7 @@ export class ScrumBoardViewComponent implements OnInit {
     this.currentBoardId = JSON.parse(localStorage.getItem("currentBoardId"));
     this.laneDislayService.getLanes().subscribe(result => {
       this.Lanes = result;
+      this.Lanes = this.Lanes.filter(item => item.bId == this.currentBoardId);
       localStorage.setItem('currentLanes', JSON.stringify(result))
     })
     this.showCard = true;
@@ -205,6 +208,8 @@ export class ScrumBoardViewComponent implements OnInit {
     }.bind(this), 1000);
   }
 
+ 
+
   removeCard(currentCard: Card){
       this.laneDislayService.deleteCard(currentCard).subscribe(
         data => console.log(this.responseStatus = data),
@@ -213,9 +218,20 @@ export class ScrumBoardViewComponent implements OnInit {
       );
 
       this.Cards = this.Cards.filter(item => item.cId !== currentCard.cId);
+     
+
       // setTimeout(function () {
       //   this.displayCards();
       // }.bind(this), 1000);
+
+
+      this.burndownCreate = {
+        bId: this.currentBoardId,
+        cards: this.boardCards,
+        lanes: this.Lanes
+      }
+  
+      this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
   }
 
   removeTask(taskToRemove){
@@ -227,6 +243,27 @@ export class ScrumBoardViewComponent implements OnInit {
     setTimeout(function () {
       this.displayTasks(taskToRemove.cardId);
     }.bind(this), 1000);
+    
+  }
+
+  toggleEditable(event, currentTaskId, currentTaskInfo){
+    if(event.target.checked){
+      this.taskStatus = 1;
+
+    }else{
+      this.taskStatus = 0;
+    }
+
+    this.taskCreate = {
+      taskId: currentTaskId,
+      cardId : this.currentCardId,
+      status: this.taskStatus,
+      info: currentTaskInfo
+    }
+
+    console.log(currentTaskInfo);
+
+    this.laneDislayService.postTask(this.taskCreate).subscribe();
     
   }
 }

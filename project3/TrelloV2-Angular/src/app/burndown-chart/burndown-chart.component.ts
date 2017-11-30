@@ -84,7 +84,7 @@ export class BurndownChartComponent implements OnInit {
             this.myData = result;
       
             this.myData.forEach(iteam => {
-              iteam.chartDate = this.datePipe.transform(new Date(iteam.chartDate), 'dd-MM-yy');
+              iteam.chartDate = this.datePipe.transform(new Date(iteam.chartDate), 'dd-MMM-yy');
             });
       
             this.sortedItems = this.myData.sort((a: BurndownChart, b: BurndownChart) =>
