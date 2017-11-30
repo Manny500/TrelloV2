@@ -204,10 +204,9 @@ export class ScrumBoardViewComponent implements OnInit {
         err => console.log(err),
         () => console.log('delete Card request completed')
       );
-  
-      // setTimeout(function () {
-      //   this.displayCards();
-      // }.bind(this), 1000);
+      setTimeout(function () {
+        this.displayCards();
+      }.bind(this), 1000);
   }
 
   removeTask(taskToRemove){
@@ -217,7 +216,9 @@ export class ScrumBoardViewComponent implements OnInit {
       err => console.log(err),
       () => console.log('delete Task request completed')
     );
-
-    this.displayTasks(taskToRemove.cardId);
+    setTimeout(function () {
+      this.displayTasks(taskToRemove.cardId);
+    }.bind(this), 1000);
+    
   }
 }
