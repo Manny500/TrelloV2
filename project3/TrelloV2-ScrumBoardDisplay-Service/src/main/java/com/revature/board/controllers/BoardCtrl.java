@@ -83,7 +83,10 @@ public class BoardCtrl {
 	}
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 8")
 	public void delCard(@RequestBody Card card) {
-		service.deleteTaskById(card.getcId());
+		List<Task> tasks = service.findByCardId(card.getcId());
+		for(Task t : tasks) {
+			service.deleteTask(t);
+		}
 		service.deleteCard(card);
 	}
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 9")
