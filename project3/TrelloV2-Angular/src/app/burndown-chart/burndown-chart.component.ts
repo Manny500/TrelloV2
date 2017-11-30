@@ -9,6 +9,7 @@ import { BurndownChart } from './burndown-chart';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx';
 import { DatePipe } from '@angular/common';
+import { max } from 'rxjs/operators/max';
 
 @Component({
   selector: 'app-burndown-chart',
@@ -73,22 +74,47 @@ export class BurndownChartComponent implements OnInit {
     
   }
 
+  getLatestChart(listOfCharts: BurndownChart[]){
+    var currentLatest;
+    var latest = 0;
+    var latestChart;
+    listOfCharts.forEach(item => {
+      currentLatest = item.chartId;
+      if(currentLatest > latest){
+        latest = currentLatest;
+        latestChart = item;
+      }
+    })
+    return latestChart;
+  }
+
   diplayChart(): void {
+
+    var currentDate = this.datePipe.transform(new Date(), 'dd-MMM-yy');
 
     var boardId = localStorage.getItem("currentBoardId");
 
     const body = {boardId: boardId};
 
     this.chartService.getChart(body).subscribe(result => {
-      
+            
             this.myData = result;
-      
-            this.myData.forEach(iteam => {
-              iteam.chartDate = this.datePipe.transform(new Date(iteam.chartDate), 'dd-MMM-yy');
+          
+            this.myData.forEach(item => {
+              item.chartDate = this.datePipe.transform(new Date(item.chartDate), 'dd-MMM-yy');
+              
             });
-      
+
+            var latestChartData = this.getLatestChart(this.myData);
+
+            //filter out all non-unique dates;
+            this.myData = this.myData.filter(item => item.chartDate !== currentDate)
+            this.myData.push(latestChartData) // add the chart that was updated last for the current day
+            
+
             this.sortedItems = this.myData.sort((a: BurndownChart, b: BurndownChart) =>
-              new Date(a.chartDate).getDate() - new Date(b.chartDate).getDate()
+              // new Date(a.chartDate).getDate() - new Date(b.chartDate).getDate()
+              a.chartId - b.chartId
             );
       
             this.sortedItems.forEach(item => {
@@ -96,6 +122,7 @@ export class BurndownChartComponent implements OnInit {
             });
       
             this.sortedItems.forEach(item => {
+              
               this.labels.push(item.chartDate);
             });
       
