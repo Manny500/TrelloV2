@@ -48,6 +48,7 @@ public class ChartData {
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 5")
 	public void updateBurndown(@RequestBody BurndownDto dto) {
+		
 		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
 		Date date = new Date();
 		String currentDate = dateFormat.format(date);

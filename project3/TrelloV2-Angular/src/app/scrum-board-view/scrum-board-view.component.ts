@@ -191,15 +191,32 @@ export class ScrumBoardViewComponent implements OnInit {
   
   }
 
+  removeCardFromArray(id: number) {
+    this.boardCards = this.boardCards.filter(item => item.cId !== id);
+  }
+
   removeCard(currentCard: Card){
       this.laneDislayService.deleteCard(currentCard).subscribe(
         data => console.log(this.responseStatus = data),
         err => console.log(err),
         () => console.log('delete Card request completed')
       );
-      setTimeout(function () {
-        this.displayCards();
-      }.bind(this), 1000);
+
+      this.Cards = this.Cards.filter(item => item.cId !== currentCard.cId);
+     
+
+      // setTimeout(function () {
+      //   this.displayCards();
+      // }.bind(this), 1000);
+
+
+      this.burndownCreate = {
+        bId: this.currentBoardId,
+        cards: this.boardCards,
+        lanes: this.Lanes
+      }
+  
+      this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
   }
 
   removeTask(taskToRemove){
