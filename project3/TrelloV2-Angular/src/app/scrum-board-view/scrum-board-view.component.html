@@ -82,7 +82,8 @@
           <div *ngIf="task.cardId == currentCardId">
             <!-- replace doSomething() with an update T_complete function -->
             <li class="tasks">
-                <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
+              
+                <input style="margin-right:10px;" [checked]="task.status == 1" (change)="toggleEditable($event, task.taskId, task.info)" type="checkbox" />{{task.info}}
                 <a class="delete" (click)="removeTask(task);Tasks.pop(task)">x</a>
             </li>
 

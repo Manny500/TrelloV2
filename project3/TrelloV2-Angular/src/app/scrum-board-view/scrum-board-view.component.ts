@@ -53,6 +53,8 @@ export class ScrumBoardViewComponent implements OnInit {
   //
   public showCard = true;
 
+  taskStatus: number;
+
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
@@ -228,6 +230,27 @@ export class ScrumBoardViewComponent implements OnInit {
     setTimeout(function () {
       this.displayTasks(taskToRemove.cardId);
     }.bind(this), 1000);
+    
+  }
+
+  toggleEditable(event, currentTaskId, currentTaskInfo){
+    if(event.target.checked){
+      this.taskStatus = 1;
+
+    }else{
+      this.taskStatus = 0;
+    }
+
+    this.taskCreate = {
+      taskId: currentTaskId,
+      cardId : this.currentCardId,
+      status: this.taskStatus,
+      info: currentTaskInfo
+    }
+
+    console.log(currentTaskInfo);
+
+    this.laneDislayService.postTask(this.taskCreate).subscribe();
     
   }
 }
