@@ -10,6 +10,8 @@ export class BoardDisplayService{
     // private userBoardsUrl = 'board-display/user-home'
     private makeBoardsUrl = 'board-update/addBoard';
 
+    private deleteBoardsUrl = 'board-update/deleteBoard';
+
     url: string;
     urlEndpoint: string;
     creds: String;
@@ -34,6 +36,11 @@ export class BoardDisplayService{
 
     addBoard(boardCreate: Board){
         return this.http.post(this.makeBoardsUrl, boardCreate, this.options)
+        
+    }
+
+    deleteBoard(boardDelete: Board){
+        return this.http.post(this.deleteBoardsUrl, boardDelete, this.options)
         
     }
 

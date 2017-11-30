@@ -36,18 +36,22 @@
 				
 			<div class="card" style="background:rgb(185, 197, 207)">
 				<div class="card-block">
-
-					<div *ngFor="let board of Boards" class="col mx-auto" style="padding:10px" [routerLink]="['/trello']">
+					<table class="col mx-auto">
+					<div *ngFor="let board of Boards" class="col mx-auto" style="padding:10px" >
 
 						<div *ngIf="tv2Id == board.tv2Id">
-							<div (click)="storeBoardId(board.bId)" class="module board">
+							<td  class="module board col mx-auto">
 
-								<h5>{{board.bTitle}}</h5>
+								<h5 (click)="storeBoardId(board.bId)" [routerLink]="['/trello']">{{board.bTitle}}</h5>
 
-							</div>
+							</td>
+							<td >
+								<button (click)="delete(board.bId)" class="btn-sm btn-danger" style="padding: 5px; margin-left: 10px">X</button>
+							</td>
 						</div>
 
 					</div>
+				</table>
 				</div>
 			</div>
 		</div>
