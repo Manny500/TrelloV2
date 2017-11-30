@@ -69,6 +69,7 @@ export class ScrumBoardViewComponent implements OnInit {
     this.currentBoardId = JSON.parse(localStorage.getItem("currentBoardId"));
     this.laneDislayService.getLanes().subscribe(result => {
       this.Lanes = result;
+      this.Lanes = this.Lanes.filter(item => item.bId == this.currentBoardId);
       localStorage.setItem('currentLanes', JSON.stringify(result))
     })
     this.showCard = true;
