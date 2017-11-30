@@ -8,7 +8,7 @@
 
 <br>
 
-<div *ngIf="showCard" class="grid grid-pad" style="width:3000px;height:500px;overflow:auto">
+<div *ngIf="showCard" class="grid grid-pad" style="width:2000px;height:500px;overflow:auto">
 
   <!-- start of lane display -->
   <div *ngFor="let lane of Lanes; index as i" class="col-1-4">
@@ -43,7 +43,9 @@
                     <td>
                       <div id="userStories" class="card">
                         <div (click)="displayTasks(card.cId)" class="card-block">
-                          <h6 data-toggle="modal" data-target=".card-modal-sm" class="card-title">{{card.cTitle}}</h6>
+                          
+                          <h6 data-toggle="modal" data-target=".card-modal-sm" class="card-title"><h6 class="card-worth"> {{card.cWorth}}</h6> {{card.cTitle}}</h6>
+                          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                         </div>
                       </div>
                     </td>
@@ -69,7 +71,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="cardModalLabel">Descriptions</h5>
+        <h5 class="modal-title" id="cardModalLabel">Descriptions </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -78,8 +80,9 @@
         <div *ngFor="let task of Tasks">
           <div *ngIf="task.cardId == currentCardId">
             <li class="tasks">
-              <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
-              <a class="delete" (click)="removeTask(task);Tasks.pop(task)">x</a>
+              
+                <input style="margin-right:10px;" [checked]="task.status == 1" (change)="toggleEditable($event, task.taskId, task.info)" type="checkbox" />{{task.info}}
+                <a class="delete" (click)="removeTask(task);Tasks.pop(task)">x</a>
             </li>
 
 
