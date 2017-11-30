@@ -35,6 +35,10 @@ public class DisplayService {
 		return bRepo.save(board);
 	}
 	
+	public void deleteBoard(Board board) {
+		bRepo.delete(board);
+	}
+	
 	//Lane
 	public List<Lane> findAllLane(){
 		return lRepo.findAll();

@@ -60,8 +60,26 @@ export class HomeComponent implements OnInit {
         err => console.log(err),
         () => console.log('request completed')
       )
+      
 
     }
+  }
+
+  delete(id: number){
+    this.makeBoard = {
+      bId: id,
+      tv2Id: JSON.parse(localStorage.getItem("currentUser")).userId,
+      bTotal: 0,
+      bTitle: "",
+      tv2Team: JSON.parse(localStorage.getItem("currentUser")).team
+    }
+    
+    this.boardDisplayService.deleteBoard(this.makeBoard).subscribe(
+      data => console.log(this.responseStatus = data),
+      err => console.log(err),
+      () => console.log('request completed')
+    )
+    this.Boards = this.Boards.filter(item => item.bId !== id);
   }
 
 }

@@ -13,4 +13,6 @@ public interface BoardRepo extends CrudRepository<Board, Integer> {
 	
 	@SuppressWarnings("unchecked")
 	Board save(Board board);
+	
+	void delete(Board board);
 }
