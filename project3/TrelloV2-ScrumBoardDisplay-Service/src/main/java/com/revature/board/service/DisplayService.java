@@ -69,11 +69,16 @@ public class DisplayService {
 		return tRepo.findAll();
 	}
 	
+	public List<Task> findByCardId(int cardId){
+		return tRepo.findByCardId(cardId);
+	}
+	
 	public Task saveTask(Task task) {
 		return tRepo.save(task);
 	}
 	public void deleteTask(Task task) {
 		tRepo.delete(task);
 	}
+
 	
 }

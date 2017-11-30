@@ -5,16 +5,20 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.revature.board.beans.Card;
 import com.revature.board.beans.Task;
 
 @Repository
 public interface TaskRepo extends CrudRepository<Task, Integer>{
 	List<Task> findAll();
 	
+	List<Task> findByCardId(int cardId);
 	
 	
 	@SuppressWarnings("unchecked")
 	Task save(Task task);
 	
 	void delete(Task task);
+	
+//	void deleteAll(Iterable<List> entities);
 }
