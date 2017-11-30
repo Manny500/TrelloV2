@@ -28,6 +28,9 @@
               <th>
                 <h2>{{lane.laneTitle}}</h2>
               </th>
+              <!-- <td>
+                <button type="button" class="btn-sm btn-danger" (click)="removeCard(card);Cards.pop(card)">X</button>
+              </td> -->
               <ng-container *ngFor="let card of Cards" class="col-1-4">
                 <div *ngIf="card.lId == lane.laneId" >
                  
@@ -79,7 +82,7 @@
             <!-- replace doSomething() with an update T_complete function -->
             <li class="tasks">
                 <input style="margin-right:10px;" (click)="doSomething()" type="checkbox" />{{task.info}}
-                <a class="delete" (click)="removeTask(task)">x</a>
+                <a class="delete" (click)="removeTask(task);Tasks.pop(task)">x</a>
             </li>
 
 
@@ -92,7 +95,7 @@
           <input [hidden]="!showTaskBtns" [(ngModel)]="inputedTaskInfo" type="text" placeholder="add task" />
           <div *ngIf="showTaskBtns">
 
-            <button (click)="showTaskBtns=false; addTask()" type="button" class="btn btn-secondary">add task</button>
+            <button (click)="showTaskBtns=false; addTask();" type="button" class="btn btn-secondary">add task</button>
             <button (click)="showTaskBtns=false" type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
           </div>
         

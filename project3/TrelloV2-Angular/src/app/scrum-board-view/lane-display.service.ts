@@ -79,7 +79,7 @@ export class LaneDisplayService{
         return this.http.post(this.addLanesUrl, laneCreate, this.options)
     }
     deleteCard(card: Card){
-        return this.http.post(this.deleteCardUrl,card)
+        return this.http.post(this.deleteCardUrl,card, this.options)
     }
 
     deleteTask(task: Task){
