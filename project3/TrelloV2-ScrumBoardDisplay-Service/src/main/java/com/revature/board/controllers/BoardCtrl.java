@@ -79,6 +79,12 @@ public class BoardCtrl {
 		service.deleteLane(lane);
 	}
 	
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 10")
+	public void delBoard(@RequestBody Board board) {
+		System.out.println("delete Board listener");
+		service.deleteBoard(board);
+	}
+	
 	
 
 	@GetMapping(GET_BOARD_URL)
