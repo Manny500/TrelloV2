@@ -13,7 +13,6 @@ import com.revature.board.repo.BoardRepo;
 import com.revature.board.repo.CardRepo;
 import com.revature.board.repo.LaneRepo;
 import com.revature.board.repo.TaskRepo;
-import com.revature.profile.repo.ProfileRepo;
 
 @Service
 public class DisplayService {
