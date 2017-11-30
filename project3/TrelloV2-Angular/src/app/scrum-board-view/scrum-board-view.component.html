@@ -27,7 +27,7 @@
               </th>
 
                <td>
-                <button type="button" class="btn-sm btn-danger"  style="float:right;" (click)="removeLane(lane)">X</button>
+                <button type="button" class="btn-sm btn-danger"  style="float:right;" (click)="removeLane(lane, lane.laneId, lane.laneTitle)">X</button>
               </td>                                                                        <!--;Lanes.pop(lane)-->
 
               <ng-container *ngFor="let card of Cards" class="col-1-4">
