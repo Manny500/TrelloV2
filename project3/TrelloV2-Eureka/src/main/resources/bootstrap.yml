@@ -1,6 +1,11 @@
 spring:
   application:
-    name: eureka
+    name: trello-eureka
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://localhost:8888/
   datasource:
    tomcat:
      initial-size: 2    
