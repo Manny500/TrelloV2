@@ -1,12 +1,16 @@
 server:
  port: 8090
-# contextPath: /auth
 
 keystore:
  password: mySecretKey
 spring:
   application:
     name: auth-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://localhost:8888/
   datasource:
    tomcat:
      initial-size: 2  
