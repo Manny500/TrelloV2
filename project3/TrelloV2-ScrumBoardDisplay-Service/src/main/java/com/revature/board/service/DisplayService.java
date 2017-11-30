@@ -3,7 +3,6 @@ package com.revature.board.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import com.revature.board.beans.Board;
@@ -43,6 +42,10 @@ public class DisplayService {
 	
 	public Lane saveLane(Lane lane) {
 		return lRepo.save(lane);
+	}
+	
+	public void deleteLane(Lane lane) {
+		lRepo.delete(lane);
 	}
 	
 	//Card
