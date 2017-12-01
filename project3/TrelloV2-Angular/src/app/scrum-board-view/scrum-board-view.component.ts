@@ -5,6 +5,7 @@ import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
 import { BurndownDto } from './burndown-dto.interface';
 import { forEach } from '@angular/router/src/utils/collection';
+import { Activity } from './activity-display.interface';
 import { CardDto } from './card-dto.interface';
 
 @Component({
@@ -15,17 +16,21 @@ import { CardDto } from './card-dto.interface';
 
 export class ScrumBoardViewComponent implements OnInit {
 
-  Lanes: Lane[];
+  
   currentBoardId: number;
   currentCardId: number;
   currentLaneId: number;
-
+  
+  Lanes: Lane[];
   Cards: Card[];
   Tasks: Task[];
-
+  Activities: Activity[];
+  
   showTaskBtns: boolean;
   boardCards: Card[] = [];
 
+
+  activity: Activity;
   carddto: CardDto = {cId: 0, cVerify: 0, cWorth: 0, bId: 0, bTotal: 0, lId: 0, cTitle: "", cDescription: ""};
  
   constructor(private laneDislayService: LaneDisplayService) { }
@@ -53,16 +58,16 @@ export class ScrumBoardViewComponent implements OnInit {
   //addTask
   inputedTaskInfo: string;
 
-  //
+  //hide/show cards
   public showCard = true;
+
+  //activity
 
   taskStatus: number;
 
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
-    
-
   }
 
   push(card: Card){
@@ -89,7 +94,7 @@ export class ScrumBoardViewComponent implements OnInit {
       
 
     })
-
+  
     this.showCard = true;
   }
 
@@ -103,7 +108,21 @@ export class ScrumBoardViewComponent implements OnInit {
     })
   }
 
+  displayActivity(): void {
+    this.Activities = null;
+
+    this.laneDislayService.getActivity().subscribe(result => {
+      this.Activities = result;
+      //this.Activities = this.Activities.filter(item => item.bId == this.currentBoardId);
+    })
+    console.log('displayActivity++');
+  }
+
+
   addTask(): void{
+
+    this.activityToService('Added a Task', this.inputedTaskInfo);
+
     this.taskCreate = {
       taskId: 0,
       cardId : this.currentCardId,
@@ -123,7 +142,11 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   done(condition: number) {
-    if (condition == 1) {
+    if (condition == 1) { //add Card
+      
+      this.activityToService('Added a Card', this.cTitle);
+      
+      
       this.showCard = false;
       this.cardCreate = {
         cId: 0, //sql sequece will change this to appropriate number
@@ -151,7 +174,9 @@ export class ScrumBoardViewComponent implements OnInit {
 
     }
 
-    if (condition == 2) {
+    if (condition == 2) { //add Lane
+      
+      this.activityToService('Added a Lane', this.laneTitle);
 
       this.showCard = false;
       this.laneCreate = {
@@ -203,6 +228,8 @@ export class ScrumBoardViewComponent implements OnInit {
   removeLane(laneToRemove, lId : number, laneTitle: string){
     if(confirm("Are you sure to delete \" "+ laneTitle +"\" ?" 
               +"\nThe cards will also be deleted at the same time!")) {
+               
+      this.activityToService('Removed a Lane', laneTitle);
 
       this.laneDislayService.deleteLane(laneToRemove).subscribe(
         data => console.log(this.responseStatus = data),
@@ -216,6 +243,10 @@ export class ScrumBoardViewComponent implements OnInit {
 
    
   }
+
+
+  removeCard(currentCard: Card, cTitle: string){
+      this.activityToService('Removed a Card', cTitle);
 
   currentCard(card){
     localStorage.setItem("currentCard", JSON.stringify(card));
@@ -238,8 +269,6 @@ export class ScrumBoardViewComponent implements OnInit {
     );
   }
  
-
-  removeCard(currentCard: Card){
       this.laneDislayService.deleteCard(currentCard).subscribe(
         data => console.log(this.responseStatus = data),
         err => console.log(err),
@@ -263,7 +292,9 @@ export class ScrumBoardViewComponent implements OnInit {
       this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
   }
 
-  removeTask(taskToRemove){
+  removeTask(taskToRemove, info: string){
+    this.activityToService('Removed a Task', info);
+
     this.laneDislayService.deleteTask(taskToRemove).subscribe(
       data => console.log(this.responseStatus = data),
       err => console.log(err),
@@ -294,5 +325,18 @@ export class ScrumBoardViewComponent implements OnInit {
 
     this.laneDislayService.postTask(this.taskCreate).subscribe();
     
+  }
+
+  activityToService(act: string, name: string){
+    this.activity ={
+      bId: this.currentBoardId,
+      firstName: JSON.parse(localStorage.getItem("currentUser")).firstName,
+      action: act+': " '+name+' "'
+      }
+    this.laneDislayService.sendActivity(this.activity).subscribe(
+      data => console.log(this.responseStatus = data),
+      err => console.log(err),
+      () => console.log('request completed')
+    )
   }
 }
