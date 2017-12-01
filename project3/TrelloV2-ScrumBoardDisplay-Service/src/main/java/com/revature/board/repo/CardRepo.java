@@ -9,7 +9,7 @@ import com.revature.board.beans.Card;
 
 @Repository
 public interface CardRepo extends CrudRepository<Card,Integer>{
-	List<Card> findAllByOrderByCIdAsc();
+	List<Card> findAllByOrderByCIdDesc();
 	
 	List<Card> findByLId(int lId);
 	
