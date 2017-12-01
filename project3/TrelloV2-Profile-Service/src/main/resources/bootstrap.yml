@@ -10,10 +10,10 @@ spring:
    tomcat:
      initial-size: 2
      
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://18.217.130.9:8761/eureka/
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://18.217.130.9:8761/eureka/
       
 security:
  oauth2:

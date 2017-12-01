@@ -55,9 +55,16 @@ export class HomeComponent implements OnInit {
         tv2Team: JSON.parse(localStorage.getItem("currentUser")).teamId
       }
       
+      
       this.boardDisplayService.addBoard(this.makeBoard).subscribe();
+      
+      
+      //Make sure that the database returns the update.
       this.displayBoards();
-      //this.Boards.push(this.makeBoard);
+      this.displayBoards();
+      this.displayBoards();
+      this.displayBoards();
+      
 
     }
   }
