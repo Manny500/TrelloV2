@@ -13,8 +13,8 @@
   <!-- start of lane display -->
   <div *ngFor="let lane of Lanes; index as i" class="col-1-4">
       
-    <div class="card" style="background:rgb(185, 197, 207)">
-
+    <div class="card" style="background:rgb(134, 164, 165)">
+                                        <!-- (134, 164, 165)"> -->
       <div class="card-block">
 
         <table>
@@ -27,7 +27,7 @@
               </th>
 
                <td>                
-                <button type="button" class="btn-sm btn-danger"  style="float:right;" (click)="removeLane(lane, lane.laneId, lane.laneTitle)">X</button>    
+                <button type="button" class="btn-sm btn-danger" style="position: absolute; right: 0;" (click)="removeLane(lane, lane.laneId, lane.laneTitle)">X</button>    
               </td>                                                                        <!--;Lanes.pop(lane)-->
 
               <ng-container *ngFor="let card of Cards" class="col-1-4">
