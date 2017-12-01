@@ -41,18 +41,20 @@ export class HomeComponent implements OnInit {
   }
 
   //store the id of the board you click on as currentBoardId
-  storeBoardId(id): void{
-    localStorage.setItem("currentBoardId", JSON.stringify(id))
+  storeBoardId(board: Board): void{
+    localStorage.setItem("currentBoard", JSON.stringify(board));
+    localStorage.setItem("currentBoardId", JSON.stringify(board.bId))
   }
 
   done(condition:number) {
     if (condition == 1) {
+
       this.makeBoard = {
         bId: 0, //sql sequece will change this to appropriate number
         tv2Id: JSON.parse(localStorage.getItem("currentUser")).userId,
         bTotal: 0,
         bTitle: this.bTitle,
-        tv2Team: JSON.parse(localStorage.getItem("currentUser")).team
+        tv2Team: JSON.parse(localStorage.getItem("currentUser")).teamId
       }
       
       this.boardDisplayService.addBoard(this.makeBoard).subscribe(
@@ -60,6 +62,8 @@ export class HomeComponent implements OnInit {
         err => console.log(err),
         () => console.log('request completed')
       )
+
+      this.Boards.push(this.makeBoard);
       
 
     }

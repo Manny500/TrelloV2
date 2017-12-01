@@ -41,7 +41,7 @@
                     </td>
                     <td>
                       <div id="userStories" class="card">
-                        <div (click)="displayTasks(card.cId)" class="card-block">
+                        <div (click)="currentCard(card);displayTasks(card.cId)" class="card-block">
                           
                           <h6 data-toggle="modal" data-target=".card-modal-sm" class="card-title"><h6 class="card-worth"> {{card.cWorth}}</h6> {{card.cTitle}}</h6>
                           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
@@ -101,6 +101,7 @@
 
       </div>
       <div class="modal-footer">
+          <button type="button" (click)="verify(card)" class="btn btn-primary">Verify Card</button>
 
         <button type="button" (click)="done()" class="btn btn-primary" data-dismiss="modal">Done</button>
       </div>
