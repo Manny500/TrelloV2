@@ -113,9 +113,8 @@ export class ScrumBoardViewComponent implements OnInit {
 
     this.laneDislayService.getActivity().subscribe(result => {
       this.Activities = result;
-      //this.Activities = this.Activities.filter(item => item.bId == this.currentBoardId);
+      this.Activities = this.Activities.filter(item => item.bId == this.currentBoardId);
     })
-    console.log('displayActivity++');
   }
 
 
