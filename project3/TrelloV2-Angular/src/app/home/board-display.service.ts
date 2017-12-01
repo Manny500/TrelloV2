@@ -29,8 +29,6 @@ export class BoardDisplayService{
     getMasterBoards(){
         return this.http.get(this.masterBoardsUrl,this.options)
         .map(response => <Board[]> response.json())
-        .do(data => console.log(data))
-        .catch(this.handleError);
     }
 
 

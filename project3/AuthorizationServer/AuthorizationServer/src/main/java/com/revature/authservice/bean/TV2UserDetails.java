@@ -8,8 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class TV2UserDetails extends TV2User implements UserDetails{
-	
+public class TV2UserDetails extends TV2User implements UserDetails {
+
 	/**
 	 * 
 	 */
@@ -18,19 +18,19 @@ public class TV2UserDetails extends TV2User implements UserDetails{
 	public TV2UserDetails(final TV2User user) {
 		super(user);
 	}
-	
-		@Override
+
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-	List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-	authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		return authorities;
 	}
-	
+
 	@Override
 	public String getPassword() {
 		return super.getPassword();
 	}
-	
+
 	@Override
 	public String getUsername() {
 		return super.getUserName();

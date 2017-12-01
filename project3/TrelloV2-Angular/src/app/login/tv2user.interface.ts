@@ -1,11 +1,12 @@
 export interface TV2User{
+    
     userId: number;
-    firstName: string;
-    lastName: string;
-    userName: string;
-    password: string;
-    teamId: number;
+    firstName: String;
+    lastName: String;
+    userName: String;
+    password: String;
     roleType: number;
-    email: string;
+    email: String;
+    teamId: number;
     
 } 
