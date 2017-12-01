@@ -217,10 +217,6 @@ export class ScrumBoardViewComponent implements OnInit {
    
   }
 
-
-  removeCard(currentCard: Card, cTitle: string){
-      this.activityToService('Removed a Card', cTitle);
-
   currentCard(card){
     localStorage.setItem("currentCard", JSON.stringify(card));
   }
@@ -238,7 +234,9 @@ export class ScrumBoardViewComponent implements OnInit {
     this.laneDislayService.verifyCard(this.carddto).subscribe();
   }
  
-  removeCard(currentCard: Card){
+  removeCard(currentCard: Card, cTitle: string){
+    this.activityToService('Removed a Card', cTitle);
+
       this.laneDislayService.deleteCard(currentCard).subscribe();
 
       this.Cards = this.Cards.filter(item => item.cId !== currentCard.cId);
@@ -279,15 +277,13 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   activityToService(act: string, name: string){
+    
     this.activity ={
       bId: this.currentBoardId,
       firstName: JSON.parse(localStorage.getItem("currentUser")).firstName,
       action: act+': " '+name+' "'
       }
-    this.laneDislayService.sendActivity(this.activity).subscribe(
-      data => console.log(this.responseStatus = data),
-      err => console.log(err),
-      () => console.log('request completed')
-    )
+
+    this.laneDislayService.sendActivity(this.activity).subscribe();
   }
 }

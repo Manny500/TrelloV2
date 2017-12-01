@@ -4,7 +4,8 @@
 
 <button id="addLaneBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
 
-<!-- <button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button> -->
+<button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong" (click)="this.displayActivity()">Activity</button>
 
 <br>
 
@@ -13,7 +14,7 @@
   <!-- start of lane display -->
   <div *ngFor="let lane of Lanes; index as i" class="col-1-4">
       
-    <div class="card" style="background:rgb(185, 197, 207)">
+    <div class="card" style="background:rgb(147, 166, 167)">
 
       <div class="card-block">
 
@@ -27,8 +28,8 @@
               </th>
 
                <td>                
-                <button type="button" class="btn-sm btn-danger"  style="float:right;" (click)="removeLane(lane, lane.laneId, lane.laneTitle)">X</button>    
-              </td>                                                                        <!--;Lanes.pop(lane)-->
+                <button type="button" class="btn-sm btn-danger"  style="position: absolute; right: 0;background-color: green" (click)="removeLane(lane, lane.laneId, lane.laneTitle)">X</button>    
+              </td>                                                                        
 
               <ng-container *ngFor="let card of Cards" class="col-1-4">
                 <div *ngIf="card.lId == lane.laneId">
@@ -168,13 +169,9 @@
   </div>
 </div>
 
-
-<button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong" (click)="this.displayActivity()">Activity</button>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-dialog  modal-lg" style="height:auto;" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle">Board Activity</h5>
