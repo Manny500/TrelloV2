@@ -15,14 +15,16 @@ import { Activity } from './activity-display.interface';
 
 export class ScrumBoardViewComponent implements OnInit {
 
-  Lanes: Lane[];
+  
   currentBoardId: number;
   currentCardId: number;
   currentLaneId: number;
-
+  
+  Lanes: Lane[];
   Cards: Card[];
   Tasks: Task[];
-
+  Activities: Activity[];
+  
   showTaskBtns: boolean;
   boardCards: Card[] = [];
 
@@ -63,7 +65,7 @@ export class ScrumBoardViewComponent implements OnInit {
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
-    
+    this.displayActivity();
 
   }
 
@@ -91,7 +93,7 @@ export class ScrumBoardViewComponent implements OnInit {
       
 
     })
-
+  
     this.showCard = true;
   }
 
@@ -104,6 +106,17 @@ export class ScrumBoardViewComponent implements OnInit {
       this.Tasks = result;
     })
   }
+
+  displayActivity(): void {
+    this.Activities = null;
+
+    this.laneDislayService.getActivity().subscribe(result => {
+      this.Activities = result;
+      //this.Activities = this.Activities.filter(item => item.bId == this.currentBoardId);
+    })
+    console.log('displayActivity++');
+  }
+
 
   addTask(): void{
 

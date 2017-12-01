@@ -25,7 +25,7 @@ export class LaneDisplayService{
     private deleteLaneUrl = 'board-update/deleteLane';
     private burndownUpdateUrl = 'board-update/updateBurndown';
     private activityUrl = 'permissions/sendActivity';
-
+    private getActivityUrl = 'permissions/getActivity';
 
     url: string;
     urlEndpoint: string;
@@ -101,6 +101,14 @@ export class LaneDisplayService{
         console.log('service');
         console.log(activity);
         return this.http.post(this.activityUrl, activity,this.options)
+    }
+
+    getActivity(){
+        console.log('getActivity()');
+        return this.http.get(this.getActivityUrl, this.options) 
+        .map(response => <Activity[]> response.json())
+        .do(data => console.log(data))
+        .catch(this.handleError)
     }
 
     private handleError(error: any): Promise<any> {

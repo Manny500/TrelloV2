@@ -29,4 +29,8 @@ public class PermissionService {
 	public Activity save(Activity activity) {
 		return aRepo.save(activity);
 	}
+	
+	public List<Activity> findAllActivity(){
+		return aRepo.findAll();
+	}
 }

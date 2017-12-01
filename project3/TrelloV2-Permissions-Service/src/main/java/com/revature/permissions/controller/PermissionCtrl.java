@@ -1,5 +1,6 @@
 package com.revature.permissions.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ public class PermissionCtrl {
 	
 	private final static String GET_USER_URL = "/viewAll";
 	private final static String ACTIVITY_URL = "/sendActivity";
+	private final static String GET_ACTIVITY_URL = "/getActivity";
 
 	@GetMapping(GET_USER_URL)
 	public ResponseEntity<List<TV2User>> getAllUsers() {
@@ -59,6 +61,11 @@ public class PermissionCtrl {
 		
 		return activity;
 	}
-	
+	@GetMapping(GET_ACTIVITY_URL)
+	public ResponseEntity<List<Activity>> getActivity(){
+		List<Activity> act = new ArrayList<Activity>();
+		act = service.findAllActivity();
+		return ResponseEntity.ok(act); 
+	}
 
 }
