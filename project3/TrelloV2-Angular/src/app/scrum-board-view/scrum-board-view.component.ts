@@ -6,6 +6,7 @@ import { Task } from './task-display.interface';
 import { BurndownDto } from './burndown-dto.interface';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Activity } from './activity-display.interface';
+import { CardDto } from './card-dto.interface';
 
 @Component({
   selector: 'app-scrum-board-view',
@@ -28,7 +29,9 @@ export class ScrumBoardViewComponent implements OnInit {
   showTaskBtns: boolean;
   boardCards: Card[] = [];
 
+
   activity: Activity;
+  carddto: CardDto = {cId: 0, cVerify: 0, cWorth: 0, bId: 0, bTotal: 0, lId: 0, cTitle: "", cDescription: ""};
  
   constructor(private laneDislayService: LaneDisplayService) { }
 
@@ -241,9 +244,31 @@ export class ScrumBoardViewComponent implements OnInit {
    
   }
 
+
   removeCard(currentCard: Card, cTitle: string){
       this.activityToService('Removed a Card', cTitle);
 
+  currentCard(card){
+    localStorage.setItem("currentCard", JSON.stringify(card));
+  }
+
+  verify(currentCard){
+    this.carddto.bId = JSON.parse(localStorage.getItem("currentBoard")).bId;
+    this.carddto.cId = JSON.parse(localStorage.getItem("currentCard")).cId;
+    this.carddto.cVerify = 1;
+    this.carddto.cWorth = JSON.parse(localStorage.getItem("currentCard")).cWorth;
+    this.carddto.bTotal = JSON.parse(localStorage.getItem("currentBoard")).bTotal;
+    this.carddto.cDescription = JSON.parse(localStorage.getItem("currentCard")).cDescription;
+    this.carddto.cTitle = JSON.parse(localStorage.getItem("currentCard")).cTitle;
+    this.carddto.lId = JSON.parse(localStorage.getItem("currentCard")).lId;
+    
+    this.laneDislayService.verifyCard(this.carddto).subscribe(
+      data => console.log(this.responseStatus = data),
+      err => console.log(err),
+      () => console.log('verify Card request completed')
+    );
+  }
+ 
       this.laneDislayService.deleteCard(currentCard).subscribe(
         data => console.log(this.responseStatus = data),
         err => console.log(err),
