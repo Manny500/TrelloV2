@@ -25,6 +25,7 @@ public class BoardCtrl {
 	private final static String DELETE_CARD_URL = "/deleteCard";
 	private final static String DELETE_LANE_URL = "/deleteLane";
 	private final static String DELETE_BOARD_URL = "/deleteBoard";
+	private final static String VERFIY_CARD_URL = "/verifyCard";
 	
 	@Autowired
 	Messaging mysource;
@@ -105,10 +106,18 @@ public class BoardCtrl {
 	@RequestMapping(DELETE_BOARD_URL)
 	public String deleteBoard(@RequestBody String payload, HttpServletRequest request) {
 		
-		System.err.println("----------------------" + payload +"------------------");
 		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 10).build());
 
 		return "Success deleted Board";
+	}
+	
+	@RequestMapping(VERFIY_CARD_URL)
+	public String verifyCard(@RequestBody String payload, HttpServletRequest request) {
+		
+		System.err.println("----------------------" + payload +"------------------");
+		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 11).build());
+
+		return "Success verify card";
 	}
 
 }
