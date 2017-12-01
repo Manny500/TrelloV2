@@ -9,7 +9,7 @@ import com.revature.board.beans.Lane;
 
 @Repository
 public interface LaneRepo extends CrudRepository<Lane,Integer> {
-	List<Lane> findAllByOrderByLaneIdAsc();
+	List<Lane> findAllByOrderByLaneIdDesc();
 	
 	@SuppressWarnings("unchecked")
 	Lane save(Lane lane);

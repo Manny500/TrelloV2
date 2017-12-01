@@ -28,7 +28,7 @@ public class DisplayService {
 
 	//Board
 	public List<Board> findAllBoard(){
-		return bRepo.findAllByOrderByBIdAsc();
+		return bRepo.findAllByOrderByBIdDesc();
 	}
 
 	public Board saveBoard(Board board) {
@@ -41,7 +41,7 @@ public class DisplayService {
 	
 	//Lane
 	public List<Lane> findAllLane(){
-		return lRepo.findAllByOrderByLaneIdAsc();
+		return lRepo.findAllByOrderByLaneIdDesc();
 	}
 	
 	public Lane saveLane(Lane lane) {
@@ -54,7 +54,7 @@ public class DisplayService {
 	
 	//Card
 	public List<Card> findAllCard(){
-		return cRepo.findAllByOrderByCIdAsc();
+		return cRepo.findAllByOrderByCIdDesc();
 	}
 	
 	public List<Card> findByLaneId(int laneId){
@@ -71,7 +71,7 @@ public class DisplayService {
 	
 	//Task
 	public List<Task> findAllTask(){
-		return tRepo.findAllByOrderByTaskIdAsc();
+		return tRepo.findAllByOrderByTaskIdDesc();
 	}
 	
 	public List<Task> findByCardId(int cardId){
