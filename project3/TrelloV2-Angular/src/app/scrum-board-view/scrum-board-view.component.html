@@ -52,7 +52,7 @@
                       <button type="button" class="btn-sm btn-primary" (click)="switchLane(card,i+1)">></button>
                     </td>
                     <td>
-                         <button type="button" class="btn-sm btn-danger" (click)="removeCard(card);removeCardFromArray(card.cId)">X</button>
+                         <button type="button" class="btn-sm btn-danger" (click)="removeCard(card, card.cTitle);removeCardFromArray(card.cId)">X</button>
                     </td>
                   </tr>
                 </div>
@@ -81,7 +81,7 @@
             <li class="tasks">
               
                 <input style="margin-right:10px;" [checked]="task.status == 1" (change)="toggleEditable($event, task.taskId, task.info)" type="checkbox" />{{task.info}}
-                <a class="delete" (click)="removeTask(task);Tasks.pop(task)">x</a>
+                <a class="delete" (click)="removeTask(task,task.info);Tasks.pop(task)">x</a>
             </li>
 
 
