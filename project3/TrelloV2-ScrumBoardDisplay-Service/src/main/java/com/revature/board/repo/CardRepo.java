@@ -6,11 +6,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.revature.board.beans.Card;
-import com.revature.board.beans.Task;
 
 @Repository
 public interface CardRepo extends CrudRepository<Card,Integer>{
-	List<Card> findAll();
+	List<Card> findAllByOrderByCIdAsc();
 	
 	List<Card> findByLId(int lId);
 	

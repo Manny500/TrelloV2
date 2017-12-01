@@ -25,12 +25,12 @@ export class ProfileService {
 
   getInfo(user: ProfileUser){
       return this.http.post(this.profileURL, user, this.options)
-      .map(res => res.json())
-  }
+      .map(response => response.json())
+    }
 
   postUpdate(user : ProfileUser){
     return this.http.post(this.updateURL, user, this.options)
-    .map(res => res.json())
+    .map(response => response.json())
   }
 
   private handleError(error: any): Promise<any>{

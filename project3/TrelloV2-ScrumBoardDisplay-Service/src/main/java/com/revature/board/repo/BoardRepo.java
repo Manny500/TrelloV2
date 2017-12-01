@@ -9,7 +9,7 @@ import com.revature.board.beans.Board;
 
 @Repository(value="BoardImpl")
 public interface BoardRepo extends CrudRepository<Board, Integer> {
-	List<Board> findAll();
+	List<Board> findAllByOrderByBIdAsc();
 	
 	@SuppressWarnings("unchecked")
 	Board save(Board board);
