@@ -44,10 +44,6 @@ public class TV2User implements Serializable {
 	@Column(name = "TV2_TEAM")
 	private int teamId;
 
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "boardUser", fetch = FetchType.EAGER)
-//	private Set<Board> boards = new HashSet<Board>();
-
 	public TV2User() {
 
 	}
@@ -57,9 +53,6 @@ public class TV2User implements Serializable {
 		this.userName = userName;
 		this.password = password;
 	}
-	
-	
-
 
 	public TV2User(int userId, String firstName, String lastName, String userName, String password, int roleType,
 			String email, int teamId) {
@@ -73,7 +66,7 @@ public class TV2User implements Serializable {
 		this.email = email;
 		this.teamId = teamId;
 	}
-	
+
 	public TV2User(TV2User user) {
 
 		this.userId = user.userId;
@@ -84,9 +77,8 @@ public class TV2User implements Serializable {
 		this.roleType = user.roleType;
 		this.email = user.email;
 		this.teamId = user.teamId;
-		
+
 	}
-	
 
 	public int getUserId() {
 		return userId;
@@ -151,7 +143,6 @@ public class TV2User implements Serializable {
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
-
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

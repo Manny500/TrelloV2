@@ -50,21 +50,17 @@ export class LaneDisplayService{
 
         return this.http.get(this.boardsUrl, this.options)
         .map(response => <Lane[]> response.json())
-        .do(data => console.log(data))
-        .catch(this.handleError);
     }
       
     getCards(){
         return this.http.get(this.cardsUrl, this.options) 
         .map(response => <Card[]> response.json())
-        .do(data => console.log(data))
         .catch(this.handleError)
     }
 
     getTasks(){
         return this.http.get(this.tasksUrl, this.options) 
         .map(response => <Task[]> response.json())
-        .do(data => console.log(data))
         .catch(this.handleError)
     }
 

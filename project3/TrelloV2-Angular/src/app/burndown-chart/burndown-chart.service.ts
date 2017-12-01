@@ -26,8 +26,6 @@ export class BurndownChartService {
     getChart(body: any){ 
         return this.http.post(this.chartURL, body,this.options)
         .map(response => <BurndownChart[]> response.json())
-        .do(data => console.log(data))
-        .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {
