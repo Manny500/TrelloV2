@@ -57,9 +57,14 @@ public class DisplayService {
 		return cRepo.findAll();
 	}
 	
+	public List<Card> findByLaneId(int laneId){
+		return cRepo.findByLId(laneId);
+	}
+	
 	public Card saveCard(Card card) {
 		return cRepo.save(card);
 	}
+
 	public void deleteCard(Card card) {
 		cRepo.delete(card);
 	}

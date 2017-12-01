@@ -8,7 +8,7 @@
 
 <br>
 
-<div *ngIf="showCard" class="grid grid-pad" style="width:2000px;height:500px;overflow:auto">
+<div *ngIf="showCard" class="grid grid-pad" style="width:3000px;height:500px;overflow:auto">
 
   <!-- start of lane display -->
   <div *ngFor="let lane of Lanes; index as i" class="col-1-4">
@@ -26,9 +26,9 @@
                 <h3>{{lane.laneTitle}}</h3>
               </th>
 
-               <td>
-                <button type="button" class="btn-sm btn-danger"  style="float:right;" (click)="removeLane(lane);Lanes.pop(lane)">X</button>
-              </td> 
+               <td>                
+                <button type="button" class="btn-sm btn-danger"  style="float:right;" (click)="removeLane(lane, lane.laneId, lane.laneTitle)">X</button>    
+              </td>                                                                        <!--;Lanes.pop(lane)-->
 
               <ng-container *ngFor="let card of Cards" class="col-1-4">
                 <div *ngIf="card.lId == lane.laneId">
