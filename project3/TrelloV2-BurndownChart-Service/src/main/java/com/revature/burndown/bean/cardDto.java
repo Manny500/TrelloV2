@@ -17,12 +17,19 @@ public class cardDto{
 	private int bId;
 	
 	private int bTotal;
+	
+	private int tv2Id;
+	
+	private String bTitle;
+	
+	private int tv2Team;
 
 	public cardDto() {
 		super();
 	}
 
-	public cardDto(int cId, int cVerify, int cWorth, int lId, String cTitle, String cDescription, int bId, int bTotal) {
+	public cardDto(int cId, int cVerify, int cWorth, int lId, String cTitle, String cDescription, int bId, int bTotal,
+			int tv2Id, String bTitle, int tv2Team) {
 		super();
 		this.cId = cId;
 		this.cVerify = cVerify;
@@ -32,6 +39,9 @@ public class cardDto{
 		this.cDescription = cDescription;
 		this.bId = bId;
 		this.bTotal = bTotal;
+		this.tv2Id = tv2Id;
+		this.bTitle = bTitle;
+		this.tv2Team = tv2Team;
 	}
 
 	public int getcId() {
@@ -96,6 +106,30 @@ public class cardDto{
 
 	public void setbTotal(int bTotal) {
 		this.bTotal = bTotal;
+	}
+
+	public int getTv2Id() {
+		return tv2Id;
+	}
+
+	public void setTv2Id(int tv2Id) {
+		this.tv2Id = tv2Id;
+	}
+
+	public String getbTitle() {
+		return bTitle;
+	}
+
+	public void setbTitle(String bTitle) {
+		this.bTitle = bTitle;
+	}
+
+	public int getTv2Team() {
+		return tv2Team;
+	}
+
+	public void setTv2Team(int tv2Team) {
+		this.tv2Team = tv2Team;
 	}
 
 	

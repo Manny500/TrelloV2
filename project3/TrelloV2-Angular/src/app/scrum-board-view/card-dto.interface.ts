@@ -7,15 +7,11 @@ export class CardDto{
     lId: number;
     cTitle: string;
     cDescription: string;
+    tv2Id: number;
+    bTitle: string;
+    tv2Team: number;
     
     constructor(){
-        this.cId = 0,
-        this.cVerify = 0;
-        this.cWorth = 0;
-        this.bId = 0;
-        this.bTotal = 0;
-        this.lId = 0;
-        this.cTitle = "";
-        this.cDescription = "";
+        
     }
 } 

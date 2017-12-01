@@ -29,9 +29,9 @@ export class ScrumBoardViewComponent implements OnInit {
   showTaskBtns: boolean;
   boardCards: Card[] = [];
 
+  carddto: CardDto = {cId: 0, cVerify: 0, cWorth: 0, bId: 0, bTotal: 0, lId: 0, cTitle: "", cDescription: "", tv2Id: 0, bTitle: "", tv2Team: 0};
 
   activity: Activity;
-  carddto: CardDto = {cId: 0, cVerify: 0, cWorth: 0, bId: 0, bTotal: 0, lId: 0, cTitle: "", cDescription: ""};
  
   constructor(private laneDislayService: LaneDisplayService) { }
 
@@ -63,6 +63,8 @@ export class ScrumBoardViewComponent implements OnInit {
   //activity
 
   taskStatus: number;
+
+  verifyShow: boolean;
 
   ngOnInit() {
 
@@ -219,9 +221,15 @@ export class ScrumBoardViewComponent implements OnInit {
 
   currentCard(card){
     localStorage.setItem("currentCard", JSON.stringify(card));
+    if(card.cVerify == 0){
+      this.verifyShow = true;
+    }else{
+      this.verifyShow = false;
+    }
   }
 
-  verify(currentCard){
+  verify(){
+    if(JSON.parse(localStorage.getItem("currentCard")).cVerify == 0){
     this.carddto.bId = JSON.parse(localStorage.getItem("currentBoard")).bId;
     this.carddto.cId = JSON.parse(localStorage.getItem("currentCard")).cId;
     this.carddto.cVerify = 1;
@@ -230,8 +238,20 @@ export class ScrumBoardViewComponent implements OnInit {
     this.carddto.cDescription = JSON.parse(localStorage.getItem("currentCard")).cDescription;
     this.carddto.cTitle = JSON.parse(localStorage.getItem("currentCard")).cTitle;
     this.carddto.lId = JSON.parse(localStorage.getItem("currentCard")).lId;
+    this.carddto.tv2Id = JSON.parse(localStorage.getItem("currentBoard")).tv2Id;
+    this.carddto.bTitle = JSON.parse(localStorage.getItem("currentBoard")).bTitle;
+    this.carddto.tv2Team = JSON.parse(localStorage.getItem("currentBoard")).tv2Team;
+    
     
     this.laneDislayService.verifyCard(this.carddto).subscribe();
+    
+    var index = this.Cards.findIndex(item => item.cId == this.carddto.cId);
+    
+    this.Cards[index].cVerify = this.carddto.cVerify;
+
+    
+    }
+    
   }
  
   removeCard(currentCard: Card, cTitle: string){
@@ -250,7 +270,9 @@ export class ScrumBoardViewComponent implements OnInit {
       this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
   }
 
-  removeTask(taskToRemove){
+  removeTask(taskToRemove, info){
+
+    this.activityToService('Removed a Task', info);
     this.laneDislayService.deleteTask(taskToRemove).subscribe();
 
     this.Tasks = this.Tasks.filter(item => item !== taskToRemove);
