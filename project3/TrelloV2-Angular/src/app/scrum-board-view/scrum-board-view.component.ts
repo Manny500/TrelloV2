@@ -270,7 +270,9 @@ export class ScrumBoardViewComponent implements OnInit {
       this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
   }
 
-  removeTask(taskToRemove){
+  removeTask(taskToRemove, info){
+
+    this.activityToService('Removed a Task', info);
     this.laneDislayService.deleteTask(taskToRemove).subscribe();
 
     this.Tasks = this.Tasks.filter(item => item !== taskToRemove);
