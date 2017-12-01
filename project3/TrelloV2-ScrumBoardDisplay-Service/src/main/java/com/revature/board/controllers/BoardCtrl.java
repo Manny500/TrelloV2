@@ -79,7 +79,12 @@ public class BoardCtrl {
 	}
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 9")
 	public void delLane(@RequestBody Lane lane) {
-		System.out.println("delete Lane listener");
+		List<Card> cards = service.findByLaneId(lane.getLaneId());
+			for(Card c : cards) {
+				service.deleteCard(c);
+			}
+
+		
 		service.deleteLane(lane);
 	}
 	
