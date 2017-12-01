@@ -23,7 +23,7 @@ export class BurndownChartService {
   
     constructor(private http: Http){}
 
-    getChart(body: any){
+    getChart(body: any){ 
         return this.http.post(this.chartURL, body,this.options)
         .map(response => <BurndownChart[]> response.json())
         .do(data => console.log(data))

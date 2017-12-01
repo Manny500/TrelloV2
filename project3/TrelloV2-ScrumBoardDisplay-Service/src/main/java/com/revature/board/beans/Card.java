@@ -39,6 +39,16 @@ public class Card implements Serializable {
 		super();
 	}
 
+	public Card(int lId, int cVerify, int cWorth, String cTitle, String cDescription) {
+		super();
+		this.lId = lId;
+		this.cVerify = cVerify;
+		this.cWorth = cWorth;
+		this.cTitle = cTitle;
+		this.cDescription = cDescription;
+	}
+
+
 	public int getcId() {
 		return cId;
 	}

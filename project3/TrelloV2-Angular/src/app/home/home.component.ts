@@ -70,6 +70,7 @@ export class HomeComponent implements OnInit {
   }
 
   delete(id: number){
+    if(confirm("Are you sure to delete?")) {
     this.makeBoard = {
       bId: id,
       tv2Id: JSON.parse(localStorage.getItem("currentUser")).userId,
@@ -84,6 +85,6 @@ export class HomeComponent implements OnInit {
       () => console.log('request completed')
     )
     this.Boards = this.Boards.filter(item => item.bId !== id);
+   }
   }
-
 }

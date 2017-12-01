@@ -77,7 +77,7 @@ public class ChartData {
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 11")
 	public void verCard(@RequestBody cardDto dto) {
-		System.err.println("Inside update Burndown Listner");
+		
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
 		Date date = new Date();
