@@ -107,7 +107,7 @@
 
       </div>
       <div class="modal-footer">
-          <button type="button" (click)="verify(card)" class="btn btn-primary">Verify Card</button>
+          <button *ngIf="verifyShow" type="button" (click)="verify()" class="btn btn-primary" data-dismiss="modal">Verify Card</button>
 
         <button type="button" (click)="done()" class="btn btn-primary" data-dismiss="modal">Done</button>
       </div>

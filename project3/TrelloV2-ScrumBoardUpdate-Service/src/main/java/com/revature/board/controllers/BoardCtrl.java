@@ -97,7 +97,7 @@ public class BoardCtrl {
 	@RequestMapping(DELETE_LANE_URL)
 	public String deleteLane(@RequestBody String payload, HttpServletRequest request) {
 		
-		System.out.println("----------------------" + payload +"------------------");
+		
 		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 9).build());
 
 		return "Success deleted lane";
@@ -114,7 +114,7 @@ public class BoardCtrl {
 	@RequestMapping(VERFIY_CARD_URL)
 	public String verifyCard(@RequestBody String payload, HttpServletRequest request) {
 		
-		System.err.println("----------------------" + payload +"------------------");
+		
 		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 11).build());
 
 		return "Success verify card";
