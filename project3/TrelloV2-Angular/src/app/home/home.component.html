@@ -40,9 +40,9 @@
 					<div *ngFor="let board of Boards" class="col mx-auto" style="padding:10px" >
 
 						<div *ngIf="tv2Id == board.tv2Id">
-							<td  class="module board col mx-auto">
+							<td  class="module board col mx-auto" [routerLink]="['/trello']">
 
-								<h5 (click)="storeBoardId(board.bId)" [routerLink]="['/trello']">{{board.bTitle}}</h5>
+								<h5 (click)="storeBoardId(board)" >{{board.bTitle}}</h5>
 
 							</td>
 							<td >

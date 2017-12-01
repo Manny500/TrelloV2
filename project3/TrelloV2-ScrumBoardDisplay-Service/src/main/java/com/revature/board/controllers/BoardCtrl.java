@@ -17,6 +17,7 @@ import com.revature.board.beans.Board;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
 import com.revature.board.beans.Task;
+import com.revature.board.beans.cardDto;
 import com.revature.board.service.DisplayService;
 
 @EnableBinding(Sink.class)
@@ -49,12 +50,16 @@ public class BoardCtrl {
 	public void addCard(@RequestBody Card card) {
 
 		service.saveCard(card);
+		
+		
 	}
 
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 4")
 	public void switchLane(@RequestBody Card card) {
 
 		service.saveCard(card);
+		
+		
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 6")
@@ -152,6 +157,68 @@ public class BoardCtrl {
 		service.deleteBoard(board);
 	}
 	
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 11")
+	public void verCard(@RequestBody cardDto dto) {
+		Card card = new Card();
+		card.setcId(dto.getcId());
+		card.setcVerify(dto.getcVerify());
+		card.setlId(dto.getlId());
+		card.setcWorth(dto.getcWorth());
+		card.setcDescription(dto.getcDescription());
+		card.setcTitle(dto.getcTitle());
+		service.saveCard(card);
+		
+		//Not working
+//		List<Lane> allLanes = service.findAllLane();
+//		List<Lane> cardLane= new ArrayList<Lane>();
+//		for(int i = 0; i < allLanes.size(); i++) {
+//			
+//			if(allLanes.get(i).getLaneId() == card.getlId()) {
+//				
+//				cardLane.add(allLanes.get(i));
+//			}
+//			
+//		}
+//		System.err.println(cardLane.get(0));
+//		
+//		List<Card> cardAll = service.findAllCard();
+//		List<Card> cardCard = new ArrayList<Card>();
+//		
+//		for(int i = 0; i < cardLane.size(); i++) {
+//			
+//			if(cardLane.get(i).getLaneId() == cardAll.get(i).getlId()) {
+//				
+//				cardCard.add(cardAll.get(i));
+//			}
+//			
+//		}
+//		System.err.println(cardCard.get(0));
+//		
+//		List<Board> allBoards = service.findAllBoard();
+//		List<Board> cardBoard = new ArrayList<Board>();
+//		for(int i = 0; i < cardLane.size(); i++) {
+//			
+//			if(cardLane.get(i).getbId() == allBoards.get(i).getbId()) {
+//				
+//				cardBoard.add(allBoards.get(i));
+//			}
+//			
+//		}
+//		
+//		System.err.println(cardBoard.get(0));
+//		
+//		int sum = 0;
+//		for(int i = 0; i < cardCard.size(); i++) {
+//			if(cardCard.get(i).getcVerify() == 0){
+//				sum += cardCard.get(i).getcWorth();
+//			}
+//		}
+//		cardBoard.get(0).setbTotal(sum);
+//		
+//		service.saveBoard(cardBoard.get(0));
+		
+		
+	}
 	
 
 	@GetMapping(GET_BOARD_URL)
