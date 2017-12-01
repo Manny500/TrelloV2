@@ -65,8 +65,6 @@ export class ScrumBoardViewComponent implements OnInit {
   ngOnInit() {
     this.displayLanes();
     this.displayCards();
-    this.displayActivity();
-
   }
 
   push(card: Card){

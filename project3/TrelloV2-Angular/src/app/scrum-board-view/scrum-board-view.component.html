@@ -163,7 +163,7 @@
 
 
 <button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong">Activity</button>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong" (click)="this.displayActivity()">Activity</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

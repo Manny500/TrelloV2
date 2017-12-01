@@ -31,6 +31,6 @@ public class PermissionService {
 	}
 	
 	public List<Activity> findAllActivity(){
-		return aRepo.findAll();
+		return aRepo.findAllByOrderByAIdAsc();
 	}
 }
