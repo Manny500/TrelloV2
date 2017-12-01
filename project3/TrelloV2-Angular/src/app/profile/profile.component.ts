@@ -10,8 +10,6 @@ import { ProfileUser } from './profile-user';
 })
 export class ProfileComponent implements OnInit {
   
-  // myData: ProfileUser;
-
   //only for display purpose
    userId: number;
    firstName: String;
@@ -24,17 +22,16 @@ export class ProfileComponent implements OnInit {
   
    temp: ProfileUser;
   
-
   constructor(private profileService: ProfileService) { }
   
   @Input() user:ProfileUser;
-  responseStatus:Object= [];
   status:boolean;
 
   ngOnInit() {
     this.temp = JSON.parse(localStorage.getItem("currentUser"));
 
     this.profileService.getInfo(this.temp).subscribe(result =>{
+
       this.user = result;
       
       this.userId = this.user.userId;
@@ -59,22 +56,15 @@ export class ProfileComponent implements OnInit {
     this.showUpdate = false;
     this.showTable = true;
     this.showDone = true;
-    
-  //   setTimeout(function() {
-  //     this.edited = false;
-  //     console.log(this.edited);
-  //   }.bind(this), 3000);
+
    }
    done(){
+     
      this.showTable = false;
      this.showDone = false;
      this.showUpdate = true;
 
-     this.profileService.postUpdate(this.user).subscribe(
-       data => console.log(this.responseStatus = data),
-       err => console.log(err),
-       () => console.log('request completed')
-     );
+     this.profileService.postUpdate(this.user).subscribe();
      this.status = true;
      
      this.userId = this.user.userId;

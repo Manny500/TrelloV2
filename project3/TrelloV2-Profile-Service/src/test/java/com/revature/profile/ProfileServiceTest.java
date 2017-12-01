@@ -44,6 +44,7 @@ public class ProfileServiceTest {
 		profileService.setProfileRepo(profileRepoMock);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testFindByUserId() {
 		TV2User user = ProfileTestUtil.createModelObject(uId, firstName, lastName);

@@ -20,6 +20,7 @@ import com.revature.burndown.bean.BurndownDto;
 import com.revature.burndown.bean.Card;
 import com.revature.burndown.bean.Chart;
 import com.revature.burndown.bean.Lane;
+import com.revature.burndown.bean.cardDto;
 import com.revature.burndown.repo.ChartRepo;
 import com.revature.burndown.service.ChartService;
 
@@ -73,4 +74,29 @@ public class ChartData {
 		service.save(chart);
 		
 	}
+	
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 11")
+	public void verCard(@RequestBody cardDto dto) {
+		
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+		Date date = new Date();
+		String currentDate = dateFormat.format(date);
+		
+				
+		Chart chart = new Chart();
+		
+		int newSum = dto.getbTotal();
+		
+		newSum -= dto.getcWorth();
+		
+		chart.setChartBoard(dto.getbId());
+		chart.setChartSum(newSum);
+		chart.setChartDate(currentDate);
+		
+		service.save(chart);
+		
+		
+	}
+	
 }

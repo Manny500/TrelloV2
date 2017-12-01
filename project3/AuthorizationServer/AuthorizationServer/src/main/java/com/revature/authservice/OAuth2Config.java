@@ -18,37 +18,29 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 
 import com.revature.authservice.service.TV2UserService;
 
-
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
-	
+
 	@Autowired
 	private Environment environment;
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private TV2UserService tv2UserService;
-	
+
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory()
-			.withClient("ClientId")
-			.secret("secret")
-			.authorizedGrantTypes("client_credentials")
-			.scopes("user_info")
-			.autoApprove(true)
-			.accessTokenValiditySeconds(32000);
+		clients.inMemory().withClient("ClientId").secret("secret").authorizedGrantTypes("client_credentials")
+				.scopes("user_info").autoApprove(true).accessTokenValiditySeconds(32000);
 	}
-
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtTokenEnhancer())
-				.authenticationManager(authenticationManager)
-				.userDetailsService(tv2UserService);
+				.authenticationManager(authenticationManager).userDetailsService(tv2UserService);
 	}
 
 	@Override

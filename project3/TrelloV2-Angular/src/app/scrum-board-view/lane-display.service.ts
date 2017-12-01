@@ -8,6 +8,8 @@ import { Task } from './task-display.interface';
 import { BurndownDto } from './burndown-dto.interface';
 import { Base64 } from 'js-base64';
 import { Activity } from './activity-display.interface';
+import { CardDto } from './card-dto.interface';
+
 
 
 @Injectable()
@@ -26,6 +28,7 @@ export class LaneDisplayService{
     private burndownUpdateUrl = 'board-update/updateBurndown';
     private activityUrl = 'permissions/sendActivity';
     private getActivityUrl = 'permissions/getActivity';
+    private verifyCardsUrl = 'board-update/verifyCard';
 
     url: string;
     urlEndpoint: string;
@@ -47,27 +50,27 @@ export class LaneDisplayService{
 
         return this.http.get(this.boardsUrl, this.options)
         .map(response => <Lane[]> response.json())
-        .do(data => console.log(data))
-        .catch(this.handleError);
     }
       
     getCards(){
         return this.http.get(this.cardsUrl, this.options) 
         .map(response => <Card[]> response.json())
-        .do(data => console.log(data))
         .catch(this.handleError)
     }
 
     getTasks(){
         return this.http.get(this.tasksUrl, this.options) 
         .map(response => <Task[]> response.json())
-        .do(data => console.log(data))
         .catch(this.handleError)
     }
 
     postTask(taskCreate: Task){
         return this.http.post(this.addTaskUrl, taskCreate, this.options)
        
+    }
+
+    verifyCard(cardVerify : CardDto){
+        return this.http.post(this.verifyCardsUrl, cardVerify, this.options)
     }
 
     addCard(cardCreate : Card){
