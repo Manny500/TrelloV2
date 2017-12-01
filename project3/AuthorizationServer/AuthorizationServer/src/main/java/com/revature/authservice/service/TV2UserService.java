@@ -11,18 +11,17 @@ import com.revature.authservice.bean.TV2User;
 import com.revature.authservice.bean.TV2UserDetails;
 import com.revature.authservice.repo.TV2UserDao;
 
-
 @Service
-public class TV2UserService implements UserDetailsService{
-	
+public class TV2UserService implements UserDetailsService {
+
 	@Autowired
 	private TV2UserDao dao;
 
 	@Override
 	public TV2UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	Optional<TV2User> optUser = dao.findByUserName(username);
-	optUser.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-	return optUser.map(TV2UserDetails::new).get();
+		Optional<TV2User> optUser = dao.findByUserName(username);
+		optUser.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+		return optUser.map(TV2UserDetails::new).get();
 	}
 
 }

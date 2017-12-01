@@ -14,8 +14,6 @@ export class HomeComponent implements OnInit {
   Boards: Board[];
   
   @Input() makeBoard: Board;
-  responseStatus: Object = [];
-
 
   //CreateBoard
   bId: number;
@@ -33,7 +31,7 @@ export class HomeComponent implements OnInit {
   displayBoards(): void{
     this.boardDisplayService.getMasterBoards().subscribe(result => {
       this.Boards = result;
-      
+      this.Boards = this.Boards.filter(item => (item.tv2Id == JSON.parse(localStorage.getItem("currentUser")).userId || item.tv2Team == JSON.parse(localStorage.getItem("currentUser")).teamId));      
       localStorage.setItem('currentBoards', JSON.stringify(result))
     })
     this.tv2Id = JSON.parse(localStorage.getItem("currentUser")).userId;
@@ -57,20 +55,16 @@ export class HomeComponent implements OnInit {
         tv2Team: JSON.parse(localStorage.getItem("currentUser")).teamId
       }
       
-      this.boardDisplayService.addBoard(this.makeBoard).subscribe(
-        data => console.log(this.responseStatus = data),
-        err => console.log(err),
-        () => console.log('request completed')
-      )
-
+      this.boardDisplayService.addBoard(this.makeBoard).subscribe();
       this.Boards.push(this.makeBoard);
-      
 
     }
   }
 
   delete(id: number){
+
     if(confirm("Are you sure to delete?")) {
+
     this.makeBoard = {
       bId: id,
       tv2Id: JSON.parse(localStorage.getItem("currentUser")).userId,
@@ -79,12 +73,9 @@ export class HomeComponent implements OnInit {
       tv2Team: JSON.parse(localStorage.getItem("currentUser")).team
     }
     
-    this.boardDisplayService.deleteBoard(this.makeBoard).subscribe(
-      data => console.log(this.responseStatus = data),
-      err => console.log(err),
-      () => console.log('request completed')
-    )
+    this.boardDisplayService.deleteBoard(this.makeBoard).subscribe();
     this.Boards = this.Boards.filter(item => item.bId !== id);
+
    }
   }
 }

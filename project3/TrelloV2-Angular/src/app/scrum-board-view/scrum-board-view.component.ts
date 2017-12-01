@@ -5,6 +5,7 @@ import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
 import { BurndownDto } from './burndown-dto.interface';
 import { forEach } from '@angular/router/src/utils/collection';
+import { Activity } from './activity-display.interface';
 import { CardDto } from './card-dto.interface';
 
 @Component({
@@ -15,22 +16,25 @@ import { CardDto } from './card-dto.interface';
 
 export class ScrumBoardViewComponent implements OnInit {
 
-  Lanes: Lane[];
+  
   currentBoardId: number;
   currentCardId: number;
   currentLaneId: number;
-
+  
+  Lanes: Lane[];
   Cards: Card[];
   Tasks: Task[];
-
+  Activities: Activity[];
+  
   showTaskBtns: boolean;
   boardCards: Card[] = [];
 
   carddto: CardDto = {cId: 0, cVerify: 0, cWorth: 0, bId: 0, bTotal: 0, lId: 0, cTitle: "", cDescription: "", tv2Id: 0, bTitle: "", tv2Team: 0};
+
+  activity: Activity;
  
   constructor(private laneDislayService: LaneDisplayService) { }
 
-  
   //two way binding
   @Input() taskCreate: Task;
   @Input() cardCreate: Card;
@@ -53,17 +57,19 @@ export class ScrumBoardViewComponent implements OnInit {
   //addTask
   inputedTaskInfo: string;
 
-  //
+  //hide/show cards
   public showCard = true;
+
+  //activity
 
   taskStatus: number;
 
   verifyShow: boolean;
 
   ngOnInit() {
+
     this.displayLanes();
     this.displayCards();
-    
 
   }
 
@@ -88,14 +94,11 @@ export class ScrumBoardViewComponent implements OnInit {
     this.laneDislayService.getCards().subscribe(result => {
       this.Cards = result;
       this.boardCards = this.Cards;
-      
-
     })
-
+  
     this.showCard = true;
   }
 
-  //this handles storing the id of the card that was clicked as well as displaying the tasks.
   displayTasks(cardId): void {
     
     localStorage.setItem("currentCardId", JSON.stringify(cardId));
@@ -105,28 +108,41 @@ export class ScrumBoardViewComponent implements OnInit {
     })
   }
 
+  displayActivity(): void {
+    this.Activities = null;
+
+    this.laneDislayService.getActivity().subscribe(result => {
+      this.Activities = result;
+      //this.Activities = this.Activities.filter(item => item.bId == this.currentBoardId);
+    })
+    console.log('displayActivity++');
+  }
+
+
   addTask(): void{
+
+    this.activityToService('Added a Task', this.inputedTaskInfo);
+
     this.taskCreate = {
       taskId: 0,
       cardId : this.currentCardId,
       status: 0,
       info: this.inputedTaskInfo
     }
-    this.laneDislayService.postTask(this.taskCreate).subscribe(
-      data => console.log(this.responseStatus = data),
-      err => console.log(err),
-      () => console.log('request completed')
-    )
-    setTimeout(function () {
-      this.displayTasks(this.currentCardId);
-    }.bind(this), 1000);
+
+    this.laneDislayService.postTask(this.taskCreate).subscribe();
+
+    this.Tasks.push(this.taskCreate)
 
     this.inputedTaskInfo="";
   }
 
   done(condition: number) {
-    if (condition == 1) {
-      this.showCard = false;
+
+    if (condition == 1) { //add Card
+      
+      this.activityToService('Added a Card', this.cTitle);
+
       this.cardCreate = {
         cId: 0, //sql sequece will change this to appropriate number
         lId: this.currentLaneId,
@@ -136,16 +152,8 @@ export class ScrumBoardViewComponent implements OnInit {
         cDescription: this.cDescription
       }
 
-      this.boardCards.push(this.cardCreate);
-      this.laneDislayService.addCard(this.cardCreate).subscribe(
-        data => console.log(this.responseStatus = data),
-        err => console.log(err),
-        () => console.log('request completed')
-      )
-
-      setTimeout(function () {
-        this.displayCards();
-      }.bind(this), 1000);
+      this.Cards.push(this.cardCreate)
+      this.laneDislayService.addCard(this.cardCreate).subscribe();
 
       this.cWorth = null;
       this.cTitle = "";
@@ -153,24 +161,21 @@ export class ScrumBoardViewComponent implements OnInit {
 
     }
 
-    if (condition == 2) {
+    if (condition == 2) { //add Lane
+      
+      this.activityToService('Added a Lane', this.laneTitle);
 
-      this.showCard = false;
+      // this.showCard = false;
       this.laneCreate = {
         laneId: 0,
         bId: this.currentBoardId,
         laneTitle: this.laneTitle
       }
-      this.laneDislayService.addLane(this.laneCreate).subscribe(
-        data => console.log(this.responseStatus = data),
-        err => console.log(err),
-        () => console.log('request completed')
-      )
 
+      this.Lanes.push(this.laneCreate)
       
-      setTimeout(function () {
-        this.displayLanes();
-      }.bind(this), 1000);
+      this.laneDislayService.addLane(this.laneCreate).subscribe();
+      
     }
 
     this.burndownCreate = {
@@ -195,25 +200,20 @@ export class ScrumBoardViewComponent implements OnInit {
     const currentLane: Lane = this.Lanes[lane];
     currentCard.lId = currentLane.laneId;
 
-    this.laneDislayService.switchLane(currentCard).subscribe(
-      data => console.log(this.responseStatus = data),
-      err => console.log(err),
-      () => console.log('request completed')
-    )
+    this.laneDislayService.switchLane(currentCard).subscribe();
   
   }
+
   removeLane(laneToRemove, lId : number, laneTitle: string){
+
     if(confirm("Are you sure to delete \" "+ laneTitle +"\" ?" 
               +"\nThe cards will also be deleted at the same time!")) {
+               
+      this.activityToService('Removed a Lane', laneTitle);
 
-      this.laneDislayService.deleteLane(laneToRemove).subscribe(
-        data => console.log(this.responseStatus = data),
-        err => console.log(err),
-        () => console.log('delete Lane request completed')
-      );
-      setTimeout(function () {
-        this.displayLanes();
-      }.bind(this), 1000);
+      this.laneDislayService.deleteLane(laneToRemove).subscribe();
+
+      this.Lanes = this.Lanes.filter(item => item.laneId !== lId);
     }
 
    
@@ -243,11 +243,7 @@ export class ScrumBoardViewComponent implements OnInit {
     this.carddto.tv2Team = JSON.parse(localStorage.getItem("currentBoard")).tv2Team;
     
     
-    this.laneDislayService.verifyCard(this.carddto).subscribe(
-      data => console.log(this.responseStatus = data),
-      err => console.log(err),
-      () => console.log('verify Card request completed')
-    );
+    this.laneDislayService.verifyCard(this.carddto).subscribe();
     
     var index = this.Cards.findIndex(item => item.cId == this.carddto.cId);
     
@@ -255,23 +251,15 @@ export class ScrumBoardViewComponent implements OnInit {
 
     
     }
+    
   }
  
+  removeCard(currentCard: Card, cTitle: string){
+    this.activityToService('Removed a Card', cTitle);
 
-  removeCard(currentCard: Card){
-      this.laneDislayService.deleteCard(currentCard).subscribe(
-        data => console.log(this.responseStatus = data),
-        err => console.log(err),
-        () => console.log('delete Card request completed')
-      );
+      this.laneDislayService.deleteCard(currentCard).subscribe();
 
       this.Cards = this.Cards.filter(item => item.cId !== currentCard.cId);
-     
-
-      // setTimeout(function () {
-      //   this.displayCards();
-      // }.bind(this), 1000);
-
 
       this.burndownCreate = {
         bId: this.currentBoardId,
@@ -283,15 +271,10 @@ export class ScrumBoardViewComponent implements OnInit {
   }
 
   removeTask(taskToRemove){
-    this.laneDislayService.deleteTask(taskToRemove).subscribe(
-      data => console.log(this.responseStatus = data),
-      err => console.log(err),
-      () => console.log('delete Task request completed')
-    );
-    setTimeout(function () {
-      this.displayTasks(taskToRemove.cardId);
-    }.bind(this), 1000);
-    
+    this.laneDislayService.deleteTask(taskToRemove).subscribe();
+
+    this.Tasks = this.Tasks.filter(item => item !== taskToRemove);
+
   }
 
   toggleEditable(event, currentTaskId, currentTaskInfo){
@@ -309,9 +292,18 @@ export class ScrumBoardViewComponent implements OnInit {
       info: currentTaskInfo
     }
 
-    console.log(currentTaskInfo);
-
     this.laneDislayService.postTask(this.taskCreate).subscribe();
     
+  }
+
+  activityToService(act: string, name: string){
+    
+    this.activity ={
+      bId: this.currentBoardId,
+      firstName: JSON.parse(localStorage.getItem("currentUser")).firstName,
+      action: act+': " '+name+' "'
+      }
+
+    this.laneDislayService.sendActivity(this.activity).subscribe();
   }
 }

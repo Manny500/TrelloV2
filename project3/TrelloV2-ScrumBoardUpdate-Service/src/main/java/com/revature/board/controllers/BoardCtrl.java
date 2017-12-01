@@ -29,7 +29,7 @@ public class BoardCtrl {
 	
 	@Autowired
 	Messaging mysource;
-	
+		
 	@RequestMapping(ADD_TASK_URL)
 	public String addTask(@RequestBody String payload, HttpServletRequest request) {
 		

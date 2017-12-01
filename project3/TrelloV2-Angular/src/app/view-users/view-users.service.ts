@@ -27,7 +27,6 @@ export class ViewUsersService {
   getInfo(){
       return this.http.get(this.profileURL, this.options)
       .map(response => <ProfileUser[]> response.json())
-      .do(data => console.log(data))
       .catch(this.handleError);
   }
 
