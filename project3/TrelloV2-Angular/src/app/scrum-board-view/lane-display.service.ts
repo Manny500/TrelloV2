@@ -7,7 +7,9 @@ import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
 import { BurndownDto } from './burndown-dto.interface';
 import { Base64 } from 'js-base64';
+import { Activity } from './activity-display.interface';
 import { CardDto } from './card-dto.interface';
+
 
 
 @Injectable()
@@ -24,8 +26,9 @@ export class LaneDisplayService{
     private addLanesUrl = 'board-update/addLane';
     private deleteLaneUrl = 'board-update/deleteLane';
     private burndownUpdateUrl = 'board-update/updateBurndown';
+    private activityUrl = 'permissions/sendActivity';
+    private getActivityUrl = 'permissions/getActivity';
     private verifyCardsUrl = 'board-update/verifyCard';
-
 
     url: string;
     urlEndpoint: string;
@@ -95,6 +98,20 @@ export class LaneDisplayService{
 
     updateBurndownChart(burndownCreate: BurndownDto){
         return this.http.post(this.burndownUpdateUrl, burndownCreate,this.options)
+    }
+
+    sendActivity(activity : Activity){
+        console.log('service');
+        console.log(activity);
+        return this.http.post(this.activityUrl, activity,this.options)
+    }
+
+    getActivity(){
+        console.log('getActivity()');
+        return this.http.get(this.getActivityUrl, this.options) 
+        .map(response => <Activity[]> response.json())
+        .do(data => console.log(data))
+        .catch(this.handleError)
     }
 
     private handleError(error: any): Promise<any> {

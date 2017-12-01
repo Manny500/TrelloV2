@@ -4,7 +4,7 @@
 
 <button id="addLaneBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2">+Lane</button>
 
-<button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
+<!-- <button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button> -->
 
 <br>
 
@@ -12,7 +12,7 @@
 
   <!-- start of lane display -->
   <div *ngFor="let lane of Lanes; index as i" class="col-1-4">
-
+      
     <div class="card" style="background:rgb(185, 197, 207)">
 
       <div class="card-block">
@@ -58,7 +58,7 @@
                       <button type="button" class="btn-sm btn-primary" (click)="switchLane(card,i+1)">></button>
                     </td>
                     <td>
-                         <button type="button" class="btn-sm btn-danger" (click)="removeCard(card);removeCardFromArray(card.cId)">X</button>
+                         <button type="button" class="btn-sm btn-danger" (click)="removeCard(card, card.cTitle);removeCardFromArray(card.cId)">X</button>
                     </td>
                   </tr>
                 </div>
@@ -87,7 +87,7 @@
             <li class="tasks">
               
                 <input style="margin-right:10px;" [checked]="task.status == 1" (change)="toggleEditable($event, task.taskId, task.info)" type="checkbox" />{{task.info}}
-                <a class="delete" (click)="removeTask(task);Tasks.pop(task)">x</a>
+                <a class="delete" (click)="removeTask(task,task.info);Tasks.pop(task)">x</a>
             </li>
 
 
@@ -167,3 +167,29 @@
     </div>
   </div>
 </div>
+
+
+<button type="button" class="btn btn-danger" [routerLink]="['/chart']">View Burndown</button>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong" (click)="this.displayActivity()">Activity</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Board Activity</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div *ngFor="let activity of Activities">
+              <h6>{{activity.firstName}} {{activity.action}}</h6>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
