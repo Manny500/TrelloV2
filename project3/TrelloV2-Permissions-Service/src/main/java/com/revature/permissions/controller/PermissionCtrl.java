@@ -2,6 +2,8 @@ package com.revature.permissions.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -10,10 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.permissions.beans.Activity;
 import com.revature.permissions.beans.TV2User;
-import com.revature.permissions.repo.TV2UserRepo;
 import com.revature.permissions.service.PermissionService;
 
 @EnableBinding(Sink.class)
@@ -22,12 +25,10 @@ import com.revature.permissions.service.PermissionService;
 public class PermissionCtrl {
 	
 	@Autowired
-	TV2UserRepo repo;
-	
-	@Autowired
 	PermissionService service;
 	
 	private final static String GET_USER_URL = "/viewAll";
+	private final static String ACTIVITY_URL = "/sendActivity";
 
 	@GetMapping(GET_USER_URL)
 	public ResponseEntity<List<TV2User>> getAllUsers() {
@@ -50,5 +51,14 @@ public class PermissionCtrl {
 		System.out.println("tryinng to sync registered user PermissionsDB!!!!@@@@@!@!@!@!@!@!@");
 		service.save(user);
 	}
+	
+	@RequestMapping(ACTIVITY_URL)
+	public Activity saveActivity(@RequestBody Activity activity, HttpServletRequest request) {
+		System.out.println(activity.getAction());
+		service.save(activity);
+		
+		return activity;
+	}
+	
 
 }
