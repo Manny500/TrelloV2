@@ -7,6 +7,7 @@ import { Card } from './card-display.interface';
 import { Task } from './task-display.interface';
 import { BurndownDto } from './burndown-dto.interface';
 import { Base64 } from 'js-base64';
+import { CardDto } from './card-dto.interface';
 
 
 @Injectable()
@@ -23,6 +24,7 @@ export class LaneDisplayService{
     private addLanesUrl = 'board-update/addLane';
     private deleteLaneUrl = 'board-update/deleteLane';
     private burndownUpdateUrl = 'board-update/updateBurndown';
+    private verifyCardsUrl = 'board-update/verifyCard';
 
 
     url: string;
@@ -66,6 +68,10 @@ export class LaneDisplayService{
     postTask(taskCreate: Task){
         return this.http.post(this.addTaskUrl, taskCreate, this.options)
        
+    }
+
+    verifyCard(cardVerify : CardDto){
+        return this.http.post(this.verifyCardsUrl, cardVerify, this.options)
     }
 
     addCard(cardCreate : Card){

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: AuthService
 Implementation-Version: 1.5.8.RELEASE
-Built-By: Clement
+Built-By: bdf10
 Implementation-Vendor-Id: LoginService
 Build-Jdk: 1.8.0_144
 Implementation-URL: http://projects.spring.io/spring-boot/AuthService/
