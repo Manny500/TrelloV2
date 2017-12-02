@@ -1,19 +1,7 @@
-# base image
-FROM maven:3.5
+FROM java:8
 
-# app directory context
-WORKDIR /app
+ADD TrelloV2-Portal-Service-0.0.1-SNAPSHOT.jar TrelloV2-Portal.jar
 
-# command line instructions 
-RUN mvn --version
+EXPOSE 8765
 
-RUN mvn archetype:generate -DgroupId=com.docerdemo.app -DartifactId=docker-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
-
-RUN cd docker-app && mvn clean package
-
-COPY . /app
-
-# working directory
-WORKDIR docker-app
-
-CMD [ "java", "-cp", "target/docker-app-1.0-SNAPSHOT.jar", "com.docerdemo.app.App" ]
+CMD ["java", "-jar", "TrelloV2-Portal.jar"]
