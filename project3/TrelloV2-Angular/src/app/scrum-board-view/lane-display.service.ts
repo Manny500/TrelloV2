@@ -101,13 +101,10 @@ export class LaneDisplayService{
     }
 
     sendActivity(activity : Activity){
-        console.log('service');
-        console.log(activity);
         return this.http.post(this.activityUrl, activity,this.options)
     }
 
     getActivity(){
-        console.log('getActivity()');
         return this.http.get(this.getActivityUrl, this.options) 
         .map(response => <Activity[]> response.json())
         .do(data => console.log(data))

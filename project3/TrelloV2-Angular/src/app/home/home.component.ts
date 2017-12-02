@@ -56,7 +56,12 @@ export class HomeComponent implements OnInit {
       }
       
       this.boardDisplayService.addBoard(this.makeBoard).subscribe();
-      this.Boards.push(this.makeBoard);
+      
+      //Make sure that the database returns the update.
+      this.displayBoards();
+      this.displayBoards();
+      this.displayBoards();
+      this.displayBoards();
 
     }
   }
