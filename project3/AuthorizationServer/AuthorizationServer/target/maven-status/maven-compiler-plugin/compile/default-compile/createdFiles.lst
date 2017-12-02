@@ -1,0 +1,7 @@
+com/revature/authservice/AuthenticationServer.class
+com/revature/authservice/service/TV2UserService.class
+com/revature/authservice/repo/TV2UserDao.class
+com/revature/authservice/OAuth2Config.class
+com/revature/authservice/bean/TV2UserDetails.class
+com/revature/authservice/bean/TV2User.class
+com/revature/authservice/SimpleCORSFilter.class
