@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Board } from './board-display.interface';
 import { Router } from '@angular/router';
 import { BoardDisplayService } from './board-display.service';
+import { setTimeout } from 'timers';
 
 @Component({
   selector: 'app-home',
@@ -60,10 +61,17 @@ export class HomeComponent implements OnInit {
       
       
       //Make sure that the database returns the update.
-      this.displayBoards();
-      this.displayBoards();
-      this.displayBoards();
-      this.displayBoards();
+      // this.displayBoards();
+      // this.displayBoards();
+      // this.displayBoards();
+      setTimeout(function () { 
+         
+        this.displayBoards(); 
+         
+      }.bind(this), 1000); 
+      //setTimeout(() => this.displayBoards, 5000);
+      
+
       
 
     }

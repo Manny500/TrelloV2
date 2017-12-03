@@ -113,9 +113,9 @@ export class ScrumBoardViewComponent implements OnInit {
 
     this.laneDislayService.getActivity().subscribe(result => {
       this.Activities = result;
-      //this.Activities = this.Activities.filter(item => item.bId == this.currentBoardId);
+      this.Activities = this.Activities.filter(item => item.bId == this.currentBoardId);
     })
-    console.log('displayActivity++');
+    
   }
 
 
@@ -132,7 +132,13 @@ export class ScrumBoardViewComponent implements OnInit {
 
     this.laneDislayService.postTask(this.taskCreate).subscribe();
 
-    this.Tasks.push(this.taskCreate)
+    // this.Tasks.push(this.taskCreate)
+
+    setTimeout(function () { 
+      
+     this.displayTasks(JSON.parse(localStorage.getItem("currentCardId")));
+      
+   }.bind(this), 3000); 
 
     this.inputedTaskInfo="";
   }
@@ -152,8 +158,14 @@ export class ScrumBoardViewComponent implements OnInit {
         cDescription: this.cDescription
       }
 
-      this.Cards.push(this.cardCreate)
+      // this.Cards.push(this.cardCreate)
       this.laneDislayService.addCard(this.cardCreate).subscribe();
+
+      setTimeout(function () { 
+        
+       this.displayCards(); 
+        
+     }.bind(this), 1000); 
 
       this.cWorth = null;
       this.cTitle = "";
@@ -172,10 +184,15 @@ export class ScrumBoardViewComponent implements OnInit {
         laneTitle: this.laneTitle
       }
 
-      this.Lanes.push(this.laneCreate)
+      // this.Lanes.push(this.laneCreate)
       
       this.laneDislayService.addLane(this.laneCreate).subscribe();
       
+      setTimeout(function () { 
+        
+       this.displayLanes(); 
+        
+     }.bind(this), 1000); 
     }
 
     this.burndownCreate = {
