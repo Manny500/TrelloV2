@@ -1,0 +1,7 @@
+/Users/manueltenorio/my_git_repos/TrelloV2/project3/AuthorizationServer/AuthorizationServer/src/main/java/com/revature/authservice/OAuth2Config.java
+/Users/manueltenorio/my_git_repos/TrelloV2/project3/AuthorizationServer/AuthorizationServer/src/main/java/com/revature/authservice/AuthenticationServer.java
+/Users/manueltenorio/my_git_repos/TrelloV2/project3/AuthorizationServer/AuthorizationServer/src/main/java/com/revature/authservice/repo/TV2UserDao.java
+/Users/manueltenorio/my_git_repos/TrelloV2/project3/AuthorizationServer/AuthorizationServer/src/main/java/com/revature/authservice/SimpleCORSFilter.java
+/Users/manueltenorio/my_git_repos/TrelloV2/project3/AuthorizationServer/AuthorizationServer/src/main/java/com/revature/authservice/bean/TV2UserDetails.java
+/Users/manueltenorio/my_git_repos/TrelloV2/project3/AuthorizationServer/AuthorizationServer/src/main/java/com/revature/authservice/bean/TV2User.java
+/Users/manueltenorio/my_git_repos/TrelloV2/project3/AuthorizationServer/AuthorizationServer/src/main/java/com/revature/authservice/service/TV2UserService.java
