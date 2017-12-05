@@ -19,6 +19,7 @@ import com.revature.board.beans.Lane;
 import com.revature.board.beans.Task;
 import com.revature.board.beans.cardDto;
 import com.revature.board.service.DisplayService;
+import com.revature.board.beans.BurndownDto;
 
 @EnableBinding(Sink.class)
 @RestController
@@ -53,13 +54,35 @@ public class BoardCtrl {
 		
 		
 	}
+	
+	
 
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 4")
 	public void switchLane(@RequestBody Card card) {
 
 		service.saveCard(card);
 		
+	}
+	
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 5")
+	public void updateBurndown(@RequestBody BurndownDto dto) {
+		Board board = service.findBoardById(dto.getbId());
 		
+		
+		
+		int newSum = 0;
+		
+		for(Lane l: dto.getLanes()) {
+			for(Card c: dto.getCards()) {
+				if(dto.getbId() == l.getbId() && l.getLaneId() == c.getlId() && c.getcVerify() == 0) {
+					newSum += c.getcWorth();
+				}
+			}
+		}
+	
+		board.setbTotal(newSum);
+		
+		service.saveBoard(board);
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 6")

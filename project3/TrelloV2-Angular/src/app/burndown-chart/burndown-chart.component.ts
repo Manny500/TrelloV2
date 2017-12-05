@@ -104,8 +104,9 @@ export class BurndownChartComponent implements OnInit {
               item.chartDate = this.datePipe.transform(new Date(item.chartDate), 'dd-MMM-yy');
               
             });
-
+            
             var latestChartData = this.getLatestChart(this.myData);
+            
 
             //filter out all non-unique dates;
             this.myData = this.myData.filter(item => item.chartDate !== currentDate)

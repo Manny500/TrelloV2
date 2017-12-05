@@ -15,4 +15,6 @@ public interface BoardRepo extends CrudRepository<Board, Integer> {
 	Board save(Board board);
 	
 	void delete(Board board);
+	
+	Board findBybId(int bId);
 }
