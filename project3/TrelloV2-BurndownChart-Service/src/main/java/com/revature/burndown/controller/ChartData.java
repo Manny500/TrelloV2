@@ -61,7 +61,7 @@ public class ChartData {
 		
 		for(Lane l: dto.getLanes()) {
 			for(Card c: dto.getCards()) {
-				if(dto.getbId() == l.getbId() && l.getLaneId() == c.getlId()) {
+				if(dto.getbId() == l.getbId() && l.getLaneId() == c.getlId() && c.getcVerify() == 0) {
 					newSum += c.getcWorth();
 				}
 			}

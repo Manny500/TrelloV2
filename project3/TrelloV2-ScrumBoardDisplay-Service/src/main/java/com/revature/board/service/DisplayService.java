@@ -35,6 +35,10 @@ public class DisplayService {
 		return bRepo.save(board);
 	}
 	
+	public Board findBoardById(int bId) {
+		return bRepo.findBybId(bId);
+	}
+	
 	public void deleteBoard(Board board) {
 		bRepo.delete(board);
 	}
