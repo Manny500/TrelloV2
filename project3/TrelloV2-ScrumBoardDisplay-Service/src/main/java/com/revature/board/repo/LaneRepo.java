@@ -18,4 +18,6 @@ public interface LaneRepo extends CrudRepository<Lane,Integer> {
 	Lane save(Lane lane);
     
 	void delete(Lane lane);
+
+	Lane findByLaneId(int laneId);
 }

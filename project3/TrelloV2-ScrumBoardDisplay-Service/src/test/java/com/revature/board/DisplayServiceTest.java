@@ -27,6 +27,7 @@ import com.revature.board.repo.CardRepo;
 import com.revature.board.repo.LaneRepo;
 import com.revature.board.repo.TaskRepo;
 import com.revature.board.service.DisplayService;
+import com.revature.board.service.UserNotFoundException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TrelloV2ScrumBoardDisplayServiceApplication.class)
@@ -124,7 +125,17 @@ public class DisplayServiceTest {
 		List<Lane> returned = serv.findByBoardId(666);
 		assertEquals(lane.getLaneTitle(), returned.get(0).getLaneTitle());
 	}
+	@Test(expected=UserNotFoundException.class)
+	public void testSaveLane2() throws UserNotFoundException{
+		Lane lane = new Lane(555,1,"TestLane");
+		when(laneRepoMock.findByLaneId(555)).thenReturn(null);
 	
+		Lane returned = service.saveLane(lane);
+		
+		verify(laneRepoMock, times(1)).findByLaneId(555);
+		verifyNoMoreInteractions(laneRepoMock);
+		
+	}
 	
 	
 	
