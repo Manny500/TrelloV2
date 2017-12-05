@@ -118,6 +118,7 @@ public class DisplayServiceTest {
 		assertEquals(lane, returned);
 	}
 	@Test
+	@Rollback(true)
 	public void testSaveLaneJunit() {
 		Lane lane = new Lane(666,"TestLane");
 		serv.saveLane(lane);
@@ -125,17 +126,17 @@ public class DisplayServiceTest {
 		List<Lane> returned = serv.findByBoardId(666);
 		assertEquals(lane.getLaneTitle(), returned.get(0).getLaneTitle());
 	}
-	@Test(expected=UserNotFoundException.class)
-	public void testSaveLane2() throws UserNotFoundException{
-		Lane lane = new Lane(555,1,"TestLane");
-		when(laneRepoMock.findByLaneId(555)).thenReturn(null);
-	
-		Lane returned = service.saveLane(lane);
-		
-		verify(laneRepoMock, times(1)).findByLaneId(555);
-		verifyNoMoreInteractions(laneRepoMock);
-		
-	}
+//	@Test(expected=UserNotFoundException.class)
+//	public void testSaveLane2() throws UserNotFoundException{
+//		Lane lane = new Lane(555,1,"TestLane");
+//		when(laneRepoMock.findByLaneId(555)).thenReturn(null);
+//	
+//		Lane returned = service.saveLane(lane);
+//		
+//		verify(laneRepoMock, times(1)).findByLaneId(555);
+//		verifyNoMoreInteractions(laneRepoMock);
+//		
+//	}
 	
 	
 	
