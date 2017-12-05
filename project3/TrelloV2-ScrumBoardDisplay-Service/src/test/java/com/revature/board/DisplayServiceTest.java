@@ -74,11 +74,16 @@ public class DisplayServiceTest {
 		Card card1 = new Card(2,2,2,"Mockito is thirsty", "Please drink Mockito");
 		Card card2 = new Card(2,3,3,"HelloWorld", "JavaWorld");
 		List<Card> ls = new ArrayList<Card>();
+		List<Card> ls2 = new ArrayList<Card>();
 		ls.add(card1);
 		ls.add(card2);
 		when(cardRepoMock.findByLId(2)).thenReturn(ls);
 		
+		
 		List<Card> returned = service.findByLaneId(2);
+	
+		verify(cardRepoMock, times(1)).findByLId(2);
+		verifyNoMoreInteractions(cardRepoMock);
 		
 		assertEquals(ls, returned);
 	}
