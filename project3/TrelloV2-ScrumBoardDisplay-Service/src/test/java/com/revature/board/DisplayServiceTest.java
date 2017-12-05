@@ -21,11 +21,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.ls.LSSerializer;
 
 import com.revature.board.beans.Card;
+import com.revature.board.beans.Lane;
 import com.revature.board.repo.BoardRepo;
 import com.revature.board.repo.CardRepo;
 import com.revature.board.repo.LaneRepo;
 import com.revature.board.repo.TaskRepo;
 import com.revature.board.service.DisplayService;
+import com.revature.board.service.UserNotFoundException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TrelloV2ScrumBoardDisplayServiceApplication.class)
@@ -43,7 +45,7 @@ public class DisplayServiceTest {
 	private TaskRepo taskRepoMock;
 	
 	@Autowired
-	private DisplayService service2;
+	private DisplayService serv;
 	
 	@Before
 	public void setUp() {
@@ -60,8 +62,10 @@ public class DisplayServiceTest {
 		service.setTaskRepo(taskRepoMock);
 	}
 	
+	
+	/*TestCard*/
 	@Test
-	public void testCardSave() {
+	public void testSaveCard() {
 		Card card = new Card(1,1,1,"Mockito Drinks mock", "Dont drink Mockito");
 		when(cardRepoMock.save(same(card))).thenReturn(card);
 		
@@ -76,15 +80,14 @@ public class DisplayServiceTest {
 	@Rollback(true)
 	public void testSaveCardJunit() {
 		Card card = new Card(777,2,2,"Mockito is thirsty", "Please drink Mockito");
-		service2.saveCard(card);
+		serv.saveCard(card);
 		
-		List<Card> returned = service2.findByLaneId(777);
+		List<Card> returned = serv.findByLaneId(777);
 		assertEquals(card.getcDescription(), returned.get(0).getcDescription());
 	}
 	
 	@Test
 	public void testfindByLId() {
-		//int lId, int cVerify, int cWorth, String cTitle, String cDescription
 		Card card1 = new Card(2,2,2,"Mockito is thirsty", "Please drink Mockito");
 		Card card2 = new Card(2,3,3,"HelloWorld", "JavaWorld");
 		List<Card> ls = new ArrayList<Card>();
@@ -100,6 +103,42 @@ public class DisplayServiceTest {
 		
 		assertEquals(ls, returned);
 	}
+	
+	/*TestLane*/
+	@Test
+	public void testSaveLane() {
+		Lane lane = new Lane(1,"TestLane");
+		when(laneRepoMock.save(same(lane))).thenReturn(lane);
+		
+		Lane returned = service.saveLane(lane);
+		
+		verify(laneRepoMock, times(1)).save(lane);
+		verifyNoMoreInteractions(laneRepoMock);
+		
+		assertEquals(lane, returned);
+	}
+	@Test
+	public void testSaveLaneJunit() {
+		Lane lane = new Lane(666,"TestLane");
+		serv.saveLane(lane);
+		
+		List<Lane> returned = serv.findByBoardId(666);
+		assertEquals(lane.getLaneTitle(), returned.get(0).getLaneTitle());
+	}
+	@Test(expected=UserNotFoundException.class)
+	public void testSaveLane2() throws UserNotFoundException{
+		Lane lane = new Lane(555,1,"TestLane");
+		when(laneRepoMock.findByLaneId(555)).thenReturn(null);
+	
+		Lane returned = service.saveLane(lane);
+		
+		verify(laneRepoMock, times(1)).findByLaneId(555);
+		verifyNoMoreInteractions(laneRepoMock);
+		
+	}
+	
+	
+	
 }
 
 

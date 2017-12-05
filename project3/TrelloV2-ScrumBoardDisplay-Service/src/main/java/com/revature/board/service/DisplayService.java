@@ -47,6 +47,9 @@ public class DisplayService {
 	public List<Lane> findAllLane(){
 		return lRepo.findAllByOrderByLaneIdAsc();
 	}
+	public List<Lane> findByBoardId(int bId){
+		return lRepo.findBybId(bId);
+	}
 	
 	public Lane saveLane(Lane lane) {
 		return lRepo.save(lane);
