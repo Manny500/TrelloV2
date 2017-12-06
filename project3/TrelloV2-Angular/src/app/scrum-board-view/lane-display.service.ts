@@ -66,42 +66,51 @@ export class LaneDisplayService{
 
     postTask(taskCreate: Task){
         return this.http.post(this.addTaskUrl, taskCreate, this.options)
-       
+        .catch(this.handleError)
     }
 
     verifyCard(cardVerify : CardDto){
         return this.http.post(this.verifyCardsUrl, cardVerify, this.options)
+        .catch(this.handleError)
     }
 
     addCard(cardCreate : Card){
         return this.http.post(this.addCardsUrl, cardCreate, this.options)
+        .catch(this.handleError)
     }
 
     switchLane(cardCreate : Card){
         return this.http.post(this.switchLaneUrl, cardCreate, this.options)
+        .catch(this.handleError)
     }
 
     addLane(laneCreate : Lane){
         return this.http.post(this.addLanesUrl, laneCreate, this.options)
+        .catch(this.handleError)
     }
     deleteLane(lane: Lane){
         return this.http.post(this.deleteLaneUrl,lane, this.options)
+        .catch(this.handleError)
     }
 
     deleteCard(card: Card){
         return this.http.post(this.deleteCardUrl,card, this.options)
+        .catch(this.handleError)
     }
 
     deleteTask(task: Task){
         return this.http.post(this.deleteTaskUrl,task,this.options)
+        .catch(this.handleError)
     }
 
     updateBurndownChart(burndownCreate: BurndownDto){
         return this.http.post(this.burndownUpdateUrl, burndownCreate,this.options)
+        .catch(this.handleError)
     }
 
     sendActivity(activity : Activity){
         return this.http.post(this.activityUrl, activity,this.options)
+        .catch(this.handleError)
     }
 
     getActivity(){
