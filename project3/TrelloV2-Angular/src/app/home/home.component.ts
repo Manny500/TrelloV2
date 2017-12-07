@@ -3,6 +3,8 @@ import { Board } from './board-display.interface';
 import { Router } from '@angular/router';
 import { BoardDisplayService } from './board-display.service';
 import { setTimeout } from 'timers';
+import { ProfileUser } from '../profile/profile-user';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-home',
@@ -23,10 +25,30 @@ export class HomeComponent implements OnInit {
   bTitle: string;
   tv2Team: number;
 
+  testBody: ProfileUser[];
+
+  tester: String;
   constructor(private route: Router, private boardDisplayService: BoardDisplayService) { }
 
   ngOnInit() {
     this.displayBoards();
+    this.circuit();
+  }
+
+  circuit(){
+    this.boardDisplayService.circuitTest().subscribe(result => {
+      var name;
+      name = result[0].firstName;
+      result.forEach(item => {
+        console.log(item);
+        if(item.userId == JSON.parse(localStorage.getItem("currentUser")).userId){
+          name = item.firstName;
+          
+        }
+        
+      });
+      this.tester = name;
+    })
   }
 
   displayBoards(): void{

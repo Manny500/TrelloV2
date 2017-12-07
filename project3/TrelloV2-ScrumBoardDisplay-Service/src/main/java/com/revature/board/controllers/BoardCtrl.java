@@ -3,24 +3,33 @@ package com.revature.board.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.revature.board.beans.Board;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
+import com.revature.board.beans.TV2User;
 import com.revature.board.beans.Task;
 import com.revature.board.beans.cardDto;
 import com.revature.board.service.DisplayService;
 import com.revature.board.beans.BurndownDto;
 
+@EnableCircuitBreaker
 @EnableBinding(Sink.class)
 @RestController
 @EnableResourceServer
@@ -34,6 +43,29 @@ public class BoardCtrl {
 
 	@Autowired
 	DisplayService service;
+	
+	@Bean
+	public RestTemplate rest(RestTemplateBuilder builder) {
+	    return builder.build();
+	}
+	
+	@GetMapping("/circuit")
+	public ResponseEntity<List<TV2User>> circuit(HttpServletRequest request) {
+		
+		System.err.println(request.getHeader("Content-Type"));
+		System.err.println(request.getHeader("Authorization"));
+		
+		
+		//TV2User user = new TV2User();
+		
+		return service.circuitTest(request.getHeader("Content-Type"), request.getHeader("Authorization"));
+		
+//		user = service.circuitTest(1, request.getHeader("Content-Type"), request.getHeader("Authorization"));
+//
+//		return ResponseEntity.ok(user);
+	}
+	
+	
 
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 1")
 	public void addBoard(@RequestBody Board board) {
