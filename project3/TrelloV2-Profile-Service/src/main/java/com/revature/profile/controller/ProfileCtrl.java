@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,14 @@ public class ProfileCtrl {
 	
 	@Autowired
 	ProfileRepo profileRepo;
+	
+	@GetMapping(value = "/hope")
+	  public TV2User testObject(){
+		  TV2User user = new TV2User();
+		  user.setUserId(1);
+		  user.setFirstName("Jon");
+	    return user;
+	}
 
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){

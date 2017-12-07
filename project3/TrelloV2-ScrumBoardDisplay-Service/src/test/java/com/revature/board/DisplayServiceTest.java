@@ -49,7 +49,7 @@ public class DisplayServiceTest {
 	
 	@Before
 	public void setUp() {
-		service = new DisplayService();
+		service = new DisplayService(null);
 		
 		boardRepoMock = mock(BoardRepo.class);
 		laneRepoMock = mock(LaneRepo.class);

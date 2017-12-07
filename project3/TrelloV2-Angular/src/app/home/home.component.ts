@@ -23,10 +23,19 @@ export class HomeComponent implements OnInit {
   bTitle: string;
   tv2Team: number;
 
+  tester: String;
   constructor(private route: Router, private boardDisplayService: BoardDisplayService) { }
 
   ngOnInit() {
     this.displayBoards();
+    this.circuit();
+  }
+
+  circuit(){
+    this.boardDisplayService.circuitTest().subscribe(result => {
+      console.log(result);
+      this.tester = result.firstName;
+    })
   }
 
   displayBoards(): void{

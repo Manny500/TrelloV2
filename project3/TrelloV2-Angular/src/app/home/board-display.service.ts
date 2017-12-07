@@ -12,6 +12,7 @@ export class BoardDisplayService{
 
     private deleteBoardsUrl = 'board-update/deleteBoard';
 
+    private circuitUrl = 'board-display/circuit';
     url: string;
     urlEndpoint: string;
     creds: String;
@@ -29,6 +30,11 @@ export class BoardDisplayService{
     getMasterBoards(){
         return this.http.get(this.masterBoardsUrl,this.options)
         .map(response => <Board[]> response.json())
+    }
+
+    circuitTest(){
+        return this.http.get(this.circuitUrl,this.options)
+        .map(response => response.json())
     }
 
 
