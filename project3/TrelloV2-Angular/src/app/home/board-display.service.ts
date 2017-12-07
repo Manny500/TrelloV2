@@ -6,11 +6,11 @@ import {Board} from './board-display.interface';
 
 @Injectable()
 export class BoardDisplayService{
-    private masterBoardsUrl = 'board-display/home';
+    private masterBoardsUrl = 'http://localhost:8765/board-display/home';
     // private userBoardsUrl = 'board-display/user-home'
-    private makeBoardsUrl = 'board-update/addBoard';
+    private makeBoardsUrl = 'http://localhost:8765/board-update/addBoard';
 
-    private deleteBoardsUrl = 'board-update/deleteBoard';
+    private deleteBoardsUrl = 'http://localhost:8765/board-update/deleteBoard';
 
     url: string;
     urlEndpoint: string;
