@@ -3,6 +3,7 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
 import {Board} from './board-display.interface';
+import { ProfileUser } from '../profile/profile-user';
 
 @Injectable()
 export class BoardDisplayService{
@@ -34,7 +35,7 @@ export class BoardDisplayService{
 
     circuitTest(){
         return this.http.get(this.circuitUrl,this.options)
-        .map(response => response.json())
+        .map(response => <ProfileUser[]> response.json())
     }
 
 

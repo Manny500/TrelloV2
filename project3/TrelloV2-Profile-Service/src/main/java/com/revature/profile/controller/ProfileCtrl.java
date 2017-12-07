@@ -1,5 +1,7 @@
 package com.revature.profile.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +36,9 @@ public class ProfileCtrl {
 	ProfileRepo profileRepo;
 	
 	@GetMapping(value = "/hope")
-	  public TV2User testObject(){
-		  TV2User user = new TV2User();
-		  user.setUserId(1);
-		  user.setFirstName("Jon");
-	    return user;
+	  public List<TV2User> testObject(){
+		  
+	    return service.findAll();
 	}
 
 	@RequestMapping(POST_REGISTER_URL)

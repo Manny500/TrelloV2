@@ -1,6 +1,7 @@
 package com.revature.board.service;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class DisplayService {
 	
 	
 	@HystrixCommand(fallbackMethod = "reliable", defaultFallback = "reliable")
-	public ResponseEntity<TV2User> circuitTest(int id, String h1, String h2) {
+	public ResponseEntity<List<TV2User>> circuitTest(String h1, String h2) {
 		
 		//TV2User test = new TV2User();
 		
@@ -54,21 +55,23 @@ public class DisplayService {
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 		
 		URI uri = URI.create("http://localhost:8765/profile/hope");
-
-		return this.restTemplate.exchange(uri, HttpMethod.GET, entity, TV2User.class);
+		
+		return (ResponseEntity<List<TV2User>>) this.restTemplate.exchange(uri, HttpMethod.GET, entity, (Class<? extends ArrayList<TV2User>>)ArrayList.class);
 	    //test = this.restTemplate.getForObject(uri, TV2User.class);
 		
 		//return test;
 	}
 	
-	public ResponseEntity<TV2User> reliable(int id, String h1, String h2) {
+	public ResponseEntity<List<TV2User>> reliable(String h1, String h2) {
 		
 		System.err.println("Here");
+		List<TV2User> list = new ArrayList<TV2User>();
 		TV2User test = new TV2User();
 		
 		test.setFirstName("Not Available");
+		list.add(test);
 		
-		return ResponseEntity.ok(test);
+		return ResponseEntity.ok(list);
 	}
 	
 
