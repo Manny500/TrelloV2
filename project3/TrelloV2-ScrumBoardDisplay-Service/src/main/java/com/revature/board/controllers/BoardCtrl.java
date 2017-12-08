@@ -51,18 +51,10 @@ public class BoardCtrl {
 	
 	@GetMapping("/circuit")
 	public ResponseEntity<List<TV2User>> circuit(HttpServletRequest request) {
-		
-		System.err.println(request.getHeader("Content-Type"));
-		System.err.println(request.getHeader("Authorization"));
-		
-		
-		//TV2User user = new TV2User();
+
 		
 		return service.circuitTest(request.getHeader("Content-Type"), request.getHeader("Authorization"));
 		
-//		user = service.circuitTest(1, request.getHeader("Content-Type"), request.getHeader("Authorization"));
-//
-//		return ResponseEntity.ok(user);
 	}
 	
 	
