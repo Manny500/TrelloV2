@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.revature</groupId>
-	<artifactId>TrelloV2-Home-Service</artifactId>
+	<artifactId>TrelloV2-Portal-Service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>TrelloV2-Home-Service</name>
-	<description>Home Service for TrelloV2</description>
+	<name>TrelloV2-Portal-Service</name>
+	<description>Portal Service for TrelloV2</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -98,7 +98,12 @@
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 		</dependency>
-
+		<!-- ojdbc7.jar example -->
+    	<dependency>
+            <groupId>com.github.noraui</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0.2</version>
+        </dependency>
 
 	</dependencies>
 
