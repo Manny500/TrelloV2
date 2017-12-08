@@ -25,6 +25,14 @@ public class Lane {
 	public Lane() {
 		
 	}
+	
+	public Lane(int bId, String laneTitle) {
+		super();
+		this.bId = bId;
+		this.laneTitle = laneTitle;
+	}
+
+
 
 	public Lane(int laneId, int bId, String laneTitle) {
 		super();
