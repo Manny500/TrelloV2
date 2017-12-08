@@ -47,28 +47,24 @@ public class DisplayService {
 	@HystrixCommand(fallbackMethod = "reliable", defaultFallback = "reliable")
 	public ResponseEntity<List<TV2User>> circuitTest(String h1, String h2) {
 		
-		//TV2User test = new TV2User();
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Content-Type", h1);
 		headers.set("Authorization", h2);
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 		
-		URI uri = URI.create("http://localhost:8765/profile/hope");
+		URI uri = URI.create("http://localhost:8765/profile/circuitMessage");
 		
 		return (ResponseEntity<List<TV2User>>) this.restTemplate.exchange(uri, HttpMethod.GET, entity, (Class<? extends ArrayList<TV2User>>)ArrayList.class);
-	    //test = this.restTemplate.getForObject(uri, TV2User.class);
-		
-		//return test;
+	    
 	}
 	
 	public ResponseEntity<List<TV2User>> reliable(String h1, String h2) {
 		
-		System.err.println("Here");
 		List<TV2User> list = new ArrayList<TV2User>();
 		TV2User test = new TV2User();
 		
-		test.setFirstName("Not Available");
+		test.setFirstName("Profile Service Not Available");
 		list.add(test);
 		
 		return ResponseEntity.ok(list);

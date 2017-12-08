@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit {
       var name;
       name = result[0].firstName;
       result.forEach(item => {
-        console.log(item);
         if(item.userId == JSON.parse(localStorage.getItem("currentUser")).userId){
           name = item.firstName;
           
@@ -82,16 +81,13 @@ export class HomeComponent implements OnInit {
       this.boardDisplayService.addBoard(this.makeBoard).subscribe();
       
       
-      //Make sure that the database returns the update.
-      // this.displayBoards();
-      // this.displayBoards();
-      // this.displayBoards();
+      
       setTimeout(function () { 
          
         this.displayBoards(); 
          
       }.bind(this), 1000); 
-      //setTimeout(() => this.displayBoards, 5000);
+      
       
 
       

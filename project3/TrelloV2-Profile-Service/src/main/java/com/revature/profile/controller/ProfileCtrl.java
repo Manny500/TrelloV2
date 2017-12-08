@@ -27,7 +27,7 @@ public class ProfileCtrl {
 	private final static String POST_PROFILE_URL = "/userInfo";
 	private final static String POST_UPDATE_URL = "/updateInfo";
 	private final static String POST_REGISTER_URL = "/register";
-
+	private final static String GET_MESSAGE_URL = "/circuitMessage";
 	
 	@Autowired
 	Messaging mysource;
@@ -35,7 +35,7 @@ public class ProfileCtrl {
 	@Autowired
 	ProfileRepo profileRepo;
 	
-	@GetMapping(value = "/hope")
+	@GetMapping(GET_MESSAGE_URL)
 	  public List<TV2User> testObject(){
 		  
 	    return service.findAll();
