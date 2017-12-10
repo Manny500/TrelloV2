@@ -3,23 +3,33 @@ package com.revature.board.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.revature.board.beans.Board;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
+import com.revature.board.beans.TV2User;
 import com.revature.board.beans.Task;
 import com.revature.board.beans.cardDto;
 import com.revature.board.service.DisplayService;
+import com.revature.board.beans.BurndownDto;
 
+@EnableCircuitBreaker
 @EnableBinding(Sink.class)
 @RestController
 @EnableResourceServer
@@ -33,6 +43,21 @@ public class BoardCtrl {
 
 	@Autowired
 	DisplayService service;
+	
+	@Bean
+	public RestTemplate rest(RestTemplateBuilder builder) {
+	    return builder.build();
+	}
+	
+	@GetMapping("/circuit")
+	public ResponseEntity<List<TV2User>> circuit(HttpServletRequest request) {
+
+		
+		return service.circuitTest(request.getHeader("Content-Type"), request.getHeader("Authorization"));
+		
+	}
+	
+	
 
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 1")
 	public void addBoard(@RequestBody Board board) {
@@ -53,13 +78,35 @@ public class BoardCtrl {
 		
 		
 	}
+	
+	
 
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 4")
 	public void switchLane(@RequestBody Card card) {
 
 		service.saveCard(card);
 		
+	}
+	
+	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 5")
+	public void updateBurndown(@RequestBody BurndownDto dto) {
+		Board board = service.findBoardById(dto.getbId());
 		
+		
+		
+		int newSum = 0;
+		
+		for(Lane l: dto.getLanes()) {
+			for(Card c: dto.getCards()) {
+				if(dto.getbId() == l.getbId() && l.getLaneId() == c.getlId() && c.getcVerify() == 0) {
+					newSum += c.getcWorth();
+				}
+			}
+		}
+	
+		board.setbTotal(newSum);
+		
+		service.saveBoard(board);
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 6")

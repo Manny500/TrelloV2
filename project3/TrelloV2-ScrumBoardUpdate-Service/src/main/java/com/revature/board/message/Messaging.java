@@ -8,8 +8,8 @@ import org.springframework.messaging.MessageChannel;
  */
 public interface Messaging {
 
-	@Output("flashcardmessage1")
-	MessageChannel fcMessagePlace1();
+	@Output("trellov2rabbitchannel")
+	MessageChannel trellov2rabbitchannel();
 	
 	
 	

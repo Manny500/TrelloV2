@@ -33,7 +33,7 @@ public class BoardCtrl {
 	@RequestMapping(ADD_TASK_URL)
 	public String addTask(@RequestBody String payload, HttpServletRequest request) {
 		
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 6).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 6).build());
 
 		return "Success";
 	}
@@ -41,7 +41,7 @@ public class BoardCtrl {
 	@RequestMapping(UPDATE_BURNDOWN_URL)
 	public String updateBurndown(@RequestBody String payload, HttpServletRequest request) {
 		
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 5).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 5).build());
 
 		return "Success";
 	}
@@ -49,7 +49,7 @@ public class BoardCtrl {
 	@RequestMapping(SWITCH_LANE_URL)
 	public String switchLane(@RequestBody String payload, HttpServletRequest request) {
 
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 4).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 4).build());
 
 		return "Success";
 	}
@@ -57,7 +57,7 @@ public class BoardCtrl {
 	@RequestMapping(ADD_CARD_URL)
 	public String addCard(@RequestBody String payload, HttpServletRequest request) {
 		
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 3).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 3).build());
 
 		return "Success";
 	}
@@ -65,7 +65,7 @@ public class BoardCtrl {
 	@RequestMapping(ADD_LANE_URL)
 	public String addlane(@RequestBody String payload, HttpServletRequest request) {
 
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 2).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 2).build());
 
 		return "Success";
 	}
@@ -73,7 +73,7 @@ public class BoardCtrl {
 	@RequestMapping(ADD_BOARD_URL)
 	public String addBoard(@RequestBody String payload, HttpServletRequest request) {
 
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 1).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 1).build());
 
 		return "Success";
 	}
@@ -81,7 +81,7 @@ public class BoardCtrl {
 	@RequestMapping(DELETE_TASK_URL)
 	public String deleteTask(@RequestBody String payload, HttpServletRequest request) {
 		
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 7).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 7).build());
 
 		return "Success deleted task";
 	}
@@ -89,7 +89,7 @@ public class BoardCtrl {
 	@RequestMapping(DELETE_CARD_URL)
 	public String deleteCard(@RequestBody String payload, HttpServletRequest request) {
 		
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 8).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 8).build());
 
 		return "Success deleted card";
 	}
@@ -98,7 +98,7 @@ public class BoardCtrl {
 	public String deleteLane(@RequestBody String payload, HttpServletRequest request) {
 		
 		
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 9).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 9).build());
 
 		return "Success deleted lane";
 	}
@@ -106,7 +106,7 @@ public class BoardCtrl {
 	@RequestMapping(DELETE_BOARD_URL)
 	public String deleteBoard(@RequestBody String payload, HttpServletRequest request) {
 		
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 10).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 10).build());
 
 		return "Success deleted Board";
 	}
@@ -115,7 +115,7 @@ public class BoardCtrl {
 	public String verifyCard(@RequestBody String payload, HttpServletRequest request) {
 		
 		
-		mysource.fcMessagePlace1().send(MessageBuilder.withPayload(payload).setHeader("micro", 11).build());
+		mysource.trellov2rabbitchannel().send(MessageBuilder.withPayload(payload).setHeader("micro", 11).build());
 
 		return "Success verify card";
 	}

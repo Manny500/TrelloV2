@@ -48,7 +48,6 @@ public class ProfileServiceTest {
 	@Test
 	public void testFindByUserId() {
 		TV2User user = ProfileTestUtil.createModelObject(uId, firstName, lastName);
-//		TV2User user = new TV2User(uId, firstName, lastName);
 		when(profileRepoMock.findByUserId(uId)).thenReturn(user);
 
 		TV2User returned =  profileService.findByUserId(1);

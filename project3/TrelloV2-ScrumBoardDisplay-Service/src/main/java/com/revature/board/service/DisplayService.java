@@ -1,13 +1,24 @@
 package com.revature.board.service;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.revature.board.beans.Board;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
+import com.revature.board.beans.TV2User;
 import com.revature.board.beans.Task;
 import com.revature.board.repo.BoardRepo;
 import com.revature.board.repo.CardRepo;
@@ -25,6 +36,40 @@ public class DisplayService {
 	private CardRepo cRepo;
 	@Autowired
 	private TaskRepo tRepo;
+	
+	private final RestTemplate restTemplate;
+	
+	public DisplayService(RestTemplate rest) {
+		this.restTemplate = rest;
+	}
+	
+	
+	@HystrixCommand(fallbackMethod = "reliable", defaultFallback = "reliable")
+	public ResponseEntity<List<TV2User>> circuitTest(String h1, String h2) {
+		
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", h1);
+		headers.set("Authorization", h2);
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+		
+		URI uri = URI.create("http://localhost:8765/profile/circuitMessage");
+		
+		return (ResponseEntity<List<TV2User>>) this.restTemplate.exchange(uri, HttpMethod.GET, entity, (Class<? extends ArrayList<TV2User>>)ArrayList.class);
+	    
+	}
+	
+	public ResponseEntity<List<TV2User>> reliable(String h1, String h2) {
+		
+		List<TV2User> list = new ArrayList<TV2User>();
+		TV2User test = new TV2User();
+		
+		test.setFirstName("Profile Service Not Available");
+		list.add(test);
+		
+		return ResponseEntity.ok(list);
+	}
+	
 
 	//Board
 	public List<Board> findAllBoard(){
@@ -35,6 +80,10 @@ public class DisplayService {
 		return bRepo.save(board);
 	}
 	
+	public Board findBoardById(int bId) {
+		return bRepo.findBybId(bId);
+	}
+	
 	public void deleteBoard(Board board) {
 		bRepo.delete(board);
 	}
@@ -42,6 +91,9 @@ public class DisplayService {
 	//Lane
 	public List<Lane> findAllLane(){
 		return lRepo.findAllByOrderByLaneIdDesc();
+	}
+	public List<Lane> findByBoardId(int bId){
+		return lRepo.findBybId(bId);
 	}
 	
 	public Lane saveLane(Lane lane) {

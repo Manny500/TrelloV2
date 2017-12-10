@@ -1,11 +1,14 @@
 package com.revature.profile.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,13 +27,19 @@ public class ProfileCtrl {
 	private final static String POST_PROFILE_URL = "/userInfo";
 	private final static String POST_UPDATE_URL = "/updateInfo";
 	private final static String POST_REGISTER_URL = "/register";
-
+	private final static String GET_MESSAGE_URL = "/circuitMessage";
 	
 	@Autowired
 	Messaging mysource;
 	
 	@Autowired
 	ProfileRepo profileRepo;
+	
+	@GetMapping(GET_MESSAGE_URL)
+	  public List<TV2User> testObject(){
+		  
+	    return service.findAll();
+	}
 
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){
