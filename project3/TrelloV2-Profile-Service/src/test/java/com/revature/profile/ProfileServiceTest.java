@@ -18,8 +18,8 @@ import com.revature.profile.bean.TV2User;
 import com.revature.profile.repo.ProfileRepo;
 import com.revature.profile.service.ProfileService;
 
+/* Junit + Mockito test */
 
-//@ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TrelloV2ProfileServiceApplication.class)
 public class ProfileServiceTest {
@@ -36,6 +36,7 @@ public class ProfileServiceTest {
 	private static final String updateFirstName = "Johnny";
 	private static final String updateLastName = "SnowWhite";
 
+	//initialize mock object
 	@Before
 	public void setUp() {
 		profileService = new ProfileService();
@@ -48,10 +49,13 @@ public class ProfileServiceTest {
 	@Test
 	public void testFindByUserId() {
 		TV2User user = ProfileTestUtil.createModelObject(uId, firstName, lastName);
+		
+		//stubbing
 		when(profileRepoMock.findByUserId(uId)).thenReturn(user);
 
 		TV2User returned =  profileService.findByUserId(1);
 		
+		//verification
 		verify(profileRepoMock, times(1)).findByUserId(uId);
 		verifyNoMoreInteractions(profileRepoMock);
 		
@@ -64,10 +68,12 @@ public class ProfileServiceTest {
 		TV2User updated = ProfileTestUtil.createModelObject(uId,updateFirstName,updateLastName);
 		TV2User user = ProfileTestUtil.createModelObject(uId, firstName, lastName);
 	
+		//stubbing
 		when(profileRepoMock.save(user)).thenReturn(updated);
 		
 		TV2User returned = profileService.save(user);
 		
+		//verification
 		verify(profileRepoMock, times(1)).save(user);
 		verifyNoMoreInteractions(profileRepoMock);
 		
@@ -81,6 +87,7 @@ public class ProfileServiceTest {
 		assertEquals(expected.getLastName(), actual.getLastName());
 	}
 	
+	//Exception handling
 //	@Test
 //	public void testFindAll() {
 //		List all = new LinkedList();

@@ -8,6 +8,7 @@ import org.springframework.messaging.MessageChannel;
  */
 public interface Messaging {
 
+	//RabbitMQ channel
 	@Output("profileChannel")
 	MessageChannel profileChannel();
 	
