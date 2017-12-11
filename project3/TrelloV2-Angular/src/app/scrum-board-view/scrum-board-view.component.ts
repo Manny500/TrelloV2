@@ -7,6 +7,7 @@ import { BurndownDto } from './burndown-dto.interface';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Activity } from './activity-display.interface';
 import { CardDto } from './card-dto.interface';
+import { race } from 'rxjs/observable/race';
 
 @Component({
   selector: 'app-scrum-board-view',
@@ -75,6 +76,10 @@ export class ScrumBoardViewComponent implements OnInit {
 
   push(card: Card){
     this.boardCards.push(card);
+  }
+
+  helloWorld(): string{
+    return 'Hello world!';
   }
 
   displayLanes(): void {
