@@ -23,11 +23,13 @@ export class ProfileService {
 
   constructor(private http: Http){}
 
+  //get data from backend
   getInfo(user: ProfileUser){
       return this.http.post(this.profileURL, user, this.options)
       .map(response => response.json())
     }
 
+  //update data to backend
   postUpdate(user : ProfileUser){
     return this.http.post(this.updateURL, user, this.options)
     .map(response => response.json())

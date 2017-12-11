@@ -7,6 +7,8 @@ import com.revature.board.beans.Card;
 
 @Repository
 public interface CardRepo extends CrudRepository<Card,Integer>{
+	
+	//add card
 	@SuppressWarnings("unchecked")
 	Card save(Card card);
 }

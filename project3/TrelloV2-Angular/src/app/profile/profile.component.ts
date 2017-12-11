@@ -28,8 +28,11 @@ export class ProfileComponent implements OnInit {
   status:boolean;
 
   ngOnInit() {
+
+    //retrieve info from localStorage
     this.temp = JSON.parse(localStorage.getItem("currentUser"));
 
+    //observable: call getInfo in service
     this.profileService.getInfo(this.temp).subscribe(result =>{
 
       this.user = result;
@@ -46,6 +49,7 @@ export class ProfileComponent implements OnInit {
   
   }
 
+  //show and hide table
   public showUpdate = true;
   public showTable = false;
   public showDone = false;
@@ -58,12 +62,15 @@ export class ProfileComponent implements OnInit {
     this.showDone = true;
 
    }
-   done(){
+
+   done(){ //press done button
      
+    //hide and show
      this.showTable = false;
      this.showDone = false;
      this.showUpdate = true;
 
+     //update profile, call postUpdate in service
      this.profileService.postUpdate(this.user).subscribe();
      this.status = true;
      
