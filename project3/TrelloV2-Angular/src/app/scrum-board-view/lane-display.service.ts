@@ -15,20 +15,21 @@ import { CardDto } from './card-dto.interface';
 @Injectable()
 export class LaneDisplayService{
 
-    private boardsUrl = 'board-display/trello';
-    private cardsUrl = 'board-display/showCard';
-    private addCardsUrl = 'board-update/addCard';
-    private deleteCardUrl = 'board-update/deleteCard';
-    private addTaskUrl = 'board-update/addTask';
-    private deleteTaskUrl = 'board-update/deleteTask';
-    private switchLaneUrl = 'board-update/updateCard';
-    private tasksUrl = 'board-display/showTask';
-    private addLanesUrl = 'board-update/addLane';
-    private deleteLaneUrl = 'board-update/deleteLane';
-    private burndownUpdateUrl = 'board-update/updateBurndown';
-    private activityUrl = 'permissions/sendActivity';
-    private getActivityUrl = 'permissions/getActivity';
-    private verifyCardsUrl = 'board-update/verifyCard';
+
+    private boardsUrl = 'http://18.217.187.31:8765/board-display/trello';
+    private cardsUrl = 'http://18.217.187.31:8765/board-display/showCard';
+    private addCardsUrl = 'http://18.217.187.31:8765/board-update/addCard';
+    private deleteCardUrl = 'http://18.217.187.31:8765/board-update/deleteCard';
+    private addTaskUrl = 'http://18.217.187.31:8765/board-update/addTask';
+    private deleteTaskUrl = 'http://18.217.187.31:8765/board-update/deleteTask';
+    private switchLaneUrl = 'http://18.217.187.31:8765/board-update/updateCard';
+    private tasksUrl = 'http://18.217.187.31:8765/board-display/showTask';
+    private addLanesUrl = 'http://18.217.187.31:8765/board-update/addLane';
+    private deleteLaneUrl = 'http://18.217.187.31:8765/board-update/deleteLane';
+    private burndownUpdateUrl = 'http://18.217.187.31:8765/board-update/updateBurndown';
+    private activityUrl = 'http://18.217.187.31:8765/permissions/sendActivity';
+    private getActivityUrl = 'http://18.217.187.31:8765/permissions/getActivity';
+    private verifyCardsUrl = 'http://18.217.187.31:8765/board-update/verifyCard';
 
     url: string;
     urlEndpoint: string;

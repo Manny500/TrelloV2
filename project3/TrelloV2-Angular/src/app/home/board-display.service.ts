@@ -7,12 +7,13 @@ import { ProfileUser } from '../profile/profile-user';
 
 @Injectable()
 export class BoardDisplayService{
-    private masterBoardsUrl = 'board-display/home';
+
+    private masterBoardsUrl = 'http://18.217.187.31:8765/board-display/home';
     // private userBoardsUrl = 'board-display/user-home'
-    private makeBoardsUrl = 'board-update/addBoard';
+    private makeBoardsUrl = 'http://18.217.187.31:8765/board-update/addBoard';
 
-    private deleteBoardsUrl = 'board-update/deleteBoard';
-
+    private deleteBoardsUrl = 'http://18.217.187.31:8765/board-update/deleteBoard';
+  
     private circuitUrl = 'board-display/circuit';
     url: string;
     urlEndpoint: string;
