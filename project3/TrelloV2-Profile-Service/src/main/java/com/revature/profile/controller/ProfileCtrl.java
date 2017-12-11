@@ -38,10 +38,7 @@ public class ProfileCtrl {
 	
 	@Autowired
 	ProfileRepo profileRepo;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	ProfileService service;
 	

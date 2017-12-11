@@ -49,7 +49,7 @@ import { NavbarModule } from './navbar/navbar.module';
     UserRequestsComponent,
     CompanyBoardsComponent,
     // UserHomeComponent,
-    LoginNavbarComponent
+    //LoginNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +59,7 @@ import { NavbarModule } from './navbar/navbar.module';
     AppRoutingModule,
     HttpModule,
     ChartsModule,
-    NavbarModule
+   // NavbarModule
   ],
 
 
