@@ -15,20 +15,20 @@ import { CardDto } from './card-dto.interface';
 @Injectable()
 export class LaneDisplayService{
 
-    private boardsUrl = 'http://localhost:8765/board-display/trello';
-    private cardsUrl = 'http://localhost:8765/board-display/showCard';
-    private addCardsUrl = 'http://localhost:8765/board-update/addCard';
-    private deleteCardUrl = 'http://localhost:8765/board-update/deleteCard';
-    private addTaskUrl = 'http://localhost:8765/board-update/addTask';
-    private deleteTaskUrl = 'http://localhost:8765/board-update/deleteTask';
-    private switchLaneUrl = 'http://localhost:8765/board-update/updateCard';
-    private tasksUrl = 'http://localhost:8765/board-display/showTask';
-    private addLanesUrl = 'http://localhost:8765/board-update/addLane';
-    private deleteLaneUrl = 'http://localhost:8765/board-update/deleteLane';
-    private burndownUpdateUrl = 'http://localhost:8765/board-update/updateBurndown';
-    private activityUrl = 'http://localhost:8765/permissions/sendActivity';
-    private getActivityUrl = 'http://localhost:8765/permissions/getActivity';
-    private verifyCardsUrl = 'http://localhost:8765/board-update/verifyCard';
+    private boardsUrl = 'board-display/trello';
+    private cardsUrl = 'board-display/showCard';
+    private addCardsUrl = 'board-update/addCard';
+    private deleteCardUrl = 'board-update/deleteCard';
+    private addTaskUrl = 'board-update/addTask';
+    private deleteTaskUrl = 'board-update/deleteTask';
+    private switchLaneUrl = 'board-update/updateCard';
+    private tasksUrl = 'board-display/showTask';
+    private addLanesUrl = 'board-update/addLane';
+    private deleteLaneUrl = 'board-update/deleteLane';
+    private burndownUpdateUrl = 'board-update/updateBurndown';
+    private activityUrl = 'permissions/sendActivity';
+    private getActivityUrl = 'permissions/getActivity';
+    private verifyCardsUrl = 'board-update/verifyCard';
 
     url: string;
     urlEndpoint: string;
@@ -116,7 +116,6 @@ export class LaneDisplayService{
     getActivity(){
         return this.http.get(this.getActivityUrl, this.options) 
         .map(response => <Activity[]> response.json())
-        .do(data => console.log(data))
         .catch(this.handleError)
     }
 

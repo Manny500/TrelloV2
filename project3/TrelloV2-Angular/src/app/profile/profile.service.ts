@@ -6,8 +6,8 @@ import { ProfileUser } from './profile-user'
 @Injectable()
 export class ProfileService {
   returnProfileStatus:Object = [];
-  private profileURL = 'http://localhost:8765/profile/userInfo';
-  private updateURL = 'http://localhost:8765/profile/updateInfo';
+  private profileURL = 'profile/userInfo';
+  private updateURL = 'profile/updateInfo';
   
   url: string;
   urlEndpoint: string;

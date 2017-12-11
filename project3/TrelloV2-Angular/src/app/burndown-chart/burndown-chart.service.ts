@@ -7,7 +7,7 @@ import { BurndownChart } from "./burndown-chart";
 @Injectable()
 export class BurndownChartService {
 
-    private chartURL = 'http://localhost:8765/burndown/data';
+    private chartURL = 'burndown/data';
     
     url: string;
     urlEndpoint: string;
