@@ -6,6 +6,7 @@ import { ProfileUser } from '../profile/profile-user';
 @Injectable()
 export class RegisterService {
   returnProfileStatus:Object = [];
+
   private registerURL = 'http://18.217.187.31:8765/profile/register';
 
   url: string;
@@ -22,6 +23,7 @@ export class RegisterService {
 
   constructor(private http: Http){}
 
+  //register new user to backend
   postUpdate(user : ProfileUser){
     return this.http.post(this.registerURL, user, this.options)
     .map(res => res.json())

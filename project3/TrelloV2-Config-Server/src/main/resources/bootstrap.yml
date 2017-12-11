@@ -1,6 +1,4 @@
+#spring-application-name: the name that will be displayed in Eureka registry. When pulling configurations from a Config server this name has to match the name of the yml file.
 spring:
   application:
-    name: config
-  datasource:
-   tomcat:
-     initial-size: 2        
+    name: config      

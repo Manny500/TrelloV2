@@ -15,6 +15,7 @@ import { CardDto } from './card-dto.interface';
 @Injectable()
 export class LaneDisplayService{
 
+
     private boardsUrl = 'http://18.217.187.31:8765/board-display/trello';
     private cardsUrl = 'http://18.217.187.31:8765/board-display/showCard';
     private addCardsUrl = 'http://18.217.187.31:8765/board-update/addCard';
@@ -44,6 +45,7 @@ export class LaneDisplayService{
 
     constructor(private http: Http){}
 
+    //get lanes from backend
     getLanes(){
         let a = localStorage.getItem("currentBoards");
         a = JSON.parse(a);
@@ -51,72 +53,85 @@ export class LaneDisplayService{
         return this.http.get(this.boardsUrl, this.options)
         .map(response => <Lane[]> response.json())
     }
-      
+    
+    //get cards from backend
     getCards(){
         return this.http.get(this.cardsUrl, this.options) 
         .map(response => <Card[]> response.json())
         .catch(this.handleError)
     }
 
+    //get tasks from backend
     getTasks(){
         return this.http.get(this.tasksUrl, this.options) 
         .map(response => <Task[]> response.json())
         .catch(this.handleError)
     }
 
+    //add task to backend
     postTask(taskCreate: Task){
         return this.http.post(this.addTaskUrl, taskCreate, this.options)
         .catch(this.handleError)
     }
 
+    //update verification status to backend
     verifyCard(cardVerify : CardDto){
         return this.http.post(this.verifyCardsUrl, cardVerify, this.options)
         .catch(this.handleError)
     }
 
+    //add card to backend
     addCard(cardCreate : Card){
         return this.http.post(this.addCardsUrl, cardCreate, this.options)
         .catch(this.handleError)
     }
 
+    //update card position(lane) to backend
     switchLane(cardCreate : Card){
         return this.http.post(this.switchLaneUrl, cardCreate, this.options)
         .catch(this.handleError)
     }
 
+    //add lane
     addLane(laneCreate : Lane){
         return this.http.post(this.addLanesUrl, laneCreate, this.options)
         .catch(this.handleError)
     }
+
+    //delete lane
     deleteLane(lane: Lane){
         return this.http.post(this.deleteLaneUrl,lane, this.options)
         .catch(this.handleError)
     }
 
+    //delete card
     deleteCard(card: Card){
         return this.http.post(this.deleteCardUrl,card, this.options)
         .catch(this.handleError)
     }
 
+    //delete task
     deleteTask(task: Task){
         return this.http.post(this.deleteTaskUrl,task,this.options)
         .catch(this.handleError)
     }
 
+    //update burndown chart
     updateBurndownChart(burndownCreate: BurndownDto){
         return this.http.post(this.burndownUpdateUrl, burndownCreate,this.options)
         .catch(this.handleError)
     }
 
+    //add an activity 
     sendActivity(activity : Activity){
         return this.http.post(this.activityUrl, activity,this.options)
         .catch(this.handleError)
     }
 
+    //retrieve activities
     getActivity(){
         return this.http.get(this.getActivityUrl, this.options) 
         .map(response => <Activity[]> response.json())
-        .do(data => console.log(data))
         .catch(this.handleError)
     }
 

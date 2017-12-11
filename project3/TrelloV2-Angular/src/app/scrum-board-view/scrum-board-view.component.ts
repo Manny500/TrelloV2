@@ -7,6 +7,7 @@ import { BurndownDto } from './burndown-dto.interface';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Activity } from './activity-display.interface';
 import { CardDto } from './card-dto.interface';
+import { race } from 'rxjs/observable/race';
 
 @Component({
   selector: 'app-scrum-board-view',
@@ -68,40 +69,54 @@ export class ScrumBoardViewComponent implements OnInit {
 
   ngOnInit() {
 
+    //display lanes and cards by default
     this.displayLanes();
     this.displayCards();
 
   }
 
+  //add card into array
   push(card: Card){
     this.boardCards.push(card);
   }
 
+  helloWorld(): string{
+    return 'Hello world!';
+  }
+
+
+  //display lanes
   displayLanes(): void {
     //getting the current board's id (this value was set  in home.component.ts)
     this.currentBoardId = JSON.parse(localStorage.getItem("currentBoardId"));
+    
+    //call getLanes() in service
     this.laneDislayService.getLanes().subscribe(result => {
       this.Lanes = result;
       this.Lanes = this.Lanes.filter(item => item.bId == this.currentBoardId);
+      //store current lane into local storage
       localStorage.setItem('currentLanes', JSON.stringify(result))
     })
     this.showCard = true;
   }
 
+  //display cards
   displayCards(): void {
     this.Cards = null;
 
+    //call getCards() in service
     this.laneDislayService.getCards().subscribe(result => {
       this.Cards = result;
-      console.log(this.Cards);
       this.boardCards = this.Cards;
     })
   
     this.showCard = true;
   }
 
+  //display tasks
   displayTasks(cardId): void {
     
+    //store current cardId to local storage
     localStorage.setItem("currentCardId", JSON.stringify(cardId));
     this.currentCardId = JSON.parse(localStorage.getItem("currentCardId"));
     this.laneDislayService.getTasks().subscribe(result => {
@@ -109,9 +124,11 @@ export class ScrumBoardViewComponent implements OnInit {
     })
   }
 
+  //display activities
   displayActivity(): void {
     this.Activities = null;
 
+    //call getActivity()
     this.laneDislayService.getActivity().subscribe(result => {
       this.Activities = result;
       this.Activities = this.Activities.filter(item => item.bId == this.currentBoardId);
@@ -119,9 +136,10 @@ export class ScrumBoardViewComponent implements OnInit {
     
   }
 
-
+  //add a task
   addTask(): void{
 
+    //activity info
     this.activityToService('Added a Task', this.inputedTaskInfo);
 
     this.taskCreate = {
@@ -131,10 +149,10 @@ export class ScrumBoardViewComponent implements OnInit {
       info: this.inputedTaskInfo
     }
 
+    //call postTask() in service
     this.laneDislayService.postTask(this.taskCreate).subscribe();
 
-    // this.Tasks.push(this.taskCreate)
-
+    //timeout: make sure data is updated before retrieved
     setTimeout(function () { 
       
      this.displayTasks(JSON.parse(localStorage.getItem("currentCardId")));
@@ -144,10 +162,11 @@ export class ScrumBoardViewComponent implements OnInit {
     this.inputedTaskInfo="";
   }
 
+  //done button for add card or lane
   done(condition: number) {
 
     if (condition == 1) { //add Card
-      
+      //activity info
       this.activityToService('Added a Card', this.cTitle);
 
       this.cardCreate = {
@@ -160,8 +179,10 @@ export class ScrumBoardViewComponent implements OnInit {
       }
 
       this.boardCards.push(this.cardCreate);
+      //call addCard() in service
       this.laneDislayService.addCard(this.cardCreate).subscribe();
      
+      //timeout: make sure data is updated before retrieved
       setTimeout(function () { 
         
        this.displayCards(); 
@@ -175,7 +196,7 @@ export class ScrumBoardViewComponent implements OnInit {
     }
 
     if (condition == 2) { //add Lane
-      
+      //activity info
       this.activityToService('Added a Lane', this.laneTitle);
 
       // this.showCard = false;
@@ -186,7 +207,7 @@ export class ScrumBoardViewComponent implements OnInit {
       }
 
       // this.Lanes.push(this.laneCreate)
-      
+      //call addLane in service
       this.laneDislayService.addLane(this.laneCreate).subscribe();
       
       setTimeout(function () { 
@@ -202,8 +223,8 @@ export class ScrumBoardViewComponent implements OnInit {
       lanes: this.Lanes
     }
 
-    console.log("the burndownchart to create",this.burndownCreate);
 
+    //call updateBurndownChart() in service
     this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
     
   }
@@ -216,21 +237,25 @@ export class ScrumBoardViewComponent implements OnInit {
     this.boardCards = this.boardCards.filter(item => item.cId !== id);
   }
 
+  //move cards between lanes
   switchLane(currentCard: Card, lane: number) {
     const currentLane: Lane = this.Lanes[lane];
     currentCard.lId = currentLane.laneId;
 
+    //call switchLane() in service
     this.laneDislayService.switchLane(currentCard).subscribe();
   
   }
 
+  //remove a lane
   removeLane(laneToRemove, lId : number, laneTitle: string){
 
     if(confirm("Are you sure to delete \" "+ laneTitle +"\" ?" 
               +"\nThe cards will also be deleted at the same time!")) {
                
+      //activity info
       this.activityToService('Removed a Lane', laneTitle);
-
+      //call deleteLane() in service
       this.laneDislayService.deleteLane(laneToRemove).subscribe();
 
       this.Lanes = this.Lanes.filter(item => item.laneId !== lId);
@@ -248,6 +273,7 @@ export class ScrumBoardViewComponent implements OnInit {
     }
   }
 
+  //card verification
   verify(){
     if(JSON.parse(localStorage.getItem("currentCard")).cVerify == 0){
     this.carddto.bId = JSON.parse(localStorage.getItem("currentBoard")).bId;
@@ -262,7 +288,7 @@ export class ScrumBoardViewComponent implements OnInit {
     this.carddto.bTitle = JSON.parse(localStorage.getItem("currentBoard")).bTitle;
     this.carddto.tv2Team = JSON.parse(localStorage.getItem("currentBoard")).tv2Team;
     
-    
+    //call verifyCard() in service
     this.laneDislayService.verifyCard(this.carddto).subscribe();
     
     var index = this.Cards.findIndex(item => item.cId == this.carddto.cId);
@@ -274,32 +300,35 @@ export class ScrumBoardViewComponent implements OnInit {
     
   }
  
+  //remove a card
   removeCard(currentCard: Card, cTitle: string){
     this.activityToService('Removed a Card', cTitle);
-
+      //call deleteCard()
       this.laneDislayService.deleteCard(currentCard).subscribe();
 
+      //remove the cards = cid from array
       this.Cards = this.Cards.filter(item => item.cId !== currentCard.cId);
 
-      console.log("the set of cards after removing", this.Cards)
       this.burndownCreate = {
         bId: this.currentBoardId,
         cards: this.Cards,
         lanes: this.Lanes
       }
-  
+      //call updateBurndownChart()
       this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
   }
 
+  //remove a task
   removeTask(taskToRemove, info){
-
+    //activity info
     this.activityToService('Removed a Task', info);
     this.laneDislayService.deleteTask(taskToRemove).subscribe();
-
+    //remove the task from array
     this.Tasks = this.Tasks.filter(item => item !== taskToRemove);
 
   }
 
+  // check/uncheck a task
   toggleEditable(event, currentTaskId, currentTaskInfo){
     if(event.target.checked){
       this.taskStatus = 1;
@@ -314,11 +343,12 @@ export class ScrumBoardViewComponent implements OnInit {
       status: this.taskStatus,
       info: currentTaskInfo
     }
-
+    //call postTask()
     this.laneDislayService.postTask(this.taskCreate).subscribe();
     
   }
 
+  //send activity info to service
   activityToService(act: string, name: string){
     
     this.activity ={
@@ -326,7 +356,7 @@ export class ScrumBoardViewComponent implements OnInit {
       firstName: JSON.parse(localStorage.getItem("currentUser")).firstName,
       action: act+': " '+name+' "'
       }
-
+    //call sendActivity()
     this.laneDislayService.sendActivity(this.activity).subscribe();
   }
 }

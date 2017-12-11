@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,10 +31,19 @@ public class ProfileCtrl {
 	private final static String GET_MESSAGE_URL = "/circuitMessage";
 	
 	@Autowired
-	Messaging mysource;
+	Messaging mysource; //RabbitMQ
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	ProfileRepo profileRepo;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	ProfileService service;
 	
 	@GetMapping(GET_MESSAGE_URL)
 	  public List<TV2User> testObject(){
@@ -41,9 +51,19 @@ public class ProfileCtrl {
 	    return service.findAll();
 	}
 
+	/**
+	* Send message to Permissions-Service through RabbitMQ, channel 2
+	* Encode user password
+	* Add new User to database
+	* 
+	* @param user
+	* @param request
+	* @return return status to Angular's subscribe
+	*/	
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){
 		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 		String payload = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -52,24 +72,36 @@ public class ProfileCtrl {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 2).build());
+
 		profileRepo.save(user);
-		
+		user.setPassword("***");
 		return ResponseEntity.ok(user);
 	}
 	
-	@Autowired
-	ProfileService service;
-	
+	/**
+	 * Get user's profile information
+	 * 
+	 * @param user
+	 * @param request
+	 * @return return status to Angular's subscribe
+	 */
 	@RequestMapping(POST_PROFILE_URL)
 	public ResponseEntity<TV2User> displayProfile(@RequestBody TV2User user, HttpServletRequest request){
 		
 		user = service.findByUserId(user.getUserId());
+		user.setPassword("***");
 		
 		return ResponseEntity.ok(user);
 	}
 	
+	/**
+	 * Send message to Permissions-Service through RabbitMQ, channel 1
+	 * update user's profile info
+	 * @param user
+	 * @param request
+	 * @return return user's status to Angular's subscribe
+	 */
 	@RequestMapping(POST_UPDATE_URL)
 	public ResponseEntity<TV2User>  updateProfile(@RequestBody TV2User user, HttpServletRequest request){
 
@@ -84,6 +116,7 @@ public class ProfileCtrl {
 
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 1).build());
 		profileRepo.save(user);
+		user.setPassword("***");
     
 		return ResponseEntity.ok(user);
 		

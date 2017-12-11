@@ -5,6 +5,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,13 @@ public class LoginCtrl {
 	TV2UserRepo userRepo;
 	
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
 	LoginService service;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	private final static String POST_USER_URL = "/login";
 
@@ -32,12 +39,13 @@ public class LoginCtrl {
     
 		TV2User tu = userRepo.findByUserName(user.getUserName());
 
-		if(user.getUserName().equals(tu.getUserName()) && user.getPassword().equals(tu.getPassword())) {
+		if(user.getUserName().equals(tu.getUserName()) && passwordEncoder.matches(user.getPassword(), tu.getPassword())) {
 			user = tu;
 		}else {
 			user = new TV2User();
 		}
 
+		user.setPassword("***");
 		return ResponseEntity.ok(user);
 	}
 	
