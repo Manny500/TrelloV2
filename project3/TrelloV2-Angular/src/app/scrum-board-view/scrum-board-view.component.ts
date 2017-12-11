@@ -163,9 +163,9 @@ export class ScrumBoardViewComponent implements OnInit {
         cDescription: this.cDescription
       }
 
-      // this.Cards.push(this.cardCreate)
+      this.boardCards.push(this.cardCreate);
       this.laneDislayService.addCard(this.cardCreate).subscribe();
-
+     
       setTimeout(function () { 
         
        this.displayCards(); 
@@ -285,7 +285,7 @@ export class ScrumBoardViewComponent implements OnInit {
 
       this.burndownCreate = {
         bId: this.currentBoardId,
-        cards: this.boardCards,
+        cards: this.Cards,
         lanes: this.Lanes
       }
   

@@ -1,14 +1,12 @@
+#spring-application-name: the name that will be displayed in Eureka registry. When pulling configurations from a Config server this name has to match the name of the yml file.
+#cloud-config-uri: the url that Eureka will fetch it's configurations from.
 spring:
   application:
     name: trello-eureka
   cloud:
     config:
-      server:
-        git:
-          uri: http://localhost:8888/
-  datasource:
-   tomcat:
-     initial-size: 2    
+      uri: http://localhost:8888/
+#port Eureka will run on
 server:
     port: 8761
     

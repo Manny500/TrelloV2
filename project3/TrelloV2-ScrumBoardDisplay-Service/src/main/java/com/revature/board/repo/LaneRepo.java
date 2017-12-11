@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
 
 @Repository
 public interface LaneRepo extends CrudRepository<Lane,Integer> {
-	List<Lane> findAllByOrderByLaneIdAsc();
+	List<Lane> findAllByOrderByLaneIdDesc();
 	
 	List<Lane> findBybId(int bId);
 	
@@ -18,4 +17,6 @@ public interface LaneRepo extends CrudRepository<Lane,Integer> {
 	Lane save(Lane lane);
     
 	void delete(Lane lane);
+
+	Lane findByLaneId(int laneId);
 }
