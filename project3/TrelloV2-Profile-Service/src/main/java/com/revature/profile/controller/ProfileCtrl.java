@@ -60,7 +60,7 @@ public class ProfileCtrl {
 		
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 2).build());
 		profileRepo.save(user);
-		
+		user.setPassword("***");
 		return ResponseEntity.ok(user);
 	}
 	
@@ -71,6 +71,7 @@ public class ProfileCtrl {
 	public ResponseEntity<TV2User> displayProfile(@RequestBody TV2User user, HttpServletRequest request){
 		
 		user = service.findByUserId(user.getUserId());
+		user.setPassword("***");
 		
 		return ResponseEntity.ok(user);
 	}
@@ -89,6 +90,7 @@ public class ProfileCtrl {
 
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 1).build());
 		profileRepo.save(user);
+		user.setPassword("***");
     
 		return ResponseEntity.ok(user);
 		

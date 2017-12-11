@@ -42,6 +42,7 @@ public class LoginCtrl {
 			user = new TV2User();
 		}
 
+		user.setPassword("***");
 		return ResponseEntity.ok(user);
 	}
 	
