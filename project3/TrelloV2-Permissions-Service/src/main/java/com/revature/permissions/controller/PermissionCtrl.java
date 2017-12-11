@@ -32,6 +32,11 @@ public class PermissionCtrl {
 	private final static String ACTIVITY_URL = "/sendActivity";
 	private final static String GET_ACTIVITY_URL = "/getActivity";
 
+	
+	/**
+	 * get all users from database when user hits /viewAll on frontend
+	 * @return - status code
+	 */
 	@GetMapping(GET_USER_URL)
 	public ResponseEntity<List<TV2User>> getAllUsers() {
 		
@@ -39,28 +44,45 @@ public class PermissionCtrl {
 		return ResponseEntity.ok(service.findAll());
 	}
 	
+	/**
+	 * update the TV2User in database
+	 * @param user - TV2User object 
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 1")
 	public void updateProfile(@RequestBody TV2User user) {
 
 		service.save(user);
-		System.err.println("updating user");
 
 	}
 	
+	/**
+	 * add user into database
+	 * @param user - a TV2User object
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 2")
 	public void addUser(@RequestBody TV2User user) {
 
-		System.out.println("tryinng to sync registered user PermissionsDB!!!!@@@@@!@!@!@!@!@!@");
 		service.save(user);
 	}
 	
+	/**
+	 * save the activity of users making any changes to lanes, cards, and tasks. 
+	 * 	e.g. user deleted card 
+	 * @param activity - activity object 
+	 * @param request - HttpServletRequest from client-side
+	 * @return
+	 */
 	@RequestMapping(ACTIVITY_URL)
 	public Activity saveActivity(@RequestBody Activity activity, HttpServletRequest request) {
-		System.out.println(activity.getAction());
 		service.save(activity);
 		
 		return activity;
 	}
+	
+	/**
+	 * get a list of all the activity records from database
+	 * @return - a list of activity objects
+	 */
 	@GetMapping(GET_ACTIVITY_URL)
 	public ResponseEntity<List<Activity>> getActivity(){
 		List<Activity> act = new ArrayList<Activity>();

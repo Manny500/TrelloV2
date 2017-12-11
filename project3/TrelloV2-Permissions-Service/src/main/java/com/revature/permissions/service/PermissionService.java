@@ -18,18 +18,36 @@ public class PermissionService {
 	@Autowired
 	private ActivityRepo aRepo;
 	
+	/**
+	 * 
+	 * @return list of all TV2Users from the database
+	 */
 	public List<TV2User> findAll(){
 		return repo.findAll();
 	}
 	
+	/**
+	 * add user to the TV2_USER table in the database
+	 * @param user
+	 * @return
+	 */
 	public TV2User save(TV2User user){
 		return repo.save(user);
 	}
 	
+	/**
+	 * add activity to the ACTIVITY table in the database
+	 * @param activity
+	 * @return
+	 */
 	public Activity save(Activity activity) {
 		return aRepo.save(activity);
 	}
 	
+	/**
+	 * get list of all activities from the ACTIVITY table from the database.
+	 * @return
+	 */
 	public List<Activity> findAllActivity(){
 		return aRepo.findAllByOrderByAIdAsc();
 	}
