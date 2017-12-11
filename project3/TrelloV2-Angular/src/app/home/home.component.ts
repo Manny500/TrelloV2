@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
     this.circuit();
   }
 
+  //circuit breaker
   circuit(){
     this.boardDisplayService.circuitTest().subscribe(result => {
       var name;
@@ -53,7 +54,9 @@ export class HomeComponent implements OnInit {
   displayBoards(): void{
     this.boardDisplayService.getMasterBoards().subscribe(result => {
       this.Boards = result;
+      //remove the unwanted boards in array
       this.Boards = this.Boards.filter(item => (item.tv2Id == JSON.parse(localStorage.getItem("currentUser")).userId || item.tv2Team == JSON.parse(localStorage.getItem("currentUser")).teamId));      
+      //store currentBoard in local storage
       localStorage.setItem('currentBoards', JSON.stringify(result))
     })
     this.tv2Id = JSON.parse(localStorage.getItem("currentUser")).userId;
@@ -66,6 +69,7 @@ export class HomeComponent implements OnInit {
     localStorage.setItem("currentBoardId", JSON.stringify(board.bId))
   }
 
+  //click done button
   done(condition:number) {
     if (condition == 1) {
 
@@ -96,6 +100,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  //delete board
   delete(id: number){
 
     if(confirm("Are you sure to delete?")) {

@@ -18,11 +18,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    //do authentication first
     this.tv2userService.authenticate(this.tv2user).map(res => res.json()).subscribe(
       response => {
-
+        //store current token in local storage
         localStorage.setItem('currentToken', JSON.stringify({ userName: this.tv2user.userName, token: response.access_token }));
 
+        //store user in local storage
         this.tv2userService.createTV2User(this.tv2user).subscribe(
           response => {
             localStorage.setItem('currentUser', response._body);
