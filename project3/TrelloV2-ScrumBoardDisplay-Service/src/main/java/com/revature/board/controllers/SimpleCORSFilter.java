@@ -21,6 +21,15 @@ public class SimpleCORSFilter implements Filter {
 
 	
 	@Override
+	/**
+	 * A pre-authentication filter for OAuth2 protected resources
+	 * doFilter in interface javax.servlet.Filter
+	 * throws IOException
+	 * 
+	 * @param request
+	 * @param request
+	 * @Param chain
+	 */
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletResponse response = (HttpServletResponse) res;

@@ -16,18 +16,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.revature.board.beans.Board;
+import com.revature.board.beans.BurndownDto;
 import com.revature.board.beans.Card;
 import com.revature.board.beans.Lane;
 import com.revature.board.beans.TV2User;
 import com.revature.board.beans.Task;
 import com.revature.board.beans.cardDto;
 import com.revature.board.service.DisplayService;
-import com.revature.board.beans.BurndownDto;
 
 @EnableCircuitBreaker
 @EnableBinding(Sink.class)

@@ -1,5 +1,6 @@
 /.metadata/
 /.recommenders/
+/AuthorizationServer/AuthorizationServer/target/classes/META-INF/maven/LoginService/AuthService/pom.properties
 /AuthorizationServer/AuthorizationServer/target
 /AuthorizationServer/AuthorizationServer/target/*
 /TrelloV2-BurndownChart-Service/logs/spring-boot-logging.log

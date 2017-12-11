@@ -44,10 +44,6 @@ public class TV2User implements Serializable {
 	@Column(name = "TV2_TEAM")
 	private int teamId;
 
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "boardUser", fetch = FetchType.EAGER)
-//	private Set<Board> boards = new HashSet<Board>();
-
 	public TV2User() {
 
 	}

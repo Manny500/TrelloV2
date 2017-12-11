@@ -18,6 +18,10 @@ public class TrelloV2ZuulApplication {
 		SpringApplication.run(TrelloV2ZuulApplication.class, args);
 	}
 	
+	/**
+	 * Only needed when running on EC2's.
+	 * @return a CorsFilter
+	 */
 	@Bean
 	public CorsFilter corsFilter(){
 

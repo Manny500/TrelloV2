@@ -15,7 +15,7 @@ export class ViewUsersComponent implements OnInit {
   constructor(private viewUsersService: ViewUsersService, private router: Router) { }
 
   ngOnInit() {
-
+    //view all users
     this.viewUsersService.getInfo().subscribe(result => {
 
       this.myData = result;

@@ -40,8 +40,11 @@ public class PermissionCtrl {
 	@GetMapping(GET_USER_URL)
 	public ResponseEntity<List<TV2User>> getAllUsers() {
 		
-		
-		return ResponseEntity.ok(service.findAll());
+		List<TV2User> user = service.findAll();
+		for(int i = 0; i < user.size(); i++) {
+			user.get(i).setPassword("***");
+		}
+		return ResponseEntity.ok(user);
 	}
 	
 	/**
@@ -52,6 +55,7 @@ public class PermissionCtrl {
 	public void updateProfile(@RequestBody TV2User user) {
 
 		service.save(user);
+
 
 	}
 	
@@ -74,6 +78,7 @@ public class PermissionCtrl {
 	 */
 	@RequestMapping(ACTIVITY_URL)
 	public Activity saveActivity(@RequestBody Activity activity, HttpServletRequest request) {
+
 		service.save(activity);
 		
 		return activity;

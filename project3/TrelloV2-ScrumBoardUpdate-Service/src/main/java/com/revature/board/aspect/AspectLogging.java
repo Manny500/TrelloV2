@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component("aspect")
 public class AspectLogging {
-
+	
+	//Log4j
 	private Logger log = Logger.getLogger(getClass());
 
 	@Before("execution(* com.revature.board.controllers.BoardCtrl.switchLane*(..))")

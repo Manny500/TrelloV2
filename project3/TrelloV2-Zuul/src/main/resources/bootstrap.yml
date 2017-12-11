@@ -1,28 +1,31 @@
+#spring-application-name: the name that will be displayed in Eureka registry. When pulling configurations from a Config server this name has to match the name of the yml file.
+#cloud-config-uri: the url that Zuul will fetch it's configurations from.
 spring:
   application:
     name: zuul
   cloud:
     config:
       uri: http://localhost:8888/
-  datasource:
-   tomcat:
-     initial-size: 2
      
 #eureka:
 #  client:
 #    serviceUrl:
 #      defaultZone: http://18.217.130.9:8761/eureka/
 
+#Zuul timeout out very fast by default. For the sake of development we turn of timeout. In actually use you specify the time until timeout. Check Config repo for example.
 hystrix:
   command:
    default:
      execution:
        timeout:
          enabled: false
-         
+
+#port Zuul will run on    
 server:
     port: 8765
-   
+
+#The Authoriation Server is found through Zuul so we need to configure Zuul to allow requests past itself to hit out endpoints and then those endpoints will check if that request is allowed.
+#the sensitiveHeaders tag is used to give an alias to a service. 
 zuul:
  routes:
    authServer:

@@ -1,0 +1,95 @@
+version: '3'
+services:
+  
+  rabbit-service:
+    image: rabbitmq:latest
+    environment:
+    - DOCKER_HOST_IP=${DOCKER_HOST_IP}
+    deploy:
+      replicas: 1
+    ports:
+      - "15672:15672"
+    networks:
+      - trellov2
+      
+  auth-service:
+    image: illegalskills/trellov2:auth
+    environment:
+    - DOCKER_HOST_IP=${DOCKER_HOST_IP}
+    deploy:
+      replicas: 1
+    # depends_on: 
+    #   - fs-config
+      # restart_policy:
+        # condition: on-failure
+    ports:
+      - "8090:8090"
+    networks:
+      - trellov2
+    # container_name: auth-service
+    
+  portal-service:
+    image: illegalskills/trellov2:portal
+    environment:
+    - DOCKER_HOST_IP=${DOCKER_HOST_IP}
+    deploy:
+      replicas: 1
+    # depends_on: 
+    #   - fs-config
+      # restart_policy:
+        # condition: on-failure
+    ports:
+      - "8003:8003"
+    networks:
+      - trellov2
+    # container_name: portal-service
+    
+  board-dislay-service:
+    image: illegalskills/trellov2:display
+    environment:
+    - DOCKER_HOST_IP=${DOCKER_HOST_IP}
+    deploy:
+      replicas: 1
+    # depends_on: 
+    #   - fs-config
+      # restart_policy:
+        # condition: on-failure
+    ports:
+      - "8005:8005"
+    networks:
+      - trellov2
+    # container_name: board-dislay-service:
+
+  trellov2-eureka:
+    image: illegalskills/trellov2:eureka
+    environment:
+    - DOCKER_HOST_IP=${DOCKER_HOST_IP}
+    deploy:
+        replicas: 1
+      # depends_on: 
+      # - fs-config
+        # restart_policy:
+          # condition: on-failure
+    ports:
+        - "8761:8761"
+    networks:
+        - trellov2
+      # container_name: flashcard-eureka
+
+  trellov2-zuul:
+      image: illegalskills/trellov2:zuul
+      environment:
+      - DOCKER_HOST_IP=${DOCKER_HOST_IP}
+      deploy:
+        replicas: 1
+      # depends_on: 
+      #   - fs-config
+        # restart_policy:
+          # condition: on-failure
+      ports:
+        - "8765:8765"
+      networks:
+        - trellov2
+        # container_name: flashcard-zuul
+networks:
+  trellov2:
