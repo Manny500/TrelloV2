@@ -18,6 +18,8 @@ export class RegisterUserComponent implements OnInit {
   }
 
   onClickSubmit(user : ProfileUser){
+
+    //register new user, call postUpdate in service
     this.registerService.postUpdate(user).subscribe()
   }
 

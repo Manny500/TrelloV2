@@ -30,7 +30,7 @@ public class ProfileCtrl {
 	private final static String GET_MESSAGE_URL = "/circuitMessage";
 	
 	@Autowired
-	Messaging mysource;
+	Messaging mysource; //RabbitMQ
 	
 	@Autowired
 	ProfileRepo profileRepo;
@@ -44,7 +44,6 @@ public class ProfileCtrl {
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){
 		
-
 		String payload = "";
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -52,8 +51,9 @@ public class ProfileCtrl {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
+		//Send message to permission-microservice
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 2).build());
+		//add user to database
 		profileRepo.save(user);
 		
 		return ResponseEntity.ok(user);
@@ -82,6 +82,7 @@ public class ProfileCtrl {
 			e.printStackTrace();
 		}
 
+		//Send message to permission-microservice
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 1).build());
 		profileRepo.save(user);
     

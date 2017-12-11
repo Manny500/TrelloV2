@@ -12,14 +12,8 @@ import com.revature.profile.repo.ProfileRepo;
 @Service
 public class ProfileService {
 	
-	//@Resource
 	@Autowired
 	private ProfileRepo profileRepo;
-	
-//	@Autowired
-//	public ProfileService(ProfileRepo profileRepo) {
-//		this.profileRepo = profileRepo;
-//	}
 	
 	public List<TV2User> findAll(){
 		return profileRepo.findAll();
@@ -31,7 +25,6 @@ public class ProfileService {
 	public TV2User save(TV2User user) {
 		return profileRepo.save(user);
 	}
-	
 	
 	/**
      * This setter method should be used only by unit tests.

@@ -22,6 +22,7 @@ export class RegisterService {
 
   constructor(private http: Http){}
 
+  //register new user to backend
   postUpdate(user : ProfileUser){
     return this.http.post(this.registerURL, user, this.options)
     .map(res => res.json())
