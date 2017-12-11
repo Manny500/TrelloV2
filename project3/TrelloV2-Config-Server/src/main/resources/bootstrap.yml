@@ -1,6 +1,3 @@
 spring:
   application:
-    name: config
-  datasource:
-   tomcat:
-     initial-size: 2        
+    name: config      
