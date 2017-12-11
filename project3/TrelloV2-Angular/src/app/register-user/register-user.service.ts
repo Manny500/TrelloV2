@@ -6,6 +6,7 @@ import { ProfileUser } from '../profile/profile-user';
 @Injectable()
 export class RegisterService {
   returnProfileStatus:Object = [];
+
   private registerURL = 'http://18.217.187.31:8765/profile/register';
 
   url: string;

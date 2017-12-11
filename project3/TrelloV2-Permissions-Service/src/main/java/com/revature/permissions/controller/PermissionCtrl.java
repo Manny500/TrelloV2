@@ -35,28 +35,31 @@ public class PermissionCtrl {
 	@GetMapping(GET_USER_URL)
 	public ResponseEntity<List<TV2User>> getAllUsers() {
 		
-		
-		return ResponseEntity.ok(service.findAll());
+		List<TV2User> user = service.findAll();
+		for(int i = 0; i < user.size(); i++) {
+			user.get(i).setPassword("***");
+		}
+		return ResponseEntity.ok(user);
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 1")
 	public void updateProfile(@RequestBody TV2User user) {
 
 		service.save(user);
-		System.err.println("updating user");
+		
 
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 2")
 	public void addUser(@RequestBody TV2User user) {
 
-		System.out.println("tryinng to sync registered user PermissionsDB!!!!@@@@@!@!@!@!@!@!@");
+		
 		service.save(user);
 	}
 	
 	@RequestMapping(ACTIVITY_URL)
 	public Activity saveActivity(@RequestBody Activity activity, HttpServletRequest request) {
-		System.out.println(activity.getAction());
+		
 		service.save(activity);
 		
 		return activity;

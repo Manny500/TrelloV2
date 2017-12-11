@@ -24,6 +24,9 @@ public class LoginCtrl {
 	TV2UserRepo userRepo;
 	
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
 	LoginService service;
 	
 	@Autowired
@@ -42,6 +45,7 @@ public class LoginCtrl {
 			user = new TV2User();
 		}
 
+		user.setPassword("***");
 		return ResponseEntity.ok(user);
 	}
 	

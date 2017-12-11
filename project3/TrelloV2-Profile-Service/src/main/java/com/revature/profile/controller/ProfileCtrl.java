@@ -34,6 +34,9 @@ public class ProfileCtrl {
 	Messaging mysource; //RabbitMQ
 	
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
 	ProfileRepo profileRepo;
 	
 	@Autowired
@@ -49,19 +52,19 @@ public class ProfileCtrl {
 	}
 
 	/**
-	 * Send message to Permissions-Service through RabbitMQ, channel 2
-	 * Encode user password
-	 * Add new User to database
-	 * 
-	 * @param user
-	 * @param request
-	 * @return return status to Angular's subscribe
-	 */
+	* Send message to Permissions-Service through RabbitMQ, channel 2
+	* Encode user password
+	* Add new User to database
+	* 
+	* @param user
+	* @param request
+	* @return return status to Angular's subscribe
+	*/	
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){
 		
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		
+
 		String payload = "";
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -72,7 +75,7 @@ public class ProfileCtrl {
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 2).build());
 
 		profileRepo.save(user);
-		
+		user.setPassword("***");
 		return ResponseEntity.ok(user);
 	}
 	
@@ -87,6 +90,7 @@ public class ProfileCtrl {
 	public ResponseEntity<TV2User> displayProfile(@RequestBody TV2User user, HttpServletRequest request){
 		
 		user = service.findByUserId(user.getUserId());
+		user.setPassword("***");
 		
 		return ResponseEntity.ok(user);
 	}
@@ -112,6 +116,7 @@ public class ProfileCtrl {
 
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 1).build());
 		profileRepo.save(user);
+		user.setPassword("***");
     
 		return ResponseEntity.ok(user);
 		

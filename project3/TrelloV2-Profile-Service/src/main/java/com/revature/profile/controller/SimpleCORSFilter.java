@@ -19,6 +19,16 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCORSFilter implements Filter {
 
+	/**
+	 * A pre-authentication filter for OAuth2 protected resources
+	 * doFilter in interface javax.servlet.Filter
+	 * throws IOException
+	 * 
+	 * @param request
+	 * @param request
+	 * @Param chain
+	 */
+
 	@Override
 	/**
 	 * A pre-authentication filter for OAuth2 protected resources

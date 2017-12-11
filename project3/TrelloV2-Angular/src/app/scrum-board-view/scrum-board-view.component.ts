@@ -7,6 +7,7 @@ import { BurndownDto } from './burndown-dto.interface';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Activity } from './activity-display.interface';
 import { CardDto } from './card-dto.interface';
+import { race } from 'rxjs/observable/race';
 
 @Component({
   selector: 'app-scrum-board-view',
@@ -79,6 +80,11 @@ export class ScrumBoardViewComponent implements OnInit {
     this.boardCards.push(card);
   }
 
+  helloWorld(): string{
+    return 'Hello world!';
+  }
+
+
   //display lanes
   displayLanes(): void {
     //getting the current board's id (this value was set  in home.component.ts)
@@ -101,7 +107,6 @@ export class ScrumBoardViewComponent implements OnInit {
     //call getCards() in service
     this.laneDislayService.getCards().subscribe(result => {
       this.Cards = result;
-      console.log(this.Cards);
       this.boardCards = this.Cards;
     })
   
@@ -218,7 +223,7 @@ export class ScrumBoardViewComponent implements OnInit {
       lanes: this.Lanes
     }
 
-    console.log("the burndownchart to create",this.burndownCreate);
+
     //call updateBurndownChart() in service
     this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
     
@@ -304,7 +309,6 @@ export class ScrumBoardViewComponent implements OnInit {
       //remove the cards = cid from array
       this.Cards = this.Cards.filter(item => item.cId !== currentCard.cId);
 
-      console.log("the set of cards after removing", this.Cards)
       this.burndownCreate = {
         bId: this.currentBoardId,
         cards: this.Cards,

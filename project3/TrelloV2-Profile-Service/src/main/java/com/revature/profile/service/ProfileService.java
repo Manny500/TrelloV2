@@ -25,6 +25,7 @@ public class ProfileService {
 	public TV2User findByUserId(int userId) {
 		return profileRepo.findByUserId(userId);
 	}
+	
 	public TV2User save(TV2User user) {
 		return profileRepo.save(user);
 	}

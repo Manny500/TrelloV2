@@ -15,6 +15,7 @@ import { CardDto } from './card-dto.interface';
 @Injectable()
 export class LaneDisplayService{
 
+
     private boardsUrl = 'http://18.217.187.31:8765/board-display/trello';
     private cardsUrl = 'http://18.217.187.31:8765/board-display/showCard';
     private addCardsUrl = 'http://18.217.187.31:8765/board-update/addCard';
@@ -131,7 +132,6 @@ export class LaneDisplayService{
     getActivity(){
         return this.http.get(this.getActivityUrl, this.options) 
         .map(response => <Activity[]> response.json())
-        .do(data => console.log(data))
         .catch(this.handleError)
     }
 

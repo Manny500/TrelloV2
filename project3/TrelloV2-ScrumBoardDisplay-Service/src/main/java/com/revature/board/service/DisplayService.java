@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -43,6 +41,7 @@ public class DisplayService {
 		this.restTemplate = rest;
 	}
 	
+
 	/**
 	 * Circuit Breaker--
 	 * Circuit Breaker pattern prevents attempts of an application to perform an operation that is likely
@@ -54,6 +53,7 @@ public class DisplayService {
 	 * @param h2
 	 * @return RestTemplate
 	 */
+  @SuppressWarnings("unchecked")
 	@HystrixCommand(fallbackMethod = "reliable", defaultFallback = "reliable")
 	public ResponseEntity<List<TV2User>> circuitTest(String h1, String h2) {
 		
