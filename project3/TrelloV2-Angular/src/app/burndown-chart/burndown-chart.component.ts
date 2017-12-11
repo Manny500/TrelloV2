@@ -74,6 +74,7 @@ export class BurndownChartComponent implements OnInit {
     
   }
 
+  //return the latest chart from the database from CHART table
   getLatestChart(listOfCharts: BurndownChart[]){
     var currentLatest;
     var latest = 0;
@@ -88,6 +89,7 @@ export class BurndownChartComponent implements OnInit {
     return latestChart;
   }
 
+  //displays the data for the burndown chart
   diplayChart(): void {
 
     var currentDate = this.datePipe.transform(new Date(), 'dd-MMM-yy');
@@ -113,20 +115,31 @@ export class BurndownChartComponent implements OnInit {
             this.myData.push(latestChartData) // add the chart that was updated last for the current day
             
 
+            /**
+             * sort the data by chart Id. Chart with the highest id from the database will be
+                the latest chart.
+             */
             this.sortedItems = this.myData.sort((a: BurndownChart, b: BurndownChart) =>
               // new Date(a.chartDate).getDate() - new Date(b.chartDate).getDate()
               a.chartId - b.chartId
             );
       
+            /**
+             * going through the sorted data, push the chart's sum into array
+             */
             this.sortedItems.forEach(item => {
               this.total.push(item.chartSum);
             });
       
+            /**
+             * going through the sorted data, push the chart's date into array
+             */
             this.sortedItems.forEach(item => {
               
               this.labels.push(item.chartDate);
             });
       
+
             this.lineChartData = [
               { data: this.total, label: 'Burndown Line' },
             ];
