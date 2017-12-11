@@ -29,8 +29,7 @@ public class LoginCtrl {
 	@Autowired
 	LoginService service;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	
 	
 	private final static String POST_USER_URL = "/login";
 
