@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,9 @@ public class ProfileCtrl {
 	@Autowired
 	ProfileRepo profileRepo;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@GetMapping(GET_MESSAGE_URL)
 	  public List<TV2User> testObject(){
 		  
@@ -53,6 +57,7 @@ public class ProfileCtrl {
 		}
 		//Send message to permission-microservice
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 2).build());
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		//add user to database
 		profileRepo.save(user);
 		
