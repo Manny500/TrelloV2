@@ -21,6 +21,7 @@ export class TV2UserService {
 
     constructor(private http: Http) { }
 
+    //OAuth2: get token; get user from database
     createTV2User(tv2user: TV2User): Observable<any> {
 
         this.headers = new Headers({
@@ -32,7 +33,7 @@ export class TV2UserService {
 
         return this.http.post(this.POST_USER_URL, tv2user, this.options);
     }
-
+    //OAuth2 : authentication
     authenticate(user: TV2User): Observable<any> {
 
         this.headers = new Headers({

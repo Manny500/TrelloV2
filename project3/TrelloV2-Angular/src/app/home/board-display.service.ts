@@ -14,12 +14,14 @@ export class BoardDisplayService{
 
     private deleteBoardsUrl = 'http://18.217.187.31:8765/board-update/deleteBoard';
   
+    //circuit breaker URL
     private circuitUrl = 'board-display/circuit';
     url: string;
     urlEndpoint: string;
     creds: String;
     updatedUser: string;
 
+    //OAuth2
     headers = new Headers({
         "Content-Type": "application/json",
         'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('currentToken')).token
@@ -29,11 +31,13 @@ export class BoardDisplayService{
 
     constructor(private http: Http){}
 
+    //get boards from backend
     getMasterBoards(){
         return this.http.get(this.masterBoardsUrl,this.options)
         .map(response => <Board[]> response.json())
     }
 
+    //circuit breaker
     circuitTest(){
         return this.http.get(this.circuitUrl,this.options)
         .map(response => <ProfileUser[]> response.json())
