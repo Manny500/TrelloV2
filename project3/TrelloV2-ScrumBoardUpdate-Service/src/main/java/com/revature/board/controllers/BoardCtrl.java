@@ -28,8 +28,15 @@ public class BoardCtrl {
 	private final static String VERFIY_CARD_URL = "/verifyCard";
 	
 	@Autowired
-	Messaging mysource;
+	Messaging mysource; //RabbitMQ
 		
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 6
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(ADD_TASK_URL)
 	public String addTask(@RequestBody String payload, HttpServletRequest request) {
 		
@@ -38,6 +45,13 @@ public class BoardCtrl {
 		return "Success";
 	}
 	
+	/**
+	 * Send the message through RabbitMQ to BurndownChart-Service, channel 5
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(UPDATE_BURNDOWN_URL)
 	public String updateBurndown(@RequestBody String payload, HttpServletRequest request) {
 		
@@ -46,6 +60,13 @@ public class BoardCtrl {
 		return "Success";
 	}
 	
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 4
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(SWITCH_LANE_URL)
 	public String switchLane(@RequestBody String payload, HttpServletRequest request) {
 
@@ -54,6 +75,13 @@ public class BoardCtrl {
 		return "Success";
 	}
 
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 3
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(ADD_CARD_URL)
 	public String addCard(@RequestBody String payload, HttpServletRequest request) {
 		
@@ -62,6 +90,13 @@ public class BoardCtrl {
 		return "Success";
 	}
 
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 2
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(ADD_LANE_URL)
 	public String addlane(@RequestBody String payload, HttpServletRequest request) {
 
@@ -70,6 +105,13 @@ public class BoardCtrl {
 		return "Success";
 	}
 
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 1
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(ADD_BOARD_URL)
 	public String addBoard(@RequestBody String payload, HttpServletRequest request) {
 
@@ -78,6 +120,13 @@ public class BoardCtrl {
 		return "Success";
 	}
 	
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 7
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(DELETE_TASK_URL)
 	public String deleteTask(@RequestBody String payload, HttpServletRequest request) {
 		
@@ -86,6 +135,13 @@ public class BoardCtrl {
 		return "Success deleted task";
 	}
   
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 8
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(DELETE_CARD_URL)
 	public String deleteCard(@RequestBody String payload, HttpServletRequest request) {
 		
@@ -94,6 +150,13 @@ public class BoardCtrl {
 		return "Success deleted card";
 	}
 
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 9
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(DELETE_LANE_URL)
 	public String deleteLane(@RequestBody String payload, HttpServletRequest request) {
 		
@@ -103,6 +166,13 @@ public class BoardCtrl {
 		return "Success deleted lane";
 	}
 	
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 10
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(DELETE_BOARD_URL)
 	public String deleteBoard(@RequestBody String payload, HttpServletRequest request) {
 		
@@ -111,6 +181,13 @@ public class BoardCtrl {
 		return "Success deleted Board";
 	}
 	
+	/**
+	 * Send the message through RabbitMQ to ScrumBoardDisplay-Service, channel 11
+	 * 
+	 * @param payload
+	 * @param request
+	 * @return return "Success" to angular's subscribe
+	 */
 	@RequestMapping(VERFIY_CARD_URL)
 	public String verifyCard(@RequestBody String payload, HttpServletRequest request) {
 		
