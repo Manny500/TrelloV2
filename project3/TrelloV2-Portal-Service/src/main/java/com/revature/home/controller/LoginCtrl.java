@@ -29,11 +29,16 @@ public class LoginCtrl {
 	@Autowired
 	LoginService service;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	
 	
 	private final static String POST_USER_URL = "/login";
 
+	/**
+	 * 
+	 * @param user - a TV2User object
+	 * 	properties of this object comes from inputs that the user typed in on client-side Angular
+	 * @return - status code 
+	 */
 	@RequestMapping(POST_USER_URL)
 	public ResponseEntity<TV2User> authenticateUser(@RequestBody TV2User user) {
     
@@ -49,12 +54,22 @@ public class LoginCtrl {
 		return ResponseEntity.ok(user);
 	}
 	
+	/**
+	 * Waiting/listening for rabbitmq to send a TV2User object (comes from client-side Angular)
+	 * @param user - a TV2User object that comes from the stream.
+	 * 	 updates user in database with new property values.
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 1")
 	public void updateUser(@RequestBody TV2User user) {
     
 		userRepo.save(user);
 	}
 	
+	/**
+	 * Waiting/listening for rabbitmq to send a TV2User object (comes from client-side Angular)
+	 * @param user - a TV2User object that comes from the stream.
+	 * 	 adds user to database.
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 2")
 	public void addUser(@RequestBody TV2User user) {
 
