@@ -12,6 +12,11 @@ public class AspectLogging {
 
 	private Logger log = Logger.getLogger(getClass());
 
+	
+	/**
+	 * 
+	 * @param point
+	 */
 	@Before("execution(* com.revature.board.controllers.BoardCtrl.getBoards*(..))")
     public void log(JoinPoint point) {
         log.info("Validating User Method");
