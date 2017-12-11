@@ -39,12 +39,24 @@ public class ProfileCtrl {
 	@Autowired
 	ProfileRepo profileRepo;
 	
+	@Autowired
+	ProfileService service;
+	
 	@GetMapping(GET_MESSAGE_URL)
 	  public List<TV2User> testObject(){
 		  
 	    return service.findAll();
 	}
 
+	/**
+	* Send message to Permissions-Service through RabbitMQ, channel 2
+	* Encode user password
+	* Add new User to database
+	* 
+	* @param user
+	* @param request
+	* @return return status to Angular's subscribe
+	*/	
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){
 		
@@ -64,9 +76,13 @@ public class ProfileCtrl {
 		return ResponseEntity.ok(user);
 	}
 	
-	@Autowired
-	ProfileService service;
-	
+	/**
+	 * Get user's profile information
+	 * 
+	 * @param user
+	 * @param request
+	 * @return return status to Angular's subscribe
+	 */
 	@RequestMapping(POST_PROFILE_URL)
 	public ResponseEntity<TV2User> displayProfile(@RequestBody TV2User user, HttpServletRequest request){
 		
@@ -76,6 +92,13 @@ public class ProfileCtrl {
 		return ResponseEntity.ok(user);
 	}
 	
+	/**
+	 * Send message to Permissions-Service through RabbitMQ, channel 1
+	 * update user's profile info
+	 * @param user
+	 * @param request
+	 * @return return user's status to Angular's subscribe
+	 */
 	@RequestMapping(POST_UPDATE_URL)
 	public ResponseEntity<TV2User>  updateProfile(@RequestBody TV2User user, HttpServletRequest request){
 

@@ -30,6 +30,7 @@ import { ViewUsersService } from './view-users/view-users.service';
 import { BoardDisplayService } from './home/board-display.service';
 import { LaneDisplayService } from './scrum-board-view/lane-display.service';
 import { RegisterService } from './register-user/register-user.service';
+import { NavbarModule } from './navbar/navbar.module';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { RegisterService } from './register-user/register-user.service';
     HttpClientModule,
     AppRoutingModule,
     HttpModule,
-    ChartsModule
+    ChartsModule,
+    NavbarModule
   ],
 
 
