@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,9 @@ public class ProfileCtrl {
 	Messaging mysource;
 	
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
 	ProfileRepo profileRepo;
 	
 	@GetMapping(GET_MESSAGE_URL)
@@ -44,6 +48,7 @@ public class ProfileCtrl {
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){
 		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 		String payload = "";
 		ObjectMapper mapper = new ObjectMapper();
