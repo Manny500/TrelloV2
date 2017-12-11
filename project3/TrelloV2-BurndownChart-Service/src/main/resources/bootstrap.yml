@@ -1,3 +1,6 @@
+#spring-application-name: the name that will be displayed in Eureka registry. When pulling configurations from a Config server this name has to match the name of the yml file.
+#cloud-config-uri: the url that BurndownChart will fetch it's configurations from.
+#datasource-tomcat-initial-size: sets the number of connections to the database.
 spring:
   application:
     name: burndown
@@ -8,6 +11,7 @@ spring:
    tomcat:
      initial-size: 2 
 
+#OAuth configuration
 security:
  oauth2:
    resource:
@@ -16,6 +20,8 @@ security:
      userInfoUri: http://localhost:8090/user
      jwt:
        keyUri: http://localhost:8090/oauth/token_key
+
+#gives a random port that Burndonw will run on. Only for demo and testing purposes locally.
 server:
  port: 0
     
