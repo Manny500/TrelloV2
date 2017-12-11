@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCORSFilter implements Filter {
 
+
 	/**
 	 * A pre-authentication filter for OAuth2 protected resources
 	 * doFilter in interface javax.servlet.Filter
@@ -28,7 +29,6 @@ public class SimpleCORSFilter implements Filter {
 	 * @param request
 	 * @Param chain
 	 */
-
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {

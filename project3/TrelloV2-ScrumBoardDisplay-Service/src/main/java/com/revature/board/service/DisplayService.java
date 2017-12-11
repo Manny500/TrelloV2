@@ -41,8 +41,19 @@ public class DisplayService {
 		this.restTemplate = rest;
 	}
 	
-	
-	@SuppressWarnings("unchecked")
+
+	/**
+	 * Circuit Breaker--
+	 * Circuit Breaker pattern prevents attempts of an application to perform an operation that is likely
+	 * to fail, that allows the application to continue working without wasting critical resources while
+	 * problem is not resolved. The pattern can also detect whether the problem is resolved, and allows the
+	 * application to repeat operation.
+	 * 
+	 * @param h1
+	 * @param h2
+	 * @return RestTemplate
+	 */
+  @SuppressWarnings("unchecked")
 	@HystrixCommand(fallbackMethod = "reliable", defaultFallback = "reliable")
 	public ResponseEntity<List<TV2User>> circuitTest(String h1, String h2) {
 		

@@ -22,9 +22,10 @@ public class LoginService {
 	public TV2User save(TV2User user) {
 		return repo.save(user);
 	}
-		
+
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 }

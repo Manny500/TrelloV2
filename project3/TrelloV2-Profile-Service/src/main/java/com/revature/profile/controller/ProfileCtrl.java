@@ -31,13 +31,16 @@ public class ProfileCtrl {
 	private final static String GET_MESSAGE_URL = "/circuitMessage";
 	
 	@Autowired
-	Messaging mysource;
+	Messaging mysource; //RabbitMQ
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	ProfileRepo profileRepo;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	ProfileService service;
@@ -69,8 +72,8 @@ public class ProfileCtrl {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 2).build());
+
 		profileRepo.save(user);
 		user.setPassword("***");
 		return ResponseEntity.ok(user);

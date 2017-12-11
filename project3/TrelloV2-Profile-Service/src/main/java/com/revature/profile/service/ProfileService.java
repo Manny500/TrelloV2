@@ -15,7 +15,6 @@ import com.revature.profile.repo.ProfileRepo;
 @Service
 public class ProfileService {
 	
-	//@Resource
 	@Autowired
 	private ProfileRepo profileRepo;
 	
@@ -33,7 +32,7 @@ public class ProfileService {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package com.revature.profile.service;
 
+//for Junit Exception
 public class UserNotFoundException extends Exception{
 
 	/**

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  //retrieve info from local storage
   currentUserRoleType = JSON.parse(localStorage.getItem("currentUser")).roleType;
   
   constructor() { }

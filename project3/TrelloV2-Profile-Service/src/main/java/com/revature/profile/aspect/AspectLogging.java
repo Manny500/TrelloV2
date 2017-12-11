@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component("aspect")
 public class AspectLogging {
 
+	//Log4j
 	private Logger log = Logger.getLogger(getClass());
 
 	@Before("execution(* com.revature.profile.controller.ProfileCtrl.displayProfile*(..))")
