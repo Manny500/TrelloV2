@@ -40,9 +40,6 @@ public class ProfileCtrl {
 	ProfileRepo profileRepo;
 	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
 	ProfileService service;
 	
 	@GetMapping(GET_MESSAGE_URL)

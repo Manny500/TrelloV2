@@ -36,18 +36,28 @@ public class BoardCtrl {
 
 	private final static String GET_BOARD_URL = "/home";
 	private final static String GET_LANE_URL = "/trello";
-	private final static String GET_USER_BOARD_URL = "/user-home";
 	private final static String GET_CARD_URL = "/showCard";
 	private final static String GET_TASK_URL = "/showTask";
 
 	@Autowired
 	DisplayService service;
 	
+	/**
+	 * 
+	 * @param builder - RestTemplateBuilder used to create a RestTemplate
+	 * @return - a configured rest template instance.
+	 */
 	@Bean
 	public RestTemplate rest(RestTemplateBuilder builder) {
 	    return builder.build();
 	}
 	
+	/**
+	 * When user logs in, make call to profile service to check if profile service is available.
+	 * If unavailable, send back a message saying profile is unavailable. 
+	 * @param request - HttpServletRequest (comes from client-side Angular). 
+	 * @return - 
+	 */
 	@GetMapping("/circuit")
 	public ResponseEntity<List<TV2User>> circuit(HttpServletRequest request) {
 
@@ -57,36 +67,57 @@ public class BoardCtrl {
 	}
 	
 	
-
+	/**
+	 * Waiting/listening for rabbitmq to send a board object (comes from client-side Angular)
+	 * @param board - a Board object that comes from the stream. 
+	 * 	Adds board to database.
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 1")
 	public void addBoard(@RequestBody Board board) {
 
 		service.saveBoard(board);
 	}
 
+	/**
+	 * Waiting/listening for rabbitmq to send a lane object (comes from client-side Angular)
+	 * @param lane - a Lane object that comes from the stream. 
+	 * 	Adds lane to database.
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 2")
 	public void addLane(@RequestBody Lane lane) {
 
 		service.saveLane(lane);
 	}
 
+	/**
+	 * Waiting/listening for rabbitmq to send a card object (comes from client-side Angular)
+	 * @param card - a Card object that comes from the stream.
+	 * 	 Adds card to database.
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 3")
 	public void addCard(@RequestBody Card card) {
 
 		service.saveCard(card);
-		
-		
 	}
 	
 	
-
+	/**
+	 * Waiting/listening for rabbitmq to send a card object (comes from client-side Angular)
+	 * @param card - a Card object that comes from the stream. 
+	 * 	Updates which lane the card is in. 
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 4")
 	public void switchLane(@RequestBody Card card) {
 
 		service.saveCard(card);
-		
 	}
 	
+	
+	/**
+	 * Waiting/listening for rabbitmq to send a data transfer object(dto) of burndownchart information (comes from client-side Angular).
+	 * @param dto - a data transfer object containing information regarding the update of the burndownchart. 
+	 * 	Calculate the new point value of what the burndown chart will display(y-axis value) 
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 5")
 	public void updateBurndown(@RequestBody BurndownDto dto) {
 		Board board = service.findBoardById(dto.getbId());
@@ -108,18 +139,32 @@ public class BoardCtrl {
 		service.saveBoard(board);
 	}
 	
+	/**
+	 * Waiting/listening for rabbitmq to send a task object (comes from client-side Angular)
+	 * @param task - a Task object that comes from the stream.
+	 * 	 Adds the task to the database. 
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 6")
 	public void addTask(@RequestBody Task task) {
 
 		service.saveTask(task);
 	}
 	
+	/**
+	 * Waiting/listening for rabbitmq to send a task object (comes from client-side Angular)
+	 * @param task - a Task object that comes from the stream. Deletes the task from the database. 
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 7")
 	public void delTask(@RequestBody Task task) {
 
 		service.deleteTask(task);
 	}
 	
+	/**
+	 * Waiting/listening for rabbitmq to send a card object (comes from client-side Angular)
+	 * @param card - a Card object that comes from the stream. 
+	 * 	Deletes the card from the database. 
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 8")
 	public void delCard(@RequestBody Card card) {
 		List<Task> tasks = service.findByCardId(card.getcId());
@@ -128,6 +173,13 @@ public class BoardCtrl {
 		}
 		service.deleteCard(card);
 	}
+	
+	
+	/**
+	 * Waiting/listening for rabbitmq to send a lane object (comes from client-side Angular)
+	 * @param lane - a Lane object that comes from the stream. 
+	 * 	Deletes the lane from the database. 
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 9")
 	public void delLane(@RequestBody Lane lane) {
 		List<Card> cards = service.findByLaneId(lane.getLaneId());
@@ -139,6 +191,14 @@ public class BoardCtrl {
 		service.deleteLane(lane);
 	}
 	
+	
+	/**
+	 * Waiting/listening for rabbitmq to send a board object (comes from client-side Angular)
+	 * @param board - a Board object that comes from the stream. 
+	 * 	Deletes the board from the database.
+	 * 	- If board has any lanes/cards/tasks associated with it, it first deletes all tasks, then all cards,
+	 * 		and then all the lanes before finally deleting the board.
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 10")
 	public void delBoard(@RequestBody Board board) {
 		
@@ -203,6 +263,11 @@ public class BoardCtrl {
 		service.deleteBoard(board);
 	}
 	
+	/**
+	 * Waiting/listening for rabbitmq to send a card object (comes from client-side Angular)
+	 * @param card - a Card object that comes from the stream. 
+	 * 	Updates the card in the database to change.
+	 */
 	@StreamListener(target = Sink.INPUT, condition = "headers['micro'] == 11")
 	public void verCard(@RequestBody cardDto dto) {
 		Card card = new Card();
@@ -229,6 +294,10 @@ public class BoardCtrl {
 	}
 	
 
+	/**
+	 * 
+	 * @return - list of all the boards in the database. 
+	 */
 	@GetMapping(GET_BOARD_URL)
 	public ResponseEntity<List<Board>> getBoards() {
 
@@ -239,16 +308,11 @@ public class BoardCtrl {
 		return ResponseEntity.ok(board);
 	}
 
-	@GetMapping(GET_USER_BOARD_URL)
-	public ResponseEntity<List<Board>> getUserBoards() {
 
-		List<Board> board = new ArrayList<Board>();
-
-		board = service.findAllBoard();
-
-		return ResponseEntity.ok(board);
-	}
-
+	/**
+	 * 
+	 * @return - list of all the lanes in the database.
+	 */
 	@GetMapping(GET_LANE_URL)
 	public ResponseEntity<List<Lane>> getLanes() {
 		
@@ -259,6 +323,10 @@ public class BoardCtrl {
 		return ResponseEntity.ok(lane);
 	}
 
+	/**
+	 * 
+	 * @return - list of all the cards.
+	 */
 	@GetMapping(GET_CARD_URL)
 	public ResponseEntity<List<Card>> getCards() {
 		
@@ -269,6 +337,10 @@ public class BoardCtrl {
 		return ResponseEntity.ok(card);
 	}
 
+	/**
+	 * 
+	 * @return - list of all the tasks.
+	 */
 	@GetMapping(GET_TASK_URL)
 	public ResponseEntity<List<Task>> getTasks() {
 		

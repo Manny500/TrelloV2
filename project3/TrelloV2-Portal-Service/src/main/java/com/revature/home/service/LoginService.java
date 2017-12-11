@@ -14,11 +14,22 @@ public class LoginService {
 
 	@Autowired
 	private TV2UserRepo repo;
-
+	
+	/**
+	 * 
+	 * @param userName - string representing username column.
+	 * @return - TV2User that has matching username with userName param.
+	 */
 	public TV2User findByUsername(String userName) {
 		return repo.findByUserName(userName);
 
 	}
+	
+	/**
+	 * 
+	 * @param user - a TV2User object
+	 * @return - TV2User that was saved to the database.
+	 */
 	public TV2User save(TV2User user) {
 		return repo.save(user);
 	}
