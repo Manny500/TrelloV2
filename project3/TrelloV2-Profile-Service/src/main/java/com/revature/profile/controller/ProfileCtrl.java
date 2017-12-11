@@ -39,14 +39,28 @@ public class ProfileCtrl {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	ProfileService service;
+	
 	@GetMapping(GET_MESSAGE_URL)
 	  public List<TV2User> testObject(){
 		  
 	    return service.findAll();
 	}
 
+	/**
+	 * Send message to Permissions-Service through RabbitMQ, channel 2
+	 * Encode user password
+	 * Add new User to database
+	 * 
+	 * @param user
+	 * @param request
+	 * @return return status to Angular's subscribe
+	 */
 	@RequestMapping(POST_REGISTER_URL)
 	public ResponseEntity<TV2User>  registerUser(@RequestBody TV2User user, HttpServletRequest request){
+		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		String payload = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -55,18 +69,20 @@ public class ProfileCtrl {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		//Send message to permission-microservice
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 2).build());
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		//add user to database
+
 		profileRepo.save(user);
 		
 		return ResponseEntity.ok(user);
 	}
 	
-	@Autowired
-	ProfileService service;
-	
+	/**
+	 * Get user's profile information
+	 * 
+	 * @param user
+	 * @param request
+	 * @return return status to Angular's subscribe
+	 */
 	@RequestMapping(POST_PROFILE_URL)
 	public ResponseEntity<TV2User> displayProfile(@RequestBody TV2User user, HttpServletRequest request){
 		
@@ -75,6 +91,13 @@ public class ProfileCtrl {
 		return ResponseEntity.ok(user);
 	}
 	
+	/**
+	 * Send message to Permissions-Service through RabbitMQ, channel 1
+	 * update user's profile info
+	 * @param user
+	 * @param request
+	 * @return return user's status to Angular's subscribe
+	 */
 	@RequestMapping(POST_UPDATE_URL)
 	public ResponseEntity<TV2User>  updateProfile(@RequestBody TV2User user, HttpServletRequest request){
 
@@ -87,7 +110,6 @@ public class ProfileCtrl {
 			e.printStackTrace();
 		}
 
-		//Send message to permission-microservice
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 1).build());
 		profileRepo.save(user);
     
