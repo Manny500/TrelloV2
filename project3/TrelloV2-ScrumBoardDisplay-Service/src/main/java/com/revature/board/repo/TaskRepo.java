@@ -9,7 +9,7 @@ import com.revature.board.beans.Task;
 
 @Repository
 public interface TaskRepo extends CrudRepository<Task, Integer>{
-	List<Task> findAllByOrderByTaskIdAsc();
+	List<Task> findAllByOrderByTaskIdDesc();
 	
 	List<Task> findByCardId(int cardId);
 	
@@ -19,5 +19,4 @@ public interface TaskRepo extends CrudRepository<Task, Integer>{
 	
 	void delete(Task task);
 	
-//	void deleteAll(Iterable<List> entities);
 }

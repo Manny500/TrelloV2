@@ -93,7 +93,6 @@ export class ScrumBoardViewComponent implements OnInit {
 
     this.laneDislayService.getCards().subscribe(result => {
       this.Cards = result;
-      console.log(this.Cards);
       this.boardCards = this.Cards;
     })
   
@@ -202,8 +201,6 @@ export class ScrumBoardViewComponent implements OnInit {
       lanes: this.Lanes
     }
 
-    console.log("the burndownchart to create",this.burndownCreate);
-
     this.laneDislayService.updateBurndownChart(this.burndownCreate).subscribe();
     
   }
@@ -281,7 +278,6 @@ export class ScrumBoardViewComponent implements OnInit {
 
       this.Cards = this.Cards.filter(item => item.cId !== currentCard.cId);
 
-      console.log("the set of cards after removing", this.Cards)
       this.burndownCreate = {
         bId: this.currentBoardId,
         cards: this.Cards,

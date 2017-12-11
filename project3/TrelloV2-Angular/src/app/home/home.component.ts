@@ -81,7 +81,8 @@ export class HomeComponent implements OnInit {
       this.boardDisplayService.addBoard(this.makeBoard).subscribe();
       
       
-      
+
+      //Make sure that the database returns the update.
       setTimeout(function () { 
          
         this.displayBoards(); 

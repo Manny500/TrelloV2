@@ -116,7 +116,6 @@ export class LaneDisplayService{
     getActivity(){
         return this.http.get(this.getActivityUrl, this.options) 
         .map(response => <Activity[]> response.json())
-        .do(data => console.log(data))
         .catch(this.handleError)
     }
 
