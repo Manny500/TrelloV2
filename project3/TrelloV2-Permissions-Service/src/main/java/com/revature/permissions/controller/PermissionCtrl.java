@@ -10,6 +10,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,9 @@ public class PermissionCtrl {
 	
 	@Autowired
 	PermissionService service;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	private final static String GET_USER_URL = "/viewAll";
 	private final static String ACTIVITY_URL = "/sendActivity";
@@ -54,6 +58,14 @@ public class PermissionCtrl {
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 1")
 	public void updateProfile(@RequestBody TV2User user) {
 
+
+		if(user.getPassword().equals("***")) {
+			TV2User temp = service.findById(user.getUserId());
+			user.setPassword(temp.getPassword());
+		}else {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+		}
+
 		service.save(user);
 
 
@@ -66,6 +78,7 @@ public class PermissionCtrl {
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 2")
 	public void addUser(@RequestBody TV2User user) {
 
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		service.save(user);
 	}
 	
