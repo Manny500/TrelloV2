@@ -53,7 +53,7 @@ public class DisplayService {
 	 * @param h2
 	 * @return RestTemplate
 	 */
-  @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@HystrixCommand(fallbackMethod = "reliable", defaultFallback = "reliable")
 	public ResponseEntity<List<TV2User>> circuitTest(String h1, String h2) {
 		
