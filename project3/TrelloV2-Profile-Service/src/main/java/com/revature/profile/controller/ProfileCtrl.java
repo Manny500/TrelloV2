@@ -112,6 +112,12 @@ public class ProfileCtrl {
 		}
 
 		mysource.profileChannel().send(MessageBuilder.withPayload(payload).setHeader("macro", 1).build());
+		if(user.getPassword().equals("***")) {
+			TV2User temp = service.findByUserId(user.getUserId());
+			user.setPassword(temp.getPassword());
+		}else {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+		}
 		profileRepo.save(user);
 		user.setPassword("***");
     
