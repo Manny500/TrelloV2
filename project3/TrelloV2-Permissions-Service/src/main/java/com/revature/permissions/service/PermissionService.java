@@ -3,6 +3,9 @@ package com.revature.permissions.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.revature.permissions.beans.Activity;
@@ -24,6 +27,15 @@ public class PermissionService {
 	 */
 	public List<TV2User> findAll(){
 		return repo.findAll();
+	}
+	
+	public TV2User findById(int id) {
+		return repo.findOne(id);
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 	/**
@@ -51,4 +63,6 @@ public class PermissionService {
 	public List<Activity> findAllActivity(){
 		return aRepo.findAllByOrderByAIdAsc();
 	}
+	
+	
 }

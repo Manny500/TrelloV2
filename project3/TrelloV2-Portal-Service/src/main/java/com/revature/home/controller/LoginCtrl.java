@@ -60,6 +60,16 @@ public class LoginCtrl {
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 1")
 	public void updateUser(@RequestBody TV2User user) {
     
+
+		System.err.println(user.getPassword());
+		if(user.getPassword().equals("***") ) {
+			System.err.println("Password not changed");
+			TV2User temp = userRepo.findByUserName(user.getUserName());
+			user.setPassword(temp.getPassword());
+		}else {
+			System.err.println("Password changed");
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+		}
 		userRepo.save(user);
 	}
 	
@@ -71,6 +81,8 @@ public class LoginCtrl {
 	@StreamListener(target = Sink.INPUT, condition = "headers['macro'] == 2")
 	public void addUser(@RequestBody TV2User user) {
 
+
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepo.save(user);
 	}
 
