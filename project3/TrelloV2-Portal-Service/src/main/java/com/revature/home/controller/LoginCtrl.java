@@ -41,7 +41,7 @@ public class LoginCtrl {
 	public ResponseEntity<TV2User> authenticateUser(@RequestBody TV2User user) {
     
 		TV2User tu = userRepo.findByUserName(user.getUserName());
-
+		
 		if(user.getUserName().equals(tu.getUserName()) && passwordEncoder.matches(user.getPassword(), tu.getPassword())) {
 			user = tu;
 		}else {

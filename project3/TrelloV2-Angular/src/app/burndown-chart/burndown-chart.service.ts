@@ -8,7 +8,7 @@ import { BurndownChart } from "./burndown-chart";
 export class BurndownChartService {
 
 
-    private chartURL = 'http://18.217.187.31:8765/burndown/data';
+    private chartURL = 'burndown/data';
     
     url: string;
     urlEndpoint: string;

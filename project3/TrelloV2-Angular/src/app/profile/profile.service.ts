@@ -7,8 +7,8 @@ import { ProfileUser } from './profile-user'
 export class ProfileService {
   returnProfileStatus:Object = [];
 
-  private profileURL = 'http://18.217.187.31:8765/profile/userInfo';
-  private updateURL = 'http://18.217.187.31:8765/profile/updateInfo';
+  private profileURL = 'profile/userInfo';
+  private updateURL = 'profile/updateInfo';
   
   url: string;
   urlEndpoint: string;

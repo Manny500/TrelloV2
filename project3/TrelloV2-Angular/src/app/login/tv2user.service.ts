@@ -15,8 +15,8 @@ export class TV2UserService {
     updatedUser: string;
 
 
-    private POST_USER_URL = 'http://18.217.187.31:8765/portal/login';
-    private POST_AUTH_URL = 'http://18.217.187.31:8765/auth-service/oauth/token';
+    private POST_USER_URL = 'portal/login';
+    private POST_AUTH_URL = 'auth-service/oauth/token';
     
 
     constructor(private http: Http) { }

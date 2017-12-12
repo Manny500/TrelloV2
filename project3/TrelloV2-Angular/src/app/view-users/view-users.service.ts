@@ -8,7 +8,7 @@ export class ViewUsersService {
 
   passData;
 
-  private profileURL = 'http://18.217.187.31:8765/permissions/viewAll';
+  private profileURL = 'permissions/viewAll';
 
   url: string;
   urlEndpoint: string;

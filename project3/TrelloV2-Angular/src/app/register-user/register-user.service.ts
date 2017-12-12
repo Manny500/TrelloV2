@@ -7,7 +7,7 @@ import { ProfileUser } from '../profile/profile-user';
 export class RegisterService {
   returnProfileStatus:Object = [];
 
-  private registerURL = 'http://18.217.187.31:8765/profile/register';
+  private registerURL = 'profile/register';
 
   url: string;
   urlEndpoint: string;

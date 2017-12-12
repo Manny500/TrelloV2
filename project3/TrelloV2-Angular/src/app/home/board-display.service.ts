@@ -8,11 +8,11 @@ import { ProfileUser } from '../profile/profile-user';
 @Injectable()
 export class BoardDisplayService{
 
-    private masterBoardsUrl = 'http://18.217.187.31:8765/board-display/home';
+    private masterBoardsUrl = 'board-display/home';
     // private userBoardsUrl = 'board-display/user-home'
-    private makeBoardsUrl = 'http://18.217.187.31:8765/board-update/addBoard';
+    private makeBoardsUrl = 'board-update/addBoard';
 
-    private deleteBoardsUrl = 'http://18.217.187.31:8765/board-update/deleteBoard';
+    private deleteBoardsUrl = 'board-update/deleteBoard';
   
     //circuit breaker URL
     private circuitUrl = 'board-display/circuit';
