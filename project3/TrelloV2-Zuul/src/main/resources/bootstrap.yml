@@ -56,7 +56,3 @@ zuul:
      path: /board-update/**
      sensitiveHeaders:
      serviceId: board-update
-   ticketEndpoint:
-     path: /ticket/**
-     sensitiveHeaders:
-     serviceId: ticket  
