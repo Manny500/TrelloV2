@@ -66,10 +66,11 @@ COMMIT;
 /
 
 --PORTAL_DB DML
-INSERT INTO TV2_USER VALUES (1,'Jon','Snow','j','j',1,1,'imabastard@gmail.com');
+INSERT INTO TV2_USER VALUES (1,'Jon','Snow','j','$2a$10$6CswbgSBaZTm5nkt8Efkl.RXu5xRFT0K3s9GnVHvycLN3MqrDp2CO',1,1,'imabastard@gmail.com');
 COMMIT;
 /
-INSERT INTO ROLE_TYPE VALUES (1,'user');
+INSERT INTO ROLE_TYPE VALUES (1,'Manager');
+INSERT INTO ROLE_TYPE VALUES (2,'User');
 COMMIT;
 /
 
@@ -135,10 +136,11 @@ COMMIT;
 /
 
 --PROFILE_DB DML
-INSERT INTO TV2_USER VALUES (1,'Jon','Snow','j','j',1,1,'imabastard@gmail.com');
+INSERT INTO TV2_USER VALUES (1,'Jon','Snow','j','$2a$10$6CswbgSBaZTm5nkt8Efkl.RXu5xRFT0K3s9GnVHvycLN3MqrDp2CO',1,1,'imabastard@gmail.com');
 COMMIT;
 /
-INSERT INTO ROLE_TYPE VALUES (1,'user');
+INSERT INTO ROLE_TYPE VALUES (1,'Manager');
+INSERT INTO ROLE_TYPE VALUES (2,'User');
 COMMIT;
 /
 
@@ -235,10 +237,11 @@ COMMIT;
 
 
 --PERMISSION_DB DML
-INSERT INTO TV2_USER VALUES (1,'Jon','Snow','j','j',1,1,'imabastard@gmail.com');
+INSERT INTO TV2_USER VALUES (1,'Jon','Snow','j','$2a$10$6CswbgSBaZTm5nkt8Efkl.RXu5xRFT0K3s9GnVHvycLN3MqrDp2CO',1,1,'imabastard@gmail.com');
 COMMIT;
 /
-INSERT INTO ROLE_TYPE VALUES (1,'user');
+INSERT INTO ROLE_TYPE VALUES (1,'Manager');
+INSERT INTO ROLE_TYPE VALUES (2,'User');
 COMMIT;
 /
 
@@ -340,6 +343,11 @@ COMMIT;
 /
 
 --SCRUMBOARDDISPLAY_DB DML
+INSERT INTO BOARD VALUES (1, 1, 21, 'First Board', 1);
+INSERT INTO BOARD VALUES (2, 1, 2, 'Second Board', 1);
+COMMIT;
+/
+
 INSERT INTO LANE VALUES (1, 1, 'To Do');
 INSERT INTO LANE VALUES (2, 1, 'In Progress');
 INSERT INTO LANE VALUES (3, 1, 'Testing');
